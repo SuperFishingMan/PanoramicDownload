@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,31 +21,9 @@ namespace PanoramicDownload
         public Form1()
         {
             InitializeComponent();
-          
-
         }
-
-
-        
-
-        public string OpenText()
+        public string Matchs(string str)
         {
-            using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
-            {
-
-                //定义打开的默认文件夹位置
-                OpenFD.InitialDirectory = Application.StartupPath;
-                OpenFD.Filter = "All files(*.*)|*.*|txt files(*.txt)|*.txt";
-                OpenFD.FilterIndex = 2;
-                OpenFD.ShowDialog();                  //显示打开本地文件的窗体
-                OpenFD.RestoreDirectory = true;
-                return  OpenFD.FileName;       //把 路径名称 赋给 fileName
-            }
-        }
-
-        public  string Matchs(string str)
-        {
-
             string txt = str;
             string re1 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
             string re2 = "(.)"; // Any Single Character 1
@@ -87,103 +66,198 @@ namespace PanoramicDownload
                 String word1 = m.Groups[17].ToString();
                 //MessageBox.Show(w1.ToString() + "" + "" + c1.ToString() + "" + "" + w2.ToString() + "" + "" + d1.ToString() + "" + "" + c2.ToString() + "" + "" + int1.ToString() + "" + "" + c3.ToString() + "" + "" + w3.ToString() + "" + "" + int2.ToString() + "" + "" + c4.ToString() + "" + "" + w4.ToString() + "" + "" + c5.ToString() + "" + "" + int3.ToString() + "" + "" + c6.ToString() + "" + "" + int4.ToString() + "" + "" + c7.ToString() + "" + "" + word1.ToString() + "" + "\n");
                 return w1.ToString() + "" + "" + c1.ToString() + "" + "" + w2.ToString() + "" + "" + d1.ToString() + "" + "" + c2.ToString() + "" + "" + int1.ToString() + "" + "" + c3.ToString() + "" + "" + w3.ToString() + "" + "" + int2.ToString() + "" + "" + c4.ToString() + "" + "" + w4.ToString() + "" + "" + c5.ToString() + "" + "" + int3.ToString() + "" + "" + c6.ToString() + "" + "" + int4.ToString() + "" + "" + c7.ToString() + "" + "" + word1.ToString() + "" + "\n";
-               
+
             }
             return "";
-
         }
-        //https://ssl-panoimg53.720static.com/resource/prod/600id9861r9/20b2dcs8u4r/12710576/imgs/b/l2/1/l2_b_1_4.jpg
+
+        public int ImageType;
+        public int ImageCount;
+        public string newurltou;
+
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            string fileName =" ";
-            //using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
-            //{
+            jiance();
+            string fileName = " ";
 
-            //    //定义打开的默认文件夹位置
-            //    OpenFD.InitialDirectory = Application.StartupPath;
-            //    OpenFD.Filter = "All files(*.*)|*.*|txt files(*.txt)|*.txt";
-            //    OpenFD.FilterIndex = 2;
-            //    OpenFD.ShowDialog();                  //显示打开本地文件的窗体
-            //    OpenFD.RestoreDirectory = true;
-            //    fileName = OpenFD.FileName;       //把 路径名称 赋给 fileName
-            //}
-            string url = "http://image.xfh8866.cn/1007/works/a9705fcb5d2ccb41/";
-            List<string> Down = new List<string>();
-            fullfile(fileName, url, "4", 13, DirectionType.d, Down);
-
-            //string l = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\l.JPG";
-            //string f = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\f.JPG";
-            //string r = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\r.JPG";
-            //string b = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\b.JPG";
-            //string u = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\u.JPG";
-            //string d = @"C:\Users\易眸\Desktop\LoadFile\Demo\bin\Debug\下载文件\d.JPG";
-
-
-            //var command = " -l=" + l + " -f=" + f + " -r=" + r + " -b=" + b + " -u=" + u + " -d=" + d + "";
-
-
-            //using (var p = new Process())
-            //{
-            //    string read = "";
-            //    RedirectExcuteProcess(p, @"C:\Users\易眸\Desktop\123\kcube2sphere.exe", command, (s, g) => test("", g.Data),read);
-
-            //}
-        }
-        private void test(string a, string b)
-        {
-            int outint = 0;
-            if (b == null)
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = Application.StartupPath;
+            dialog.Description = "请选择文件路径";
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
+                string foldPath = dialog.SelectedPath;
+                // DirectoryInfo theFolder = new DirectoryInfo(foldPath);
+                //FileInfo[] dirInfo = theFolder.GetFiles();
+                fileName = foldPath;
+            }
+            List<string> Down = new List<string>();
+
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.d, Down);
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.b, Down);
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.f, Down);
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.u, Down);
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.l, Down);
+            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.r, Down);
+        }
+
+        public void jiance()
+        {
+            string urlALl = textBox5.Text;
+            string key = Matchs(urlALl);
+            if (!isPing(textBox5.Text))
+            {
+                MessageBox.Show("请输入正确的链接" + isPing(urlALl), "错误提示");
                 return;
             }
-            if (b.Contains("%"))
+            if (key.Equals(""))
             {
-                string str = b.Replace("%", "");
-                if (int.TryParse(str, out outint))
+                MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+                return;
+            }
+        
+
+            string newUrl = urlALl.Substring(0, urlALl.Length - key.Length + 1);
+            newurltou = newUrl;
+            List<string> newKeystr = new List<string>();
+            newKeystr = GetRegex(key);
+            string newkey1 = "";
+            int maxtpye = 0;
+            int maxIndex = 0;
+            List<string> newKeystr1 = new List<string>();
+            if (newKeystr[2].Contains("0"))
+            {
+
+                for (int j = 1; j < 20; j++)
                 {
-                    //value = outint;
+                    newkey1 = key.Replace(newKeystr[0], "l" + j).Replace("/0" + newKeystr[1], "/1").Replace("_0" + newKeystr[2] + "_", "_1_").Replace("_0" + newKeystr[3] + ".", "_1.");
+                    if (isPing(newUrl + newkey1))
+                    {
+                        maxtpye = j;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                ImageType = maxtpye;
+                //MessageBox.Show(maxtpye.ToString());
+                newkey1 = key.Replace(newKeystr[0], "l" + maxtpye).Replace("/0" + newKeystr[1], "/1").Replace("_0" + newKeystr[2] + "_", "_1_").Replace("_0" + newKeystr[3] + ".", "_1.");
+
+                newKeystr1 = GetRegex(newkey1);
+                for (int i = 1; i < 20; i++)
+                {
+                    string value1 = "";
+                    if (i >= 10)
+                    {
+                        value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
+                        if (isPing(newUrl + value1))
+                        {
+                            maxIndex = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
+                    if (isPing(newUrl + value1))
+                    {
+                        maxIndex = i;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                ImageCount = maxIndex;
+                //MessageBox.Show(maxIndex.ToString());
+                return;
+            }
+
+            for (int j = 1; j < 20; j++)
+            {
+                newkey1 = key.Replace(newKeystr[0], "l" + j).Replace("/" + newKeystr[1], "/1").Replace("_" + newKeystr[2] + "_", "_1_").Replace("_" + newKeystr[3] + ".", "_1.");
+                if (isPing(newUrl + newkey1))
+                {
+                    maxtpye = j;
+                }
+                else
+                {
+                    break;
                 }
             }
+            ImageType = maxtpye;
+            //MessageBox.Show(maxtpye.ToString());
+            newkey1 = key.Replace(newKeystr[0], "l" + maxtpye).Replace("/" + newKeystr[1], "/1").Replace("_" + newKeystr[2] + "_", "_1_").Replace("_" + newKeystr[3] + ".", "_1.");
+            newKeystr1 = GetRegex(newkey1);
+            for (int i = 1; i < 20; i++)
+            {
+                string value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
+                if (isPing(newUrl + value1))
+                {
+                    maxIndex = i;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            //MessageBox.Show(maxIndex.ToString());
+            ImageCount = maxIndex;
         }
-        private  void RedirectExcuteProcess(Process p, string exe, string arg, DataReceivedEventHandler output,string read)
+
+
+        public bool isPing(string url)
         {
-            p.StartInfo.FileName = exe;
-            p.StartInfo.Arguments = arg;
-
-            p.StartInfo.UseShellExecute = false;    //输出信息重定向
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.RedirectStandardOutput = true;       
-
-            p.OutputDataReceived += output;
-            p.ErrorDataReceived += output;
-
-             p.Start();                    //启动线程
-                                           //p.BeginOutputReadLine();
-                                           //p.BeginErrorReadLine();
-            //while (!p.StandardOutput.EndOfStream)
-            //{
-            //    read += p.StandardOutput.ReadLine() + Environment.NewLine;
-            //}
-            //Task<string> dd;
-            // dd =  p.StandardOutput.ReadLineAsync();
-           // SetText(dd.Result);
-            //p.OutputDataReceived += (sender, e) =>
-            //{
-            //    SetText(e.Data +"\n");
-            //   // textBox1.Text = e.Data;
-            //};
-            //p.ErrorDataReceived += (sender, e) =>
-            //{
-            //    MessageBox.Show(e.Data + "\n");
-            //};
-            
-           
-          //  p.WaitForExit();            //等待进程结束
-            p.Close();
+            if (GetWebStatusCode(url, 1000).Equals("200"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        private delegate void SetTextCallback(string text);
 
+        public List<String> GetRegex(string txt)
+        {
+
+            //string txt = "";
+
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "[a-z]";   // Uninteresting: w
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
+            string re5 = "(\\d)";   // Any Single Digit 1
+            string re6 = ".*?"; // Non-greedy match on filler
+            string re7 = "(\\d+)";  // Integer Number 1
+            string re8 = ".*?"; // Non-greedy match on filler
+            string re9 = "\\d+";    // Uninteresting: int
+            string re10 = ".*?";    // Non-greedy match on filler
+            string re11 = "(\\d+)"; // Integer Number 2
+            string re12 = ".*?";    // Non-greedy match on filler
+            string re13 = "(\\d+)"; // Integer Number 3
+            List<string> keyStr = new List<string>();
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                String w1 = m.Groups[1].ToString();
+                String d1 = m.Groups[2].ToString();
+                String int1 = m.Groups[3].ToString();
+                String int2 = m.Groups[4].ToString();
+                String int3 = m.Groups[5].ToString();
+
+                keyStr.Add(w1 + d1);
+                keyStr.Add(int1);
+                keyStr.Add(int2);
+                keyStr.Add(int3);
+                return keyStr;
+                // MessageBox.Show("(" + w1.ToString() + ")" + "(" + d1.ToString() + ")" + "(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
+                //Console.Write("(" + w1.ToString() + ")" + "(" + d1.ToString() + ")" + "(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
+            }
+            return null;
+        }
 
         public void fullfile(string confi, string Url, string index, int forint, DirectionType mode, List<string> sw)
         {
@@ -191,21 +265,35 @@ namespace PanoramicDownload
             {
                 for (int x = 1; x <= forint; x++)
                 {
-                    string get = GetWebStatusCode(Url + mode + "/" + "l" + index + "/" + i + "/l" + index + "_" + mode + "_" + i + "_" + x + ".jpg", 1000);
-                    if (get.Equals("200"))
+                    bool get = isPing(Url + mode + "/" + "l" + index + "/" + i + "/l" + index + "_" + mode + "_" + i + "_" + x + ".jpg");
+                    if (get)
                     {
                         string url = "";
-                        var command = " -j 5  " + Url + mode + "/l" + index + "/" + i + "/l" + index + "_" + mode + "_" + i + "_" + x + ".jpg";
+                        var command = " -j 5  " + Url + mode + "/l" + index + "/" + i + "/l" + index + "_" + mode + "_" + i + "_" + x + ".jpg  -d "+ confi+ "";
                         using (var p = new Process())
                         {
                             RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command, (s, e) => ShowInfo(url, e.Data));
-                        
+
                         }
                     }
                 }
             }
         }
-        private  void RedirectExcuteProcess(Process p, string exe, string arg, DataReceivedEventHandler output)
+
+        private void ShowInfo(string url, string a)
+        {
+            if (a == null) return;
+
+            Thread_proc(a);
+        }
+        /// <summary>
+        /// 重定向
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="exe"></param>
+        /// <param name="arg"></param>
+        /// <param name="output"></param>
+        private void RedirectExcuteProcess(Process p, string exe, string arg, DataReceivedEventHandler output)
         {
             p.StartInfo.FileName = exe;
             p.StartInfo.Arguments = arg;
@@ -220,7 +308,7 @@ namespace PanoramicDownload
             p.OutputDataReceived += output;
             p.ErrorDataReceived += output;
 
-            
+
             p.Start();                    //启动线程
             Application.DoEvents();
             p.BeginOutputReadLine();
@@ -234,15 +322,15 @@ namespace PanoramicDownload
 
             ListViewItem lvi = new ListViewItem();
             //progressBar1
-             
+
             ProgressBar dd = new ProgressBar();
-       
+
             //dd.Maximum = 169;
             this.listView1.BeginUpdate();
-            lvi.Text = imgName + ".jpg";
+            lvi.Text = tpye + ".jpg";
             int idd = 0;
-            lvi.SubItems.Add(idd.ToString());
-            lvi.SubItems.Add("");          
+            lvi.SubItems.Add("");
+            lvi.SubItems.Add("");
 
             this.listView1.Items.Add(lvi);
 
@@ -254,8 +342,8 @@ namespace PanoramicDownload
                 contwidth += i;
             }
 
-            Image bmp = new Bitmap(contwidth, contwidth, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            Graphics g = Graphics.FromImage(bmp);           
+            Image bmp = new Bitmap(contwidth, contwidth, PixelFormat.Format24bppRgb);
+            Graphics g = Graphics.FromImage(bmp);
             int high = 0;
             for (int i = 1; i <= index; i++)
             {
@@ -267,15 +355,22 @@ namespace PanoramicDownload
                     width += Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg").Width;
                     idd++;
 
-                    this.listView1.BeginUpdate();           
+                    this.listView1.BeginUpdate();
                     //lvi.SubItems[2].Text = idd.ToString();
                     dd.Parent = listView1;
                     dd.SetBounds(lvi.SubItems[1].Bounds.X, lvi.SubItems[1].Bounds.Y, lvi.SubItems[1].Bounds.Width, lvi.SubItems[1].Bounds.Height);
 
 
-                    dd.Value = (int)(idd / 1.69);
-                    
+                    System.Threading.Thread.Sleep(5);
+                    dd.Value = (int)(idd / (ImageCount*ImageCount));
+
                     this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
+                    Application.DoEvents();
+                    lvi.SubItems[2].Text = (int)(idd / (ImageCount * ImageCount)) + "%";
+                    if (dd.Value == 100)
+                    {
+                        lvi.SubItems[2].Text = "合成完成";
+                    }
                 }
                 high += Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + i + ".jpg").Height;
             }
@@ -292,7 +387,6 @@ namespace PanoramicDownload
         private delegate void UpdateInfo(string str);
         void Thread_proc(string args)
         {
-           
             if (this.InvokeRequired)
             {
                 d dd = new d(Thread_proc);
@@ -304,7 +398,7 @@ namespace PanoramicDownload
                 {
                     return;
                 }
-             
+
                 const string re1 = ".*?"; // Non-greedy match on filler
                 const string re2 = "(\\(.*\\))"; // Round Braces 1
 
@@ -312,56 +406,48 @@ namespace PanoramicDownload
                 var m = r.Match(args);
                 if (m.Success)
                 {
-                    //this.listView1.BeginUpdate();
-                  //  ListViewItem lvi = new ListViewItem();
-                   // lvi.Text = "";
-               
                     var rbraces1 = m.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
                     if (rbraces1 == "OK")
                     {
                         rbraces1 = "100";
-                       /// lvi.SubItems.Add(rbraces1);
                     }
-                   // lvi.SubItems.Add(rbraces1);
-                    //this.listView1.Items.Add(lvi);
-                    //this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                 }
             }
         }
-        private void ShowInfo(string url, string a)
+
+        delegate void imags(string args, string args1, string args2, int index);
+        void Thread1_proc(string args, string args1, string args2, int index)
         {
-            if (a == null) return;
-
-            Thread_proc(a);
-            
-            //const string re1 = ".*?"; // Non-greedy match on filler
-            //const string re2 = "(\\(.*\\))"; // Round Braces 1
-
-            //var r = new Regex(re1 + re2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            //var m = r.Match(a);
-            //if (m.Success)
-            //{
-            //    var rbraces1 = m.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
-            //    if (rbraces1 == "OK")
-            //    {
-            //        rbraces1 = "100";
-            //    }
-            //    //Thread_proc(DateTime.Now.ToString().Replace("/", "-") + "    " + url + "    下载进度:" + rbraces1 + "%");
-            //    //Console.WriteLine(DateTime.Now.ToString().Replace("/", "-") + "    " + url + "    下载进度:" + rbraces1 + "%");
-            //}
-                
-
+            if (this.InvokeRequired)
+            {
+                imags dd = new imags(Thread1_proc);
+                this.Invoke(dd, new object[] { args, args1, args2, index });
+            }
+            else
+            {
+                if (args == null)
+                {
+                    return;
+                }
+                getimg(args, args1, args2, index);
+            }
         }
 
+
+        #region 一般级
+        /// <summary>
+        /// 配置文件路径按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             textBox2.Text = OpenText();
         }
 
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {         
-            Process.Start("mailto:yzj520mei@126.com,test2@sample.com");          
+        {
+            Process.Start("mailto:yzj520mei@126.com,test2@sample.com");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -380,6 +466,24 @@ namespace PanoramicDownload
                 this.toolTip1.SetToolTip(pictureBox1, "你瞅啥？？");
             }
         }
+        /// <summary>
+        /// 打开路径
+        /// </summary>
+        /// <returns></returns>
+        public string OpenText()
+        {
+            using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
+            {
+                //定义打开的默认文件夹位置
+                OpenFD.InitialDirectory = Application.StartupPath;
+                OpenFD.Filter = "All files(*.*)|*.*|txt files(*.txt)|*.txt";
+                OpenFD.FilterIndex = 2;
+                OpenFD.ShowDialog();                  //显示打开本地文件的窗体
+                OpenFD.RestoreDirectory = true;
+                return OpenFD.FileName;       //把 路径名称 赋给 fileName
+            }
+        }
+        #endregion
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -387,25 +491,14 @@ namespace PanoramicDownload
             // MessageBox.Show(GetWebStatusCode(textBox5.Text, 100));
             //listView1.ResetText();
 
-         
-            //for (int i = 0; i < 10; i++)   //添加10行数据
-            //{
-            //    ListViewItem lvi = new ListViewItem();
-
-            //    lvi.ImageIndex = i;     //通过与imageList绑定，显示imageList中第i项图标
-
-            //    lvi.Text = "subitem" + i;
-
-            //    lvi.SubItems.Add("第2列,第" + i + "行");
-
-            //    lvi.SubItems.Add("第3列,第" + i + "行");
-
-            //    this.listView1.Items.Add(lvi);
-            //}
-
-            //this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
         }
 
+        /// <summary>
+        /// 判断链接 200
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public static string GetWebStatusCode(string url, int timeout)
         {
             HttpWebRequest req = null;
@@ -429,13 +522,33 @@ namespace PanoramicDownload
                     req = null;
                 }
             }
-
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + @"下载文件\";
-            getimg(path, "4", "d", 13);//2304//4608//3072
+            if (!ImageType.Equals(0) || !ImageCount.Equals(0))
+            {
+                getimg(path, ImageType.ToString(), "d", ImageCount);//2304//4608//3072
+                getimg(path, ImageType.ToString(), "f", ImageCount);//2304//4608//3072
+                getimg(path, ImageType.ToString(), "b", ImageCount);//2304//4608//3072
+                getimg(path, ImageType.ToString(), "u", ImageCount);//2304//4608//3072
+                getimg(path, ImageType.ToString(), "l", ImageCount);//2304//4608//3072
+                getimg(path, ImageType.ToString(), "r", ImageCount);//2304//4608//3072
+            }
+
+            
+           
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
