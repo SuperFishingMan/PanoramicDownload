@@ -89,6 +89,7 @@ namespace PanoramicDownload
                 // DirectoryInfo theFolder = new DirectoryInfo(foldPath);
                 //FileInfo[] dirInfo = theFolder.GetFiles();
                 fileName = foldPath;
+                textBox2.Text = fileName;
             }
             List<string> Down = new List<string>();
 
@@ -98,6 +99,8 @@ namespace PanoramicDownload
             fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.u, Down);
             fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.l, Down);
             fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.r, Down);
+
+            MessageBox.Show("下载完成");
         }
 
         public void jiance()
@@ -129,7 +132,7 @@ namespace PanoramicDownload
 
                 for (int j = 1; j < 20; j++)
                 {
-                    newkey1 = key.Replace(newKeystr[0], "l" + j).Replace("/0" + newKeystr[1], "/1").Replace("_0" + newKeystr[2] + "_", "_1_").Replace("_0" + newKeystr[3] + ".", "_1.");
+                    newkey1 = key.Replace(newKeystr[0], "l" + j).Replace("/" + newKeystr[1], "/01").Replace("_" + newKeystr[2] + "_", "_01_").Replace("_" + newKeystr[3] + ".", "_01.");
                     if (isPing(newUrl + newkey1))
                     {
                         maxtpye = j;
@@ -141,7 +144,7 @@ namespace PanoramicDownload
                 }
                 ImageType = maxtpye;
                 //MessageBox.Show(maxtpye.ToString());
-                newkey1 = key.Replace(newKeystr[0], "l" + maxtpye).Replace("/0" + newKeystr[1], "/1").Replace("_0" + newKeystr[2] + "_", "_1_").Replace("_0" + newKeystr[3] + ".", "_1.");
+                newkey1 = key.Replace(newKeystr[0], "l" + maxtpye).Replace("/" + newKeystr[1], "/01").Replace("_" + newKeystr[2] + "_", "_01_").Replace("_" + newKeystr[3] + ".", "_01.");
 
                 newKeystr1 = GetRegex(newkey1);
                 for (int i = 1; i < 20; i++)
@@ -273,11 +276,11 @@ namespace PanoramicDownload
                         using (var p = new Process())
                         {
                             RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command, (s, e) => ShowInfo(url, e.Data));
-
                         }
                     }
                 }
             }
+           
         }
 
         private void ShowInfo(string url, string a)
@@ -338,8 +341,10 @@ namespace PanoramicDownload
             int contwidth = 0;
             for (int x = 1; x <= index; x++)
             {
-                int i = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg").Width;
+                Image image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                int i = image3.Width;
                 contwidth += i;
+                image3.Dispose();
             }
 
             Image bmp = new Bitmap(contwidth, contwidth, PixelFormat.Format24bppRgb);
@@ -351,8 +356,10 @@ namespace PanoramicDownload
                 for (int d = 1; d <= index; d++)
                 {
                     Application.DoEvents();
-                    g.DrawImage(Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg"), width, high, Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg").Width, Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg").Height);
-                    width += Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg").Width;
+                    Image image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                    g.DrawImage(image1, width, high, image1.Width, image1.Height);
+                    width += image1.Width;
+                    image1.Dispose();
                     idd++;
 
                     this.listView1.BeginUpdate();
@@ -372,13 +379,15 @@ namespace PanoramicDownload
                         lvi.SubItems[2].Text = "合成完成";
                     }
                 }
-                high += Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + i + ".jpg").Height;
+                Image image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + i + ".jpg");
+                high += image2.Height;
+                image2.Dispose();
             }
 
             g.Flush();
             g.Dispose();
             bmp.Save(AppDomain.CurrentDomain.BaseDirectory + "下载文件/" + tpye + ".JPG", ImageFormat.Jpeg);
-
+            bmp.Dispose();
             //ImagePath.Add(tpye, AppDomain.CurrentDomain.BaseDirectory + "下载文件\\" + tpye + ".JPG");
 
         }
@@ -547,6 +556,11 @@ namespace PanoramicDownload
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
