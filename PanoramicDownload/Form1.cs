@@ -78,36 +78,36 @@ namespace PanoramicDownload
         private void LoadButton_Click(object sender, EventArgs e)
         {
             jiance();
-            string fileName = " ";
+            //string fileName = " ";
 
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.SelectedPath = Application.StartupPath;
-            dialog.Description = "请选择文件路径";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                string foldPath = dialog.SelectedPath;
-                // DirectoryInfo theFolder = new DirectoryInfo(foldPath);
-                //FileInfo[] dirInfo = theFolder.GetFiles();
-                fileName = foldPath;
-                textBox2.Text = fileName;
-            }
-            List<string> Down = new List<string>();
+            //FolderBrowserDialog dialog = new FolderBrowserDialog();
+            //dialog.SelectedPath = Application.StartupPath;
+            //dialog.Description = "请选择文件路径";
+            //if (dialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string foldPath = dialog.SelectedPath;
+            //    // DirectoryInfo theFolder = new DirectoryInfo(foldPath);
+            //    //FileInfo[] dirInfo = theFolder.GetFiles();
+            //    fileName = foldPath;
+            //    textBox2.Text = fileName;
+            //}
+            //List<string> Down = new List<string>();
 
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.d, Down);
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.b, Down);
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.f, Down);
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.u, Down);
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.l, Down);
-            fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.r, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.d, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.b, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.f, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.u, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.l, Down);
+            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.r, Down);
 
-            MessageBox.Show("下载完成");
+            //MessageBox.Show("下载完成");
         }
 
         public void jiance()
         {
-            string urlALl = textBox5.Text;
+            string urlALl = textBox5.Text.Trim();
             string key = Matchs(urlALl);
-            if (!isPing(textBox5.Text))
+            if (!isPing(urlALl))
             {
                 MessageBox.Show("请输入正确的链接" + isPing(urlALl), "错误提示");
                 return;
@@ -117,8 +117,9 @@ namespace PanoramicDownload
                 MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
                 return;
             }
-        
-
+           // FileStream fs = new FileStream(System.Environment.CurrentDirectory + "/utf-8.txt", FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+            FileInfo myFile = new FileInfo(System.Environment.CurrentDirectory+"/utf8.txt");
+            StreamWriter sw5 = myFile.CreateText();
             string newUrl = urlALl.Substring(0, urlALl.Length - key.Length + 1);
             newurltou = newUrl;
             List<string> newKeystr = new List<string>();
@@ -173,7 +174,20 @@ namespace PanoramicDownload
                     }
                 }
                 ImageCount = maxIndex;
-                //MessageBox.Show(maxIndex.ToString());
+
+                writeTxt(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+                writeTxt(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+                writeTxt(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+                writeTxt(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+                writeTxt(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+                writeTxt(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+                sw5.Close();
+                var command = " -i "+ System.Environment.CurrentDirectory + "/utf8.txt  -d" + System.Environment.CurrentDirectory+"/下载文件";
+                using (var p = new Process())
+                {
+                    RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
+                }
+
                 return;
             }
 
@@ -205,11 +219,52 @@ namespace PanoramicDownload
                     break;
                 }
             }
+            writeTxt1(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+            writeTxt1(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+            writeTxt1(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+            writeTxt1(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+            writeTxt1(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+            writeTxt1(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+            sw5.Close();
+            var command1 = " -i " + System.Environment.CurrentDirectory + "/utf8.txt  -d" + System.Environment.CurrentDirectory + "/下载文件";
+            using (var p = new Process())
+            {
+                RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
+            }
             //MessageBox.Show(maxIndex.ToString());
             ImageCount = maxIndex;
         }
 
-
+        public void writeTxt(DirectionType type, int maxIndex,string newUrl,int maxtpye,StreamWriter sw5)
+        {
+            for (int i = 1; i <= maxIndex; i++)
+            {
+                for (int x = 1; x <= maxIndex; x++)
+                {
+                    bool get = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
+                    if (get)
+                    {
+                        string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg";
+                        sw5.WriteLine(url);
+                    }
+                }
+            }
+        }
+        public void writeTxt1(DirectionType type, int maxIndex, string newUrl, int maxtpye, StreamWriter sw5)
+        {
+            for (int i = 1; i <= maxIndex; i++)
+            {
+                for (int x = 1; x <= maxIndex; x++)
+                {
+                    bool get = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                    if (get)
+                    {
+                        string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg";
+                        sw5.WriteLine(url);
+                    }
+                }
+            }
+        }
         public bool isPing(string url)
         {
             if (GetWebStatusCode(url, 1000).Equals("200"))
@@ -516,8 +571,13 @@ namespace PanoramicDownload
                 req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
                 req.Method = "HEAD";  //这是关键        
                 req.Timeout = timeout;
+
                 HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                return Convert.ToInt32(res.StatusCode).ToString();
+                if (res.ContentType.Equals("image/jpeg"))
+                {
+                    return Convert.ToInt32(res.StatusCode).ToString();
+                }
+                return "0";
             }
             catch (Exception ex)
             {
