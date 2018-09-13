@@ -33,4 +33,12 @@ namespace PanoramicDownload
         /// </summary>
         b,
     }
+
+    public  class ConstPath
+    {
+        public string exePath = Environment.CurrentDirectory;
+
+
+    }
+
 }
