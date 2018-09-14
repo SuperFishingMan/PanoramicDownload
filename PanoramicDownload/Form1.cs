@@ -198,7 +198,7 @@ namespace PanoramicDownload
                 var command = " -i " + constPath.exePath + "/config.txt  -d" + constPath.exePath + "/下载文件";
                 using (var p = new Process())
                 {
-                    RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
+                    RedirectExcuteProcess(p, constPath.exePath+ "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
                 }
 
                 return;
@@ -245,7 +245,7 @@ namespace PanoramicDownload
             var command1 = " -i " + constPath.exePath + "/config.txt   --save-session=" + constPath.exePath + "/out.txt" + " -d" + constPath.exePath + "/下载文件/";
             using (var p = new Process())
             {
-                RedirectExcuteProcess(p, @"D:\test\aria2c.exe ", command1, (s, e) => ShowInfo("", e.Data));
+                RedirectExcuteProcess(p, constPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
             }
             //MessageBox.Show(maxIndex.ToString());
             ImageCount = maxIndex;
@@ -395,7 +395,6 @@ namespace PanoramicDownload
         {
             p.StartInfo.FileName = exe;
             p.StartInfo.Arguments = arg;
-
             p.StartInfo.UseShellExecute = false;    //输出信息重定向
             p.StartInfo.ErrorDialog = false;
             p.StartInfo.CreateNoWindow = true;
