@@ -21,7 +21,38 @@ namespace PanoramicDownload
         public Form1()
         {
             InitializeComponent();
+            pictureBox2.Image = Properties.Resources.未标题_2;
+            textBox5.TextChanged += TextBox5_TextChanged;
         }
+
+        private void TextBox5_TextChanged(object sender, EventArgs e)
+        {
+            string InputUrl = textBox5.Text.Trim();
+            //获得url中的关键字符     b/l1/01/l1_b_01_01.jpg
+            string InputUrlkey = Matchs(InputUrl); //后几位
+
+            if (string.IsNullOrEmpty(textBox5.Text))
+            {
+                return;
+            }
+            //判断url是否为可访问 
+            if (!isPing(InputUrl))
+            {
+                MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
+                pictureBox2.Image = Properties.Resources.失败_表情;
+                return;
+            }
+            //判断url是否为可下载的全景图片
+            if (InputUrlkey.Equals(""))
+            {
+                MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+                pictureBox2.Image = Properties.Resources.失败_表情;
+                return;
+            }
+            pictureBox2.Image = Properties.Resources.yes;
+            //MessageBox.Show("准备配置文件中", "提示", MessageBoxButtons.OK);
+        }
+
         public string Matchs(string str)
         {
             string txt = str;
@@ -82,30 +113,9 @@ namespace PanoramicDownload
                 DelectDir(constPath.exePath + "/下载文件");
                 listView1.Items.Clear();
             }
+     
             jiance();
-            //string fileName = " ";
 
-            //FolderBrowserDialog dialog = new FolderBrowserDialog();
-            //dialog.SelectedPath = Application.StartupPath;
-            //dialog.Description = "请选择文件路径";
-            //if (dialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    string foldPath = dialog.SelectedPath;
-            //    // DirectoryInfo theFolder = new DirectoryInfo(foldPath);
-            //    //FileInfo[] dirInfo = theFolder.GetFiles();
-            //    fileName = foldPath;
-            //    textBox2.Text = fileName;
-            //}
-            //List<string> Down = new List<string>();
-
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.d, Down);
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.b, Down);
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.f, Down);
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.u, Down);
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.l, Down);
-            //fullfile(fileName, newurltou, ImageType.ToString(), ImageCount, DirectionType.r, Down);
-
-            //MessageBox.Show("下载完成");
         }
         List<string> newKeystr = new List<string>();
         public void jiance()
@@ -117,16 +127,20 @@ namespace PanoramicDownload
             //判断url是否为可访问 
             if (!isPing(InputUrl))
             {
-                MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
+             //   MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
+               // pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
             //判断url是否为可下载的全景图片
             if (InputUrlkey.Equals(""))
             {
-                MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+               //MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+               // pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
-
+           // pictureBox2.Image = Properties.Resources.yes;
+           // MessageBox.Show("准备配置文件中", "提示", MessageBoxButtons.OK);
+     
             FileInfo myFile = new FileInfo(constPath.exePath + "/config.txt");
             StreamWriter sw5 = myFile.CreateText();
 
@@ -200,7 +214,7 @@ namespace PanoramicDownload
                 {
                     RedirectExcuteProcess(p, constPath.exePath+ "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
                 }
-
+                
                 return;
             }
 
@@ -722,5 +736,14 @@ namespace PanoramicDownload
             ImagePath.Clear();
         }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
