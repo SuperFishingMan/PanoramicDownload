@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoUpdateHelper;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,8 @@ namespace PanoramicDownload
         public Form1()
         {
             InitializeComponent();
+            LocalConf conf = new LocalConf();
+            Text = "猪猪全景图下载器 v" + conf.Version;
             pictureBox2.Image = Properties.Resources.未标题_2;
             textBox5.TextChanged += TextBox5_TextChanged;
         }
@@ -213,8 +216,9 @@ namespace PanoramicDownload
                 using (var p = new Process())
                 {
                     RedirectExcuteProcess(p, constPath.exePath+ "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
+                    p.Close();
                 }
-                
+                MessageBox.Show("配置文件生成完毕---等待下载", "提示");
                 return;
             }
 
@@ -260,9 +264,11 @@ namespace PanoramicDownload
             using (var p = new Process())
             {
                 RedirectExcuteProcess(p, constPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
+                p.Close();
             }
             //MessageBox.Show(maxIndex.ToString());
             ImageCount = maxIndex;
+            MessageBox.Show("配置文件生成完毕---等待下载", "提示");
         }
 
         public static bool IsFileInUse(string fileName)
@@ -385,6 +391,7 @@ namespace PanoramicDownload
                         using (var p = new Process())
                         {
                             RedirectExcuteProcess(p, @"D:\test\aria2c.exe", command, (s, e) => ShowInfo(url, e.Data));
+                            p.Close();
                         }
                     }
                 }
@@ -415,7 +422,7 @@ namespace PanoramicDownload
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.RedirectStandardOutput = true;
 
-
+    
             p.OutputDataReceived += output;
             p.ErrorDataReceived += output;
 
@@ -425,6 +432,13 @@ namespace PanoramicDownload
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
             //p.WaitForExit();            //等待进程结束
+            
+            p.Exited += P_Exited;
+        }
+
+        private void P_Exited(object sender, EventArgs e)
+        {
+            MessageBox.Show("执行完毕","提示");
         }
 
         public static void DelectDir(string srcPath)
@@ -732,8 +746,10 @@ namespace PanoramicDownload
             using (var p = new Process())
             {
                 RedirectExcuteProcess(p, constPath.exePath + "/kcube2sphere.exe", command, null);
+                p.Close();
             }
             ImagePath.Clear();
+            MessageBox.Show("合成完毕","提示");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

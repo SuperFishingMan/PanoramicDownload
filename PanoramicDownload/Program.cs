@@ -15,7 +15,6 @@ namespace PanoramicDownload
         [STAThread]
         static void Main()
         {
-
             try
             {
                 if (AutoUpdate.CheckAndUpdate())
@@ -28,7 +27,7 @@ namespace PanoramicDownload
                 MessageBox.Show("网络异常~~~赶紧检查一下吧……");
                 Environment.Exit(Environment.ExitCode);
             }
-
+             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
