@@ -41,14 +41,14 @@ namespace PanoramicDownload
             //判断url是否为可访问 
             if (!isPing(InputUrl))
             {
-                MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
+                Mesbox("请输入正确的链接");
                 pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
             //判断url是否为可下载的全景图片
             if (InputUrlkey.Equals(""))
             {
-                MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+                Mesbox("请输入标准格式的全景图下载地址");
                 pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
@@ -116,7 +116,7 @@ namespace PanoramicDownload
                 DelectDir(constPath.exePath + "/下载文件");
                 listView1.Items.Clear();
             }
-     
+
             jiance();
 
         }
@@ -130,20 +130,20 @@ namespace PanoramicDownload
             //判断url是否为可访问 
             if (!isPing(InputUrl))
             {
-             //   MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
-               // pictureBox2.Image = Properties.Resources.失败_表情;
+                //   MessageBox.Show("请输入正确的链接" + isPing(InputUrl), "错误提示");
+                // pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
             //判断url是否为可下载的全景图片
             if (InputUrlkey.Equals(""))
             {
-               //MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
-               // pictureBox2.Image = Properties.Resources.失败_表情;
+                //MessageBox.Show("请输入标准格式的全景图下载地址", "错误提示");
+                // pictureBox2.Image = Properties.Resources.失败_表情;
                 return;
             }
-           // pictureBox2.Image = Properties.Resources.yes;
-           // MessageBox.Show("准备配置文件中", "提示", MessageBoxButtons.OK);
-     
+            // pictureBox2.Image = Properties.Resources.yes;
+            // MessageBox.Show("准备配置文件中", "提示", MessageBoxButtons.OK);
+
             FileInfo myFile = new FileInfo(constPath.exePath + "/config.txt");
             StreamWriter sw5 = myFile.CreateText();
 
@@ -156,7 +156,7 @@ namespace PanoramicDownload
             int maxtpye = 0;
             int maxIndex = 0;
             List<string> newKeystr1 = new List<string>();
-            if (newKeystr[2].Contains("0"))
+            if (newKeystr[2].Length.Equals(2))
             {
 
                 for (int j = 1; j < 20; j++)
@@ -191,15 +191,18 @@ namespace PanoramicDownload
                             break;
                         }
                     }
-                    value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
-                    if (isPing(newUrl + value1))
-                    {
-                        maxIndex = i;
-                    }
                     else
                     {
-                        break;
-                    }
+                        value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
+                        if (isPing(newUrl + value1))
+                        {
+                            maxIndex = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }                 
                 }
                 ImageCount = maxIndex;
 
@@ -215,10 +218,11 @@ namespace PanoramicDownload
                 var command = " -i " + constPath.exePath + "/config.txt  -d" + constPath.exePath + "/下载文件";
                 using (var p = new Process())
                 {
-                    RedirectExcuteProcess(p, constPath.exePath+ "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
+                    RedirectExcuteProcess(p, constPath.exePath + "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
                     p.Close();
                 }
-                MessageBox.Show("配置文件生成完毕---等待下载", "提示");
+
+                Mesbox("配置文件已生成=====请等待下载");
                 return;
             }
 
@@ -268,7 +272,7 @@ namespace PanoramicDownload
             }
             //MessageBox.Show(maxIndex.ToString());
             ImageCount = maxIndex;
-            MessageBox.Show("配置文件生成完毕---等待下载", "提示");
+            Mesbox("配置文件已生成=====请等待下载");
         }
 
         public static bool IsFileInUse(string fileName)
@@ -292,19 +296,57 @@ namespace PanoramicDownload
             return inUse;//true表示正在使用,false没有使用  
         }
 
-
+        /// <summary>
+        ///  有0的
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="maxIndex"></param>
+        /// <param name="newUrl"></param>
+        /// <param name="maxtpye"></param>
+        /// <param name="sw5"></param>
         public void writeTxt(DirectionType type, int maxIndex, string newUrl, int maxtpye, StreamWriter sw5)
         {
             for (int i = 1; i <= maxIndex; i++)
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    bool get = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
-                    if (get)
+                    bool get1 = false;
+                    bool get = false;
+                    if (i < 10 && x < 10)
                     {
-
-                        string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg";
-                        sw5.WriteLine(url);
+                        get = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
+                        if (get)
+                        {
+                            string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg";
+                            sw5.WriteLine(url);
+                        }
+                    }
+                    if (i < 10 && x  >= 10)
+                    {
+                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg");
+                        if (get1)
+                        {
+                            string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg";
+                            sw5.WriteLine(url);
+                        }
+                    }
+                    if (i >= 10 && x >= 10)
+                    {
+                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                        if (get1)
+                        {
+                            string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg";
+                            sw5.WriteLine(url);
+                        }
+                    }
+                    if (i >= 10 && x < 10)
+                    {
+                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg");
+                        if (get1)
+                        {
+                            string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg";
+                            sw5.WriteLine(url);
+                        }
                     }
                 }
             }
@@ -422,7 +464,7 @@ namespace PanoramicDownload
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.RedirectStandardOutput = true;
 
-    
+
             p.OutputDataReceived += output;
             p.ErrorDataReceived += output;
 
@@ -432,15 +474,20 @@ namespace PanoramicDownload
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
             //p.WaitForExit();            //等待进程结束
-            
+
             p.Exited += P_Exited;
         }
 
         private void P_Exited(object sender, EventArgs e)
         {
-            MessageBox.Show("执行完毕","提示");
+
+            Mesbox("执行完毕");
         }
 
+        /// <summary>
+        /// 删除子目录下的文件
+        /// </summary>
+        /// <param name="srcPath"></param>
         public static void DelectDir(string srcPath)
         {
             try
@@ -466,11 +513,14 @@ namespace PanoramicDownload
             }
         }
 
+
+        
         public void getimg(string filepath, string imgName, string tpye, int index)
         {
             ListViewItem lvi = new ListViewItem();
-            ProgressBar dd = new ProgressBar();
 
+            ProgressBar dd = new ProgressBar();
+            //dd.Maximum = 0;
             this.listView1.BeginUpdate();
             lvi.Text = tpye + ".jpg";
             int idd = 0;
@@ -478,7 +528,7 @@ namespace PanoramicDownload
             lvi.SubItems.Add("");
 
             this.listView1.Items.Add(lvi);
-            //dd.Maximum = ImageCount * ImageCount;
+            dd.Maximum =100;
             this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
             int contwidth = 0;
 
@@ -487,9 +537,17 @@ namespace PanoramicDownload
             for (int x = 1; x <= index; x++)
             {
                 Image image3 = null;
-                if (newKeystr[2].Contains("0"))
+                if (newKeystr[2].Length.Equals(2))
                 {
-                    image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                    if(x < 10)
+                    {
+                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                    }
+                    else
+                    {
+                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                    }
+
                 }
                 else
                 {
@@ -511,9 +569,24 @@ namespace PanoramicDownload
                 {
                     Application.DoEvents();
                     Image image1 = null;
-                    if (newKeystr[2].Contains("0"))
+                    if (newKeystr[2].Length.Equals(2))
                     {
-                        image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                        if (i <10 && d < 10)
+                        {
+                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                        }
+                        if(d >= 10 && i  >= 10)
+                        {
+                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                        }
+                        if (d >= 10 && i < 10)
+                        {
+                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                        }
+                        if (d < 10 && i >= 10)
+                        {
+                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                        }
                     }
                     else
                     {
@@ -523,7 +596,7 @@ namespace PanoramicDownload
                     g.DrawImage(image1, width, high, image1.Width, image1.Height);
                     width += image1.Width;
                     image1.Dispose();
-                    idd++;
+                     idd++;
 
                     this.listView1.BeginUpdate();
                     //lvi.SubItems[2].Text = idd.ToString();
@@ -532,22 +605,32 @@ namespace PanoramicDownload
 
 
                     Thread.Sleep(5);
-                    float max = ImageCount * ImageCount;
-                    float flomax =  max / 100;
-                    dd.Value = (int)(idd / flomax);
+                     float max = ImageCount * ImageCount;
+                    float flomax = max / 100;
+                     dd.Value = (int)(idd / flomax);
 
                     this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                     Application.DoEvents();
-                    lvi.SubItems[2].Text = (int)(idd / flomax)+1 + "%";
-                    if (dd.Value == 99)
+
+                     lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
+                  //  lvi.SubItems[2].Text = flomax + "%";
+                    if (dd.Value == 100)
                     {
-                        lvi.SubItems[2].Text = "合成完成";
+                       
+                        lvi.SubItems[2].Text = "完成😀";               
                     }
                 }
                 Image image2 = null;
-                if (newKeystr[2].Contains("0"))
-                {
-                    image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + i + ".jpg");
+                if (newKeystr[2].Length.Equals(2))
+                {           
+                    if (i < 10)
+                    {
+                        image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg");
+                    }
+                    else
+                    {
+                        image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + 1 + ".jpg");
+                    }
                 }
                 else
                 {
@@ -749,7 +832,7 @@ namespace PanoramicDownload
                 p.Close();
             }
             ImagePath.Clear();
-            MessageBox.Show("合成完毕","提示");
+            Mesbox("合成完毕");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -759,7 +842,18 @@ namespace PanoramicDownload
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-           
+
+        }
+
+        public void Mesbox(string content)
+        {
+            MessageBox.Show(content, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            string path = constPath.exePath + "\\下载文件";
+            Process.Start("explorer.exe", path);
         }
     }
 }
