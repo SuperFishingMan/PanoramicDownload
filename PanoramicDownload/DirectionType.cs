@@ -34,11 +34,19 @@ namespace PanoramicDownload
         b,
     }
 
-    public  class ConstPath
+    public enum DownLoadType
     {
-        public string exePath = Environment.CurrentDirectory;
+        lx_x_xx_xx, //720云
+        ssssxssss, //酷家乐
+     }
 
+    public  static class ConstPath
+    {
+        public static string exePath = Environment.CurrentDirectory;
 
+        public const string qqUrl = "http://wpa.qq.com/msgrd?v=3&uin=1228267639&site=qq&menu=yes";
+
+        public const string mailUrl = "mailto:yzj520mei@126.com,test2@sample.com";
     }
 
 }

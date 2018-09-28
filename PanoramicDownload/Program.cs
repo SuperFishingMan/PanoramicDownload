@@ -24,7 +24,7 @@ namespace PanoramicDownload
             }
             catch (Exception e)
             {
-                MessageBox.Show("网络异常~~~赶紧检查一下吧……");
+                MessageBox.Show( e.Data+" 网络异常~~~赶紧检查一下吧……");
                 Environment.Exit(Environment.ExitCode);
             }
              
