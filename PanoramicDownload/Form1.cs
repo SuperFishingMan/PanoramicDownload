@@ -30,9 +30,9 @@ namespace PanoramicDownload
         /// </summary>
         private void UIInit()
         {
-            LocalConf conf = new LocalConf();
+           //、LocalConf conf = new LocalConf();
             //同步版本UI
-            Text = "猪猪全景图下载器 v" + conf.Version;
+           // Text = "猪猪全景图下载器 v" + conf.Version;
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
             //添加检测事件
@@ -274,20 +274,22 @@ namespace PanoramicDownload
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command2, (s, e) => ShowInfo("", e.Data));
+                        
                         p.Close();
+                        
                     }
 
-                    Thread.Sleep(800);
+                    Thread.Sleep(5200);
                     string[] sDirectories = Directory.GetFiles(ConstPath.exePath + "\\下载文件\\");
                     for (int i = 0; i < sDirectories.Length; i++)
                     {
-                        sw51.WriteLine(sDirectories[i]);
+
                         string sDirectoryName = Path.GetFileName(sDirectories[i]);
                         string newstrDir = sDirectoryName.Remove(0, sDirectoryName.Length - 1);
                         string sNewDirectoryName = newstrDir + ".jpg";
                         string sNewDirectory = Path.Combine(ConstPath.exePath + "\\下载文件\\", sNewDirectoryName);
                         Directory.Move(sDirectories[i], sNewDirectory);
-                        Application.DoEvents();
+                        sw51.WriteLine(sNewDirectory);
                     }
 
                     sw51.Close();
