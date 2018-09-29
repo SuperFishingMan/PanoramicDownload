@@ -30,9 +30,9 @@ namespace PanoramicDownload
         /// </summary>
         private void UIInit()
         {
-           //、LocalConf conf = new LocalConf();
+            LocalConf conf = new LocalConf();
             //同步版本UI
-           // Text = "猪猪全景图下载器 v" + conf.Version;
+            Text = "猪猪全景图下载器 v" + conf.Version;
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
             //添加检测事件
@@ -261,12 +261,12 @@ namespace PanoramicDownload
                     StreamWriter sw51 = myFile1.CreateText();
                     int index = InputUrl.IndexOf(".jpg", 1, InputUrl.Length - 1);
                     string newstr = InputUrl.Remove(index + 4, InputUrl.Length - index - 4);
-                    sw5.WriteLine(newstr + "_" + DirectionType.b);
-                    sw5.WriteLine(newstr + "_" + DirectionType.d);
-                    sw5.WriteLine(newstr + "_" + DirectionType.f);
                     sw5.WriteLine(newstr + "_" + DirectionType.l);
+                    sw5.WriteLine(newstr + "_" + DirectionType.f);
                     sw5.WriteLine(newstr + "_" + DirectionType.r);
+                    sw5.WriteLine(newstr + "_" + DirectionType.b);
                     sw5.WriteLine(newstr + "_" + DirectionType.u);
+                    sw5.WriteLine(newstr + "_" + DirectionType.d);
                     sw5.Close();
                     sw5.Dispose();
 
@@ -779,7 +779,7 @@ namespace PanoramicDownload
                     break;
                 case DownLoadType.ssssxssss:
                     StreamReader sr = new StreamReader(ConstPath.exePath + "/compound.txt");
-                    var command1 = "-l=" + sr.ReadLine() + " -f=" + sr.ReadLine() + " -r=" + sr.ReadLine() + " -b=" + sr.ReadLine() + " -u=" + sr.ReadLine() + " -d=" + sr.ReadLine() + " -o=下载文件/sphere.jpeg";
+                    var command1 = "-b=" + sr.ReadLine() + " -d=" + sr.ReadLine() + " -f=" + sr.ReadLine() + " -l=" + sr.ReadLine() + " -r=" + sr.ReadLine() + " -u=" + sr.ReadLine() + " -o=下载文件/sphere.jpeg";
 
                     //Thread demoThread =  new Thread(new ThreadStart(this.ThreadProcSafe));
                     // demoThread.Start();
@@ -789,6 +789,8 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command1, null);
                         p.Close();
                     }
+                    sr.Close();
+                    sr.Dispose();
                     return;
                     break;
                 default:
