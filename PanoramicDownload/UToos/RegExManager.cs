@@ -102,7 +102,11 @@ namespace PanoramicDownload.UToos
             return "";
         }
 
-
+        /// <summary>
+        /// 酷家乐
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string MatchKJL(string str)
         {           
             string re1 = ".*?"; // Non-greedy match on filler
@@ -151,6 +155,93 @@ namespace PanoramicDownload.UToos
                 return d1.ToString() + "" + "" + d2.ToString() + "" + "" + d3.ToString() + "" + "" + d4.ToString() + "" + "" + w1.ToString() + "" + "" + d5.ToString() + "" + "" + d6.ToString() + "" + "" + d7.ToString() + "" + "" + d8.ToString() + "" + "" + c1.ToString() + "" + "" + w2.ToString() + "" + "" + w3.ToString() + "" + "" + w4.ToString() + "" + "" + c2.ToString() + "" + "" + w5.ToString() + "" + "";
             }
             return "";
+        }
+
+        /// <summary>
+        /// 网展
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string MatchWZ(string str)
+        {
+            //string txt = "/u/n3/5/u_5_2.jpg";
+
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
+            string re3 = "(.)"; // Any Single Character 1
+            string re4 = "([a-z])"; // Any Single Word Character (Not Whitespace) 2
+            string re5 = "(\\d)";   // Any Single Digit 1
+            string re6 = "(.)"; // Any Single Character 2
+            string re7 = "(\\d)";   // Any Single Digit 2
+            string re8 = "(.)"; // Any Single Character 3
+            string re9 = "([a-z])"; // Any Single Word Character (Not Whitespace) 3
+            string re10 = "(.)";    // Any Single Character 4
+            string re11 = "(\\d)";  // Any Single Digit 3
+            string re12 = "(.)";    // Any Single Character 5
+            string re13 = "(\\d)";  // Any Single Digit 4
+            string re14 = "(.)";    // Any Single Character 6
+            string re15 = "((?:[a-z][a-z0-9_]*))";  // Variable Name 1
+
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(str);
+            if (m.Success)
+            {
+                String w1 = m.Groups[1].ToString();
+                String c1 = m.Groups[2].ToString();
+                String w2 = m.Groups[3].ToString();
+                String d1 = m.Groups[4].ToString();
+                String c2 = m.Groups[5].ToString();
+                String d2 = m.Groups[6].ToString();
+                String c3 = m.Groups[7].ToString();
+                String w3 = m.Groups[8].ToString();
+                String c4 = m.Groups[9].ToString();
+                String d3 = m.Groups[10].ToString();
+                String c5 = m.Groups[11].ToString();
+                String d4 = m.Groups[12].ToString();
+                String c6 = m.Groups[13].ToString();
+                String var1 = m.Groups[14].ToString();
+                return w1.ToString() + "" + c1.ToString() + "" + w2.ToString()  + "" + d1.ToString() + "" + c2.ToString()  + "" + d2.ToString() + "" + c3.ToString()  + "" + w3.ToString()  + "" + c4.ToString()  + "" + d3.ToString()  + "" + c5.ToString()  + "" + d4.ToString() + ""+ c6.ToString()  + "" + var1.ToString();
+                //Console.Write("(" + w1.ToString() + ")" + "(" + c1.ToString() + ")" + "(" + w2.ToString() + ")" + "(" + d1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + d2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + w3.ToString() + ")" + "(" + c4.ToString() + ")" + "(" + d3.ToString() + ")" + "(" + c5.ToString() + ")" + "(" + d4.ToString() + ")" + "(" + c6.ToString() + ")" + "(" + var1.ToString() + ")" + "\n");
+            }
+            return "";
+           // Console.ReadLine();
+        }
+
+
+        public static List<string> GetRegexWZ(string txt)
+        {
+            //string txt = "u/n3/5/u_5_2.jpg";
+
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "[a-z]";   // Uninteresting: w
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
+            string re5 = "(\\d)";   // Any Single Digit 1
+            string re6 = ".*?"; // Non-greedy match on filler
+            string re7 = "(\\d+)";  // Integer Number 1
+            string re8 = ".*?"; // Non-greedy match on filler
+            string re9 = "(\\d+)";  // Integer Number 2
+            string re10 = ".*?";    // Non-greedy match on filler
+            string re11 = "(\\d+)"; // Integer Number 3
+            List<string> keyStr = new List<string>();
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                String w1 = m.Groups[1].ToString();
+                String d1 = m.Groups[2].ToString();
+                String int1 = m.Groups[3].ToString();
+                String int2 = m.Groups[4].ToString();
+                String int3 = m.Groups[5].ToString();
+                keyStr.Add(w1+ d1);
+                keyStr.Add(int1);
+                keyStr.Add(int2);
+                keyStr.Add(int3);
+                return keyStr;
+                //return w1.ToString()  + d1.ToString() + ""+ int1.ToString() + "" + int2.ToString() + "" + int3.ToString());
+               // Console.Write("(" + w1.ToString() + ")" + "(" + d1.ToString() + ")" + "(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
+            }
+            return keyStr;
         }
     }
 }

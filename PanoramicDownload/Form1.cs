@@ -23,6 +23,8 @@ namespace PanoramicDownload
         {
             InitializeComponent();
             UIInit();
+
+
         }
 
         /// <summary>
@@ -37,6 +39,14 @@ namespace PanoramicDownload
             UrlStateBox.Image = Properties.Resources.未标题_2;
             //添加检测事件
             InputUrlTextBox.TextChanged += InputUrlTextBox_TextChanged;
+
+            timer1.Tick += Timer1_Tick;
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+
+            label3.Text = label3.Text.Substring(1) + label3.Text.Substring(0, 1);
         }
 
         /// <summary>
@@ -60,6 +70,7 @@ namespace PanoramicDownload
 
             string InputUrlKJZ = UToos.RegExManager.MatchKJL(InputUrl);
 
+            string InputUrlWZ = UToos.RegExManager.MatchWZ(InputUrl);
 
             //判断url是否为可访问 
             if (!isPing(InputUrl))
@@ -69,7 +80,7 @@ namespace PanoramicDownload
                 return;
             }
             //判断url是否为可下载的全景图片
-            if (InputUrlkey.Equals("") && InputUrlKJZ.Equals(""))
+            if (InputUrlkey.Equals("") && InputUrlKJZ.Equals("")&& InputUrlWZ.Equals(""))
             {
                 Mesbox("请输入标准格式的全景图下载地址");
                 UrlStateBox.Image = Properties.Resources.失败_表情;
@@ -83,7 +94,12 @@ namespace PanoramicDownload
             {
                 downLoadType = DownLoadType.ssssxssss;
             }
-            UrlStateBox.Image = Properties.Resources.yes;
+            if(!InputUrlWZ.Equals(""))
+            {
+                downLoadType = DownLoadType.lxlxxlxlx_x_x;
+            }
+
+             UrlStateBox.Image = Properties.Resources.yes;
 
         }
 
@@ -121,6 +137,7 @@ namespace PanoramicDownload
 
             string inputUrlKJL = UToos.RegExManager.MatchKJL(InputUrl);//酷家乐
 
+            string inputUrlWZ = UToos.RegExManager.MatchWZ(InputUrl);
 
             FileInfo myFile = new FileInfo(ConstPath.exePath + "/config.txt");
             StreamWriter sw5 = myFile.CreateText();
@@ -137,7 +154,6 @@ namespace PanoramicDownload
                     List<string> newKeystr1 = new List<string>();
                     if (newKeystrList[2].Length.Equals(2))
                     {
-
                         for (int j = 1; j < 20; j++)
                         {
                             newkey1 = InputUrlkey.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01.");
@@ -297,6 +313,82 @@ namespace PanoramicDownload
 
 
                     break;
+
+                case DownLoadType.lxlxxlxlx_x_x:
+                    string newUrl1 = InputUrl.Substring(0, InputUrl.Length - inputUrlWZ.Length);
+                    newKeystrList = UToos.RegExManager.GetRegexWZ(inputUrlWZ);
+                    string newkey11 = "";
+                    int maxtpye1 = 1;
+                    int maxIndex1 = 1;
+                    List<string> newKeystr11 = new List<string>();
+                        for (int j = 1; j < 20; j++)//"u/n3/5/u_5_2.jpg";
+                        {
+                            newkey11 = inputUrlWZ.Replace(newKeystrList[0], "n" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1.");
+                            if (isPing(newUrl1 + newkey11))
+                            {
+                                maxtpye1 = j;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        ImageQualityIndex = maxtpye1;
+                        //MessageBox.Show(maxtpye.ToString());
+                        newkey11 = inputUrlWZ.Replace(newKeystrList[0], "n" + maxtpye1).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1.");
+
+                        newKeystr11 = UToos.RegExManager.GetRegexWZ(newkey11);
+                        for (int i = 1; i < 20; i++)
+                        {
+                            string value1 = "";
+                            if (i >= 10)
+                            {
+                                value1 = newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_");
+                                if (isPing(newUrl1 + value1))
+                                {
+                                    maxIndex1 = i;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                value1 = newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_");
+                                if (isPing(newUrl1 + value1))
+                                {
+                                    maxIndex1 = i;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        ImageRowCount = maxIndex1;
+
+                        writeTxt(DirectionType.b, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxt(DirectionType.d, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxt(DirectionType.f, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxt(DirectionType.r, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxt(DirectionType.u, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxt(DirectionType.l, maxIndex1, newkey11, maxtpye1, sw5);
+                        sw5.Close();
+                        sw5.Dispose();
+
+                        var command12 = " -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
+                        using (var p = new Process())
+                        {
+                            RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command12, (s, e) => ShowInfo("", e.Data));
+                            p.Close();
+                        }
+
+                        Mesbox("配置文件已生成=====请等待下载");
+                        return;
+                    
+                  break;
+
                 default:
                     Mesbox("未知错误------->" + downLoadType);
                     break;
@@ -792,7 +884,7 @@ namespace PanoramicDownload
                     sr.Close();
                     sr.Dispose();
                     return;
-                    break;
+                    //break;
                 default:
                     break;
             }
@@ -863,6 +955,9 @@ namespace PanoramicDownload
 
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
