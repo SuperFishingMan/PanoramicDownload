@@ -368,12 +368,12 @@ namespace PanoramicDownload
                         }
                         ImageRowCount = maxIndex1;
 
-                        writeTxt(DirectionType.b, maxIndex1, newkey11, maxtpye1, sw5);
-                        writeTxt(DirectionType.d, maxIndex1, newkey11, maxtpye1, sw5);
-                        writeTxt(DirectionType.f, maxIndex1, newkey11, maxtpye1, sw5);
-                        writeTxt(DirectionType.r, maxIndex1, newkey11, maxtpye1, sw5);
-                        writeTxt(DirectionType.u, maxIndex1, newkey11, maxtpye1, sw5);
-                        writeTxt(DirectionType.l, maxIndex1, newkey11, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.b, maxIndex1, newUrl1, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.d, maxIndex1, newUrl1, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.f, maxIndex1, newUrl1, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.r, maxIndex1, newUrl1, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.u, maxIndex1, newUrl1, maxtpye1, sw5);
+                        writeTxtWZ(DirectionType.l, maxIndex1, newUrl1, maxtpye1, sw5);
                         sw5.Close();
                         sw5.Dispose();
 
@@ -488,8 +488,22 @@ namespace PanoramicDownload
             }
         }
 
-
-
+        //"u/n3/5/u_5_2.jpg";
+        public void writeTxtWZ(DirectionType type,int maxIndex,string newUrl, int maxtype,StreamWriter sw5)
+        {
+             for (int i = 1; i <= maxIndex; i++)
+            {
+                for (int x = 1; x <= maxIndex; x++)
+                {
+                    bool get = isPing(newUrl + type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" +x+  ".jpg");
+                    if (get)
+                    {
+                        string url = newUrl + type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" + x + ".jpg";
+                        sw5.WriteLine(url);
+                    }
+                }
+            }
+        }
 
         public void fullfile(string confi, string Url, string index, int forint, DirectionType mode, List<string> sw)
         {
@@ -554,9 +568,6 @@ namespace PanoramicDownload
         {
             Mesbox("执行完毕");
         }
-
-
-
 
 
         public void getimg(string filepath, string imgName, string tpye, int index, StreamWriter sw5)
@@ -887,6 +898,7 @@ namespace PanoramicDownload
                     //break;
                 default:
                     break;
+
             }
             string paths = ConstPath.exePath + "/config.txt";
             string[] strings = File.ReadAllLines(paths);
