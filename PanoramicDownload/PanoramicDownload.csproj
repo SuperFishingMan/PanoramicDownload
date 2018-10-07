@@ -66,6 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\PlatformBase.cs" />
+    <Compile Include="Core\WriteDownLoadData.cs" />
     <Compile Include="DirectionType.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Form1.cs">
@@ -102,18 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\错误 %281%29.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\对号.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\错误 %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\满意度 一般.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\失败-表情.png" />

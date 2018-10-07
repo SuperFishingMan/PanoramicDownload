@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PanoramicDownload
 {
+    /// <summary>
+    /// 图片方向类型
+    /// </summary>
     public enum DirectionType
     {
         /// <summary>

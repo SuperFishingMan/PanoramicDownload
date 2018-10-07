@@ -1,19 +1,15 @@
 ﻿using System;
 using AutoUpdateHelper;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using PanoramicDownload.Core;
 
 namespace PanoramicDownload
 {
@@ -486,6 +482,7 @@ namespace PanoramicDownload
                     }
                 }
             }
+            
         }
 
         //"u/n3/5/u_5_2.jpg";
