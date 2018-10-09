@@ -69,7 +69,7 @@ namespace AutoUpdate
             SetProcessBar(90);
             DeleteFolder(tmpPath);
             SetProcessBar(100);
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
             Process.Start(Path.Combine(Environment.CurrentDirectory, manifest.ExePath));
 
             //Application.Exit();
@@ -199,6 +199,5 @@ namespace AutoUpdate
             }
             return response;
         }
-        
     }
 }

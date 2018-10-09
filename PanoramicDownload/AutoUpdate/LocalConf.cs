@@ -17,6 +17,9 @@ namespace AutoUpdate
         {
             document.Load(xmlFileName);
         }
+        /// <summary>
+        /// 获得版本号
+        /// </summary>
         public string Version
         {
             get
@@ -30,7 +33,9 @@ namespace AutoUpdate
             }
         }
 
-
+        /// <summary>
+        ///  获得下载链接
+        /// </summary>
         public string Manifest
         {
             get
@@ -45,6 +50,9 @@ namespace AutoUpdate
             }
         }
 
+        /// <summary>
+        /// 获得更新程序
+        /// </summary>
         public string Update
         {
             get

@@ -54,7 +54,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string Matchs(string str)
+        public static string MatchYun(string str)
         {
             string txt = str;
             string re1 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1

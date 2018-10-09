@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txtProject = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnChoose1 = new System.Windows.Forms.Button();
@@ -41,25 +42,28 @@
             // 
             // txtProject
             // 
-            this.txtProject.Location = new System.Drawing.Point(90, 45);
+            this.txtProject.Location = new System.Drawing.Point(120, 56);
+            this.txtProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtProject.Name = "txtProject";
-            this.txtProject.Size = new System.Drawing.Size(193, 21);
+            this.txtProject.Size = new System.Drawing.Size(256, 25);
             this.txtProject.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 50);
+            this.label1.Location = new System.Drawing.Point(35, 62);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "项目路径";
             // 
             // btnChoose1
             // 
-            this.btnChoose1.Location = new System.Drawing.Point(285, 44);
+            this.btnChoose1.Location = new System.Drawing.Point(380, 55);
+            this.btnChoose1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnChoose1.Name = "btnChoose1";
-            this.btnChoose1.Size = new System.Drawing.Size(75, 23);
+            this.btnChoose1.Size = new System.Drawing.Size(100, 29);
             this.btnChoose1.TabIndex = 2;
             this.btnChoose1.Text = "选择 ..";
             this.btnChoose1.UseVisualStyleBackColor = true;
@@ -67,9 +71,10 @@
             // 
             // btnChoose2
             // 
-            this.btnChoose2.Location = new System.Drawing.Point(285, 106);
+            this.btnChoose2.Location = new System.Drawing.Point(380, 132);
+            this.btnChoose2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnChoose2.Name = "btnChoose2";
-            this.btnChoose2.Size = new System.Drawing.Size(75, 23);
+            this.btnChoose2.Size = new System.Drawing.Size(100, 29);
             this.btnChoose2.TabIndex = 5;
             this.btnChoose2.Text = "选择 ..";
             this.btnChoose2.UseVisualStyleBackColor = true;
@@ -78,40 +83,45 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 112);
+            this.label2.Location = new System.Drawing.Point(35, 140);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "存储路径";
             // 
             // txtZip
             // 
-            this.txtZip.Location = new System.Drawing.Point(90, 107);
+            this.txtZip.Location = new System.Drawing.Point(120, 134);
+            this.txtZip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtZip.Name = "txtZip";
-            this.txtZip.Size = new System.Drawing.Size(193, 21);
+            this.txtZip.Size = new System.Drawing.Size(256, 25);
             this.txtZip.TabIndex = 3;
             // 
             // txtVersion
             // 
-            this.txtVersion.Location = new System.Drawing.Point(90, 169);
+            this.txtVersion.Location = new System.Drawing.Point(120, 211);
+            this.txtVersion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtVersion.Name = "txtVersion";
-            this.txtVersion.Size = new System.Drawing.Size(193, 21);
+            this.txtVersion.Size = new System.Drawing.Size(256, 25);
             this.txtVersion.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 174);
+            this.label3.Location = new System.Drawing.Point(35, 218);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 7;
             this.label3.Text = "版本号";
             // 
             // btnPack
             // 
-            this.btnPack.Location = new System.Drawing.Point(285, 214);
+            this.btnPack.Location = new System.Drawing.Point(380, 211);
+            this.btnPack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPack.Name = "btnPack";
-            this.btnPack.Size = new System.Drawing.Size(75, 23);
+            this.btnPack.Size = new System.Drawing.Size(100, 29);
             this.btnPack.TabIndex = 8;
             this.btnPack.Text = "打包";
             this.btnPack.UseVisualStyleBackColor = true;
@@ -119,9 +129,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 254);
+            this.ClientSize = new System.Drawing.Size(564, 318);
             this.Controls.Add(this.btnPack);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtVersion);
@@ -131,6 +141,9 @@
             this.Controls.Add(this.btnChoose1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtProject);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "项目打包";
             this.ResumeLayout(false);

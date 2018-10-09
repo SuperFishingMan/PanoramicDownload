@@ -83,6 +83,16 @@ namespace PanoramicDownload.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 图片 {
+            get {
+                object obj = ResourceManager.GetObject("图片", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 失败_表情 {
             get {
                 object obj = ResourceManager.GetObject("失败-表情", resourceCulture);

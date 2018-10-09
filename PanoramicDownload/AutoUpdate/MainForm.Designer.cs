@@ -36,52 +36,58 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 82);
+            this.label1.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(7, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 15);
+            this.label1.Size = new System.Drawing.Size(109, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "更新说明：";
             // 
             // lbRemark
             // 
             this.lbRemark.AutoSize = true;
-            this.lbRemark.Location = new System.Drawing.Point(149, 82);
+            this.lbRemark.Font = new System.Drawing.Font("楷体", 11F);
+            this.lbRemark.Location = new System.Drawing.Point(123, 27);
             this.lbRemark.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbRemark.Name = "lbRemark";
-            this.lbRemark.Size = new System.Drawing.Size(37, 15);
+            this.lbRemark.Size = new System.Drawing.Size(49, 19);
             this.lbRemark.TabIndex = 1;
             this.lbRemark.Text = "说明";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 116);
+            this.label3.Font = new System.Drawing.Font("楷体", 12F);
+            this.label3.Location = new System.Drawing.Point(7, 153);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 15);
+            this.label3.Size = new System.Drawing.Size(109, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "更新版本：";
             // 
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Location = new System.Drawing.Point(152, 116);
+            this.lbVersion.Font = new System.Drawing.Font("楷体", 11F);
+            this.lbVersion.Location = new System.Drawing.Point(123, 154);
             this.lbVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbVersion.Name = "lbVersion";
-            this.lbVersion.Size = new System.Drawing.Size(37, 15);
+            this.lbVersion.Size = new System.Drawing.Size(49, 19);
             this.lbVersion.TabIndex = 3;
             this.lbVersion.Text = "版本";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(155, 165);
+            this.progressBar1.Location = new System.Drawing.Point(124, 191);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(483, 29);
@@ -90,43 +96,58 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 170);
+            this.label5.Font = new System.Drawing.Font("楷体", 12F);
+            this.label5.Location = new System.Drawing.Point(7, 191);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 15);
+            this.label5.Size = new System.Drawing.Size(109, 20);
             this.label5.TabIndex = 5;
             this.label5.Text = "更新进度：";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(545, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(506, 27);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(123, 101);
+            this.pictureBox1.Size = new System.Drawing.Size(128, 120);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.progressBar1);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lbVersion);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lbRemark);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(12, 11);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(663, 234);
+            this.panel1.TabIndex = 7;
+            // 
             // MainForm
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 216);
+            this.ClientSize = new System.Drawing.Size(688, 287);
             this.ControlBox = false;
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.lbVersion);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lbRemark);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "系统更新";
+            this.Text = "自动更新";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -139,6 +160,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
