@@ -39,6 +39,7 @@ namespace PanoramicDownload
 
     public enum DownLoadType
     {
+        empty,
         lx_x_xx_xx, //720云
         ssssxssss, //酷家乐      // /u/n3/5/u_5_2.jpg";       
         lxlxxlxlx_x_x,//网展

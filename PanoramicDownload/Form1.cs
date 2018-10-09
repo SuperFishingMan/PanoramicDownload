@@ -18,7 +18,12 @@ namespace PanoramicDownload
         public Form1()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.  
+            SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲  
+            this.DoubleBuffered = true;
             UIInit();
+
 
 
         }
@@ -41,8 +46,12 @@ namespace PanoramicDownload
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-
-            label3.Text = label3.Text.Substring(1) + label3.Text.Substring(0, 1);
+            label3.Left += 1;
+            if (label3.Left == this.Width)
+            {
+                label3.Left = -label3.Width;
+            }
+           // label3.Text = label3.Text.Substring(1) + label3.Text.Substring(0, 1);
         }
 
         /// <summary>
@@ -119,7 +128,12 @@ namespace PanoramicDownload
                 FileManager.DelectDir(ConstPath.exePath + "\\下载文件");
                 listView1.Items.Clear();
             }
-
+            if (string.IsNullOrEmpty(InputUrlTextBox.Text))
+            {
+                UrlStateBox.Image = Properties.Resources.失败_表情;
+                Mesbox("请输入链接");
+                return;
+            }
             jiance();
 
         }
@@ -748,10 +762,7 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            textBox2.Text = OpenText();
-        }
+
 
         #region  社交类
         /// <summary>
@@ -894,7 +905,9 @@ namespace PanoramicDownload
                     return;
                     //break;
                 default:
-                    break;
+                    Mesbox("请下载图片后在合成");
+                    return;
+                   // break;
 
             }
             string paths = ConstPath.exePath + "/config.txt";
@@ -968,5 +981,6 @@ namespace PanoramicDownload
         {
 
         }
+
     }
 }
