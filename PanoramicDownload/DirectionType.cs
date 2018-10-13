@@ -55,6 +55,11 @@ namespace PanoramicDownload
         /// 网展
         /// </summary>
         lxlxxlxlx_x_x,//网展
+        /// <summary>       
+        /// E建
+        /// </summary>
+        lxlxx_x_x_x  // /u/l2_u_2_1.jpg";
+
     }
 
     public  static class ConstPath

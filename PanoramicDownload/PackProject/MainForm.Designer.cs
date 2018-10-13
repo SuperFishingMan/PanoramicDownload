@@ -38,12 +38,16 @@
             this.txtVersion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnPack = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // txtProject
             // 
             this.txtProject.Location = new System.Drawing.Point(120, 56);
-            this.txtProject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtProject.Margin = new System.Windows.Forms.Padding(4);
             this.txtProject.Name = "txtProject";
             this.txtProject.Size = new System.Drawing.Size(256, 25);
             this.txtProject.TabIndex = 0;
@@ -61,7 +65,7 @@
             // btnChoose1
             // 
             this.btnChoose1.Location = new System.Drawing.Point(380, 55);
-            this.btnChoose1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChoose1.Margin = new System.Windows.Forms.Padding(4);
             this.btnChoose1.Name = "btnChoose1";
             this.btnChoose1.Size = new System.Drawing.Size(100, 29);
             this.btnChoose1.TabIndex = 2;
@@ -72,7 +76,7 @@
             // btnChoose2
             // 
             this.btnChoose2.Location = new System.Drawing.Point(380, 132);
-            this.btnChoose2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChoose2.Margin = new System.Windows.Forms.Padding(4);
             this.btnChoose2.Name = "btnChoose2";
             this.btnChoose2.Size = new System.Drawing.Size(100, 29);
             this.btnChoose2.TabIndex = 5;
@@ -93,7 +97,7 @@
             // txtZip
             // 
             this.txtZip.Location = new System.Drawing.Point(120, 134);
-            this.txtZip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtZip.Margin = new System.Windows.Forms.Padding(4);
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(256, 25);
             this.txtZip.TabIndex = 3;
@@ -101,7 +105,7 @@
             // txtVersion
             // 
             this.txtVersion.Location = new System.Drawing.Point(120, 211);
-            this.txtVersion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtVersion.Margin = new System.Windows.Forms.Padding(4);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.Size = new System.Drawing.Size(256, 25);
             this.txtVersion.TabIndex = 6;
@@ -119,7 +123,7 @@
             // btnPack
             // 
             this.btnPack.Location = new System.Drawing.Point(380, 211);
-            this.btnPack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPack.Margin = new System.Windows.Forms.Padding(4);
             this.btnPack.Name = "btnPack";
             this.btnPack.Size = new System.Drawing.Size(100, 29);
             this.btnPack.TabIndex = 8;
@@ -127,11 +131,55 @@
             this.btnPack.UseVisualStyleBackColor = true;
             this.btnPack.Click += new System.EventHandler(this.btnPack_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 286);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 15);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "注册激活码";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(120, 283);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(256, 25);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(380, 279);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 29);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "生成激活码";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 315);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(558, 27);
+            this.richTextBox1.TabIndex = 12;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 318);
+            this.ClientSize = new System.Drawing.Size(571, 350);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnPack);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtVersion);
@@ -143,7 +191,7 @@
             this.Controls.Add(this.txtProject);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "项目打包";
             this.ResumeLayout(false);
@@ -162,6 +210,10 @@
         private System.Windows.Forms.TextBox txtVersion;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnPack;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

@@ -10,11 +10,13 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using PanoramicDownload.Core;
+using HslCommunication.BasicFramework;
 
 namespace PanoramicDownload
 {
     public partial class Form1 : Form
     {
+        private SoftAuthorize softAuthorize = null;
         public Form1()
         {
             InitializeComponent();
@@ -23,8 +25,36 @@ namespace PanoramicDownload
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲  
             this.DoubleBuffered = true;
             UIInit();
-        }
 
+            softAuthorize = new SoftAuthorize();
+            softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
+            softAuthorize.LoadByFile();
+
+            // 检测激活码是否正确，没有文件，或激活码错误都算作激活失败
+            if (!softAuthorize.IsAuthorizeSuccess(AuthorizeEncrypted))
+            {
+                // 显示注册窗口
+                using (HslCommunication.BasicFramework.FormAuthorize form =
+                    new HslCommunication.BasicFramework.FormAuthorize(
+                        softAuthorize,
+                        "请联系QQ1228267639获取激活码",
+                        AuthorizeEncrypted))
+                {
+                    if (form.ShowDialog() != DialogResult.OK)
+                    {
+                        // 授权失败，退出
+                        Close();
+                    }
+                }
+            }
+           // textBox1.Text = softAuthorize.GetMachineCodeString(); // 显示出机器码，情景二用
+
+        }
+        private string AuthorizeEncrypted(string origin)
+        {
+            // 此处使用了组件支持的DES对称加密技术
+            return SoftSecurity.MD5Encrypt(origin, "19951005");
+        }
         #region 变量
         /// <summary>
         /// 720云
@@ -38,6 +68,11 @@ namespace PanoramicDownload
         /// 网展
         /// </summary>
         private string InputUrlWZ;
+        /// <summary>
+        /// E建网
+        /// </summary>
+        private string InputUrlYJ;
+
         /// <summary>
         /// 键入的链接
         /// </summary>
@@ -115,6 +150,9 @@ namespace PanoramicDownload
 
              InputUrlWZ = UToos.RegExManager.MatchWZ(InputUrl);
 
+             InputUrlYJ = UToos.RegExManager.MatchYJ(InputUrl);
+
+
             //判断url是否为可访问 
             if (!isPing(InputUrl))
             {
@@ -123,7 +161,7 @@ namespace PanoramicDownload
                 return;
             }
             //判断url是否为可下载的全景图片
-            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("")&& InputUrlWZ.Equals(""))
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("")&& InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
             {
                 Mesbox("请输入支持的全景图下载地址");
                 UrlStateBox.Image = Properties.Resources.失败_表情;
@@ -144,6 +182,12 @@ namespace PanoramicDownload
             if(!InputUrlWZ.Equals(""))
             {
                 downLoadType = DownLoadType.lxlxxlxlx_x_x;
+                UrlStateBox.Image = Properties.Resources.yes;
+                return;
+            }
+            if (!InputUrlYJ.Equals(""))
+            {
+                downLoadType = DownLoadType.lxlxx_x_x_x;
                 UrlStateBox.Image = Properties.Resources.yes;
                 return;
             }
@@ -429,6 +473,10 @@ namespace PanoramicDownload
 
                         Mesbox("配置文件已生成=====请等待下载");
                         return;
+
+                case DownLoadType.lxlxx_x_x_x:
+
+                    return;
                 default:
                     Mesbox("未知错误------->" + downLoadType);
                     break;

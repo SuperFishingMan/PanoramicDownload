@@ -243,5 +243,54 @@ namespace PanoramicDownload.UToos
             }
             return keyStr;
         }
+
+
+        /// <summary>
+        /// E建网
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string MatchYJ(string str)
+        {
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "(\\/)";   // Any Single Character 1
+            string re3 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
+            string re4 = "(.)"; // Any Single Character 2
+            string re5 = "([a-z])"; // Any Single Word Character (Not Whitespace) 2
+            string re6 = "(\\d)";   // Any Single Digit 1
+            string re7 = "(.)"; // Any Single Character 3
+            string re8 = "([a-z])"; // Any Single Word Character (Not Whitespace) 3
+            string re9 = "(.)"; // Any Single Character 4
+            string re10 = "(\\d+)"; // Integer Number 1
+            string re11 = "(.)";    // Any Single Character 5
+            string re12 = "(\\d+)"; // Integer Number 2
+            string re13 = "(.)";    // Any Single Character 6
+            string re14 = "([a-z])";    // Any Single Word Character (Not Whitespace) 4
+            string re15 = "([a-z])";    // Any Single Word Character (Not Whitespace) 5
+            string re16 = "([a-z])";    // Any Single Word Character (Not Whitespace) 6
+
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15 + re16, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(str);
+            if (m.Success)
+            {
+                String c1 = m.Groups[1].ToString();
+                String w1 = m.Groups[2].ToString();
+                String c2 = m.Groups[3].ToString();
+                String w2 = m.Groups[4].ToString();
+                String d1 = m.Groups[5].ToString();
+                String c3 = m.Groups[6].ToString();
+                String w3 = m.Groups[7].ToString();
+                String c4 = m.Groups[8].ToString();
+                String int1 = m.Groups[9].ToString();
+                String c5 = m.Groups[10].ToString();
+                String int2 = m.Groups[11].ToString();
+                String c6 = m.Groups[12].ToString();
+                String w4 = m.Groups[13].ToString();
+                String w5 = m.Groups[14].ToString();
+                String w6 = m.Groups[15].ToString();
+                return c1 + w1 + c2 + w2 + d1 + c3 + w3 + c4 + int1 + c5 + int2 + c6 + w4 + w5 + w6;
+            }
+            return "";
+        }
     }
 }

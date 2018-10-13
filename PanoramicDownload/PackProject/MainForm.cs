@@ -9,11 +9,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using HslCommunication.BasicFramework;
 namespace PackProject
 {
     public partial class MainForm : Form
     {
+
+        private SoftAuthorize softAuthorize = null;
         public MainForm()
         {
             InitializeComponent();
@@ -111,6 +113,34 @@ namespace PackProject
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             return config.AppSettings.Settings[key].Value; 
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = AuthorizeEncrypted(textBox1.Text);
+            richTextBox1.Copy();
+        }
+
+        private string AuthorizeEncrypted(string origin)
+        {
+            //softAuthorize = new SoftAuthorize();
+            // 此处使用了组件支持的DES对称加密技术
+            return SoftSecurity.MD5Encrypt(origin, "19951005");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
