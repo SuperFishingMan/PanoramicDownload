@@ -15,7 +15,7 @@ namespace PackProject
     public partial class MainForm : Form
     {
 
-        private SoftAuthorize softAuthorize = null;
+        //private SoftAuthorize softAuthorize = null;
         public MainForm()
         {
             InitializeComponent();

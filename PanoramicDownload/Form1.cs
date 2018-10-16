@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using PanoramicDownload.Core;
 using HslCommunication.BasicFramework;
+using System.Text;
 
 namespace PanoramicDownload
 {
@@ -48,8 +49,13 @@ namespace PanoramicDownload
                 }
             }
            // textBox1.Text = softAuthorize.GetMachineCodeString(); // 显示出机器码，情景二用
-
         }
+
+        /// <summary>
+        /// 解密函数
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <returns></returns>
         private string AuthorizeEncrypted(string origin)
         {
             // 此处使用了组件支持的DES对称加密技术
@@ -242,9 +248,10 @@ namespace PanoramicDownload
             switch (downLoadType)
             {
                 case DownLoadType.lx_x_xx_xx:
-                    string newUrl = InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1);
+                    StringBuilder newUrl = new StringBuilder(200);
+                    newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList = UToos.RegExManager.GetRegex(InputUrlYun);
-                    string newkey1 = "";
+                    StringBuilder newkey1 =new StringBuilder(200);
                     int maxtpye = 0;
                     int maxIndex = 0;
                     List<string> newKeystr1 = new List<string>();
@@ -252,8 +259,9 @@ namespace PanoramicDownload
                     {
                         for (int j = 1; j < 20; j++)
                         {
-                            newkey1 = InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01.");
-                            if (isPing(newUrl + newkey1))
+                            newkey1.Clear();
+                            newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01."));
+                            if (isPing(newUrl +""+ newkey1))
                             {
                                 maxtpye = j;
                             }
@@ -261,18 +269,19 @@ namespace PanoramicDownload
                             {
                                 break;
                             }
+                           
                         }
                         ImageQualityIndex = maxtpye;
-                        
-                        newkey1 = InputUrlYun.Replace(newKeystrList[0], "l" + maxtpye).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01.");
+                        newkey1.Clear();
+                        newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + maxtpye).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01."));
 
-                        newKeystr1 = UToos.RegExManager.GetRegex(newkey1);
+                        newKeystr1 = UToos.RegExManager.GetRegex(newkey1+"");
                         for (int i = 1; i < 20; i++)
                         {
                             string value1 = "";
                             if (i >= 10)
                             {
-                                value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
+                                value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
                                 if (isPing(newUrl + value1))
                                 {
                                     maxIndex = i;
@@ -284,7 +293,7 @@ namespace PanoramicDownload
                             }
                             else
                             {
-                                value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
+                                value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
                                 if (isPing(newUrl + value1))
                                 {
                                     maxIndex = i;
@@ -294,15 +303,22 @@ namespace PanoramicDownload
                                     break;
                                 }
                             }
+                        
                         }
                         ImageRowCount = maxIndex;
 
                         writeTxt(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         writeTxt(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         writeTxt(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         writeTxt(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         writeTxt(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         writeTxt(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+                        Application.DoEvents();
                         sw5.Close();
                         sw5.Dispose();
 
@@ -319,8 +335,9 @@ namespace PanoramicDownload
 
                     for (int j = 1; j < 20; j++)
                     {
-                        newkey1 = InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1.");
-                        if (isPing(newUrl + newkey1))
+                        newkey1.Clear();
+                        newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1."));
+                        if (isPing(newUrl +""+ newkey1))
                         {
                             maxtpye = j;
                         }
@@ -328,15 +345,17 @@ namespace PanoramicDownload
                         {
                             break;
                         }
+                        Application.DoEvents();
                     }
                     ImageQualityIndex = maxtpye;
                     //MessageBox.Show(maxtpye.ToString());
-                    newkey1 = InputUrlYun.Replace(newKeystrList[0], "l" + maxtpye).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1.");
-                    newKeystr1 = UToos.RegExManager.GetRegex(newkey1);
+                    newkey1.Clear();
+                    newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + maxtpye).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1."));
+                    newKeystr1 = UToos.RegExManager.GetRegex(newkey1+"");
                     for (int i = 1; i < 20; i++)
                     {
-                        string value1 = newkey1.Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
-                        if (isPing(newUrl + value1))
+                        string value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
+                        if (isPing(newUrl +""+ value1))
                         {
                             maxIndex = i;
                         }
@@ -344,13 +363,20 @@ namespace PanoramicDownload
                         {
                             break;
                         }
+                        Application.DoEvents();
                     }
                     writeTxt1(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     writeTxt1(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     writeTxt1(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     writeTxt1(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     writeTxt1(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     writeTxt1(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+                    Application.DoEvents();
                     sw5.Close();
                     sw5.Dispose();
 
@@ -372,10 +398,15 @@ namespace PanoramicDownload
                     int index = InputUrl.IndexOf(".jpg", 1, InputUrl.Length - 1);
                     string newstr = InputUrl.Remove(index + 4, InputUrl.Length - index - 4);
                     sw5.WriteLine(newstr + "_" + DirectionType.l);
+                    Application.DoEvents();
                     sw5.WriteLine(newstr + "_" + DirectionType.f);
+                    Application.DoEvents();
                     sw5.WriteLine(newstr + "_" + DirectionType.r);
+                    Application.DoEvents();
                     sw5.WriteLine(newstr + "_" + DirectionType.b);
+                    Application.DoEvents();
                     sw5.WriteLine(newstr + "_" + DirectionType.u);
+                    Application.DoEvents();
                     sw5.WriteLine(newstr + "_" + DirectionType.d);
                     sw5.Close();
                     sw5.Dispose();
@@ -402,7 +433,9 @@ namespace PanoramicDownload
                     break;
 
                 case DownLoadType.lxlxxlxlx_x_x:
-                    string newUrl1 = InputUrl.Substring(0, InputUrl.Length - InputUrlWZ.Length);
+                    StringBuilder newUrl1 = new StringBuilder(200);
+                    newUrl1.Clear();
+                    newUrl1.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlWZ.Length));
                     newKeystrList = UToos.RegExManager.GetRegexWZ(InputUrlWZ);
                     string newkey11 = "";
                     int maxtpye1 = 1;
@@ -427,11 +460,12 @@ namespace PanoramicDownload
                         newKeystr11 = UToos.RegExManager.GetRegexWZ(newkey11);
                         for (int i = 1; i < 20; i++)
                         {
-                            string value1 = "";
+                            StringBuilder value1 = new StringBuilder(200);
                             if (i >= 10)
                             {
-                                value1 = newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_");
-                                if (isPing(newUrl1 + value1))
+                                value1.Clear();
+                                value1.Append(newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_"));
+                                if (isPing(newUrl1 +""+ value1))
                                 {
                                     maxIndex1 = i;
                                 }
@@ -442,8 +476,9 @@ namespace PanoramicDownload
                             }
                             else
                             {
-                                value1 = newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_");
-                                if (isPing(newUrl1 + value1))
+                            value1.Clear();
+                            value1.Append(newkey11.Replace("/" + newKeystr11[1] , "/" + i ).Replace("_" + newKeystr11[2] + "_", "_" + i + "_"));
+                                if (isPing(newUrl1 +""+ value1))
                                 {
                                     maxIndex1 = i;
                                 }
@@ -493,7 +528,7 @@ namespace PanoramicDownload
         /// <param name="newUrl"></param>
         /// <param name="maxtpye"></param>
         /// <param name="sw5"></param>
-        public void writeTxt(DirectionType type, int maxIndex, string newUrl, int maxtpye, StreamWriter sw5)
+        public void writeTxt(DirectionType type, int maxIndex, StringBuilder newUrl, int maxtpye, StreamWriter sw5)
         {
             for (int i = 1; i <= maxIndex; i++)
             {
@@ -503,75 +538,89 @@ namespace PanoramicDownload
                     bool get = false;
                     if (i < 10 && x < 10)
                     {
-                        get = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
+                        get = isPing(newUrl +""+ type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
                         if (get)
                         {
-                            string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg";
-                            sw5.WriteLine(url);
+                            StringBuilder url = new StringBuilder(newUrl +""+ type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_0" + x + ".jpg");
+                            Thread tr = new Thread(() => textWriteLine(sw5, url));
+                            tr.Start();                         
                         }
                     }
                     if (i < 10 && x >= 10)
                     {
-                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg");
+                        get1 = isPing(newUrl + "" + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg");
                         if (get1)
                         {
-                            string url = newUrl + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg";
-                            sw5.WriteLine(url);
+                            StringBuilder url =new StringBuilder(newUrl + "" + type + "/" + "l" + maxtpye + "/0" + i + "/l" + maxtpye + "_" + type + "_0" + i + "_" + x + ".jpg");
+                            Thread tr = new Thread(() => textWriteLine(sw5, url));
+                            tr.Start();
                         }
                     }
                     if (i >= 10 && x >= 10)
                     {
-                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                        get1 = isPing(newUrl + "" + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
                         if (get1)
                         {
-                            string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg";
-                            sw5.WriteLine(url);
+                            StringBuilder url =new StringBuilder(newUrl + "" + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                            Thread tr = new Thread(() => textWriteLine(sw5, url));
+                            tr.Start();
                         }
                     }
                     if (i >= 10 && x < 10)
                     {
-                        get1 = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg");
+                        get1 = isPing(newUrl + "" + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg");
                         if (get1)
                         {
-                            string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg";
-                            sw5.WriteLine(url);
+                            StringBuilder url =new StringBuilder(newUrl + "" + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_0" + x + ".jpg");
+                            Thread tr = new Thread(() => textWriteLine(sw5, url));
+                            tr.Start();
                         }
                     }
+                    Application.DoEvents();
                 }
+                Application.DoEvents();
             }
 
         }
-        public void writeTxt1(DirectionType type, int maxIndex, string newUrl, int maxtpye, StreamWriter sw5)
+        public void writeTxt1(DirectionType type, int maxIndex, StringBuilder newUrl, int maxtpye, StreamWriter sw5)
         {
             for (int i = 1; i <= maxIndex; i++)
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    bool get = isPing(newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                    bool get = isPing(newUrl +""+ type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
                     if (get)
                     {
-                        string url = newUrl + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg";
-                        sw5.WriteLine(url);
+                        StringBuilder url = new StringBuilder(newUrl + "" + type + "/" + "l" + maxtpye + "/" + i + "/l" + maxtpye + "_" + type + "_" + i + "_" + x + ".jpg");
+                        Thread tr = new Thread(() => textWriteLine(sw5, url));
+                        tr.Start();                   
                     }
+                    Application.DoEvents();
                 }
-            }
-            
+                Application.DoEvents();
+            }        
         }
-
+        public void textWriteLine(StreamWriter streamWriter,StringBuilder stringBuilder)
+        {
+            streamWriter.WriteLine(stringBuilder);
+        }
         //"u/n3/5/u_5_2.jpg";
-        public void writeTxtWZ(DirectionType type,int maxIndex,string newUrl, int maxtype,StreamWriter sw5)
+        public void writeTxtWZ(DirectionType type,int maxIndex, StringBuilder newUrl, int maxtype,StreamWriter sw5)
         {
              for (int i = 1; i <= maxIndex; i++)
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    bool get = isPing(newUrl + type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" +x+  ".jpg");
+                    bool get = isPing(newUrl +""+ type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" +x+  ".jpg");
                     if (get)
                     {
-                        string url = newUrl + type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" + x + ".jpg";
-                        sw5.WriteLine(url);
+                        StringBuilder url = new StringBuilder(newUrl +""+ type + "/" + "n" + maxtype + "/" + i + "/" + type + "_" + i + "_" + x + ".jpg");
+                        Thread tr = new Thread(() => textWriteLine(sw5, url));
+                        tr.Start();
                     }
+                    Application.DoEvents();
                 }
+                Application.DoEvents();
             }
         }
 
