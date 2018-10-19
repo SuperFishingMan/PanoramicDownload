@@ -10,7 +10,7 @@ namespace PanoramicDownload.UToos
     public class RegExManager
     {
         /// <summary>
-        /// 正则判断
+        /// 正则判断720yun
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
@@ -50,7 +50,7 @@ namespace PanoramicDownload.UToos
         }
 
         /// <summary>
-        /// /获得url中的关键字符     b/l1/01/l1_b_01_01.jpg
+        /// /获得url中的关键字符     b/l1/01/l1_b_01_01.jpg         720yun
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -207,7 +207,11 @@ namespace PanoramicDownload.UToos
            // Console.ReadLine();
         }
 
-
+        /// <summary>
+        /// 网展
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns></returns>
         public static List<string> GetRegexWZ(string txt)
         {
             //string txt = "u/n3/5/u_5_2.jpg";
@@ -291,6 +295,42 @@ namespace PanoramicDownload.UToos
                 return c1 + w1 + c2 + w2 + d1 + c3 + w3 + c4 + int1 + c5 + int2 + c6 + w4 + w5 + w6;
             }
             return "";
+        }
+
+        /// <summary>
+        /// E建网
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        public static List<string> GetRegexYJ(string txt)
+        {
+            //string txt = "u/l2_u_1_2.jpg";
+
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "[a-z]";   // Uninteresting: w
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
+            string re5 = "(\\d+)";  // Integer Number 1
+            string re6 = ".*?"; // Non-greedy match on filler
+            string re7 = "(\\d+)";  // Integer Number 2
+            string re8 = ".*?"; // Non-greedy match on filler
+            string re9 = "(\\d+)";  // Integer Number 3
+            List<string> keyStr = new List<string>();
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                String w1 = m.Groups[1].ToString();
+                String int1 = m.Groups[2].ToString();
+                String int2 = m.Groups[3].ToString();
+                String int3 = m.Groups[4].ToString();
+                keyStr.Add(w1 + int1);
+                keyStr.Add(int2);
+                keyStr.Add(int3);
+                return keyStr;
+                //Console.Write("(" + w1.ToString() + ")" + "(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
+            }
+            return keyStr;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HslCommunication;
+using HslCommunication.BasicFramework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace PanoramicDownload
         /// <param name="srcPath"></param>
         public static void DelectDir(string srcPath)
         {
+  
             try
             {
                 DirectoryInfo dir = new DirectoryInfo(srcPath);
@@ -33,9 +36,9 @@ namespace PanoramicDownload
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Data);
+                SoftBasic.ShowExceptionMessage(ex);
                 throw;
             }
         }

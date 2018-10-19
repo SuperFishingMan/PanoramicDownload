@@ -47,9 +47,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.InputUrlTextBox = new System.Windows.Forms.TextBox();
+            this.userButton1 = new HslCommunication.Controls.UserButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -71,7 +71,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel1.Location = new System.Drawing.Point(177, 75);
+            this.linkLabel1.Location = new System.Drawing.Point(324, 74);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(244, 29);
             this.linkLabel1.TabIndex = 6;
@@ -86,7 +86,7 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel2.Location = new System.Drawing.Point(177, 26);
+            this.linkLabel2.Location = new System.Drawing.Point(159, 74);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(141, 29);
             this.linkLabel2.TabIndex = 7;
@@ -184,7 +184,6 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.listView1);
@@ -193,6 +192,7 @@
             this.panel1.Controls.Add(this.linkLabel1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.LoadButton);
+            this.panel1.Controls.Add(this.userButton1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
@@ -262,6 +262,22 @@
             this.InputUrlTextBox.Size = new System.Drawing.Size(625, 25);
             this.InputUrlTextBox.TabIndex = 3;
             // 
+            // userButton1
+            // 
+            this.userButton1.BackColor = System.Drawing.Color.Transparent;
+            this.userButton1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.userButton1.CustomerInformation = "";
+            this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.userButton1.Font = new System.Drawing.Font("楷体", 12F);
+            this.userButton1.Location = new System.Drawing.Point(680, 55);
+            this.userButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.userButton1.Name = "userButton1";
+            this.userButton1.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
+            this.userButton1.Size = new System.Drawing.Size(99, 48);
+            this.userButton1.TabIndex = 6;
+            this.userButton1.UIText = "激活软件";
+            this.userButton1.Click += new System.EventHandler(this.userButton1_Click);
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -277,13 +293,6 @@
             this.label3.Size = new System.Drawing.Size(519, 19);
             this.label3.TabIndex = 17;
             this.label3.Text = "可下载平台：720云 汽车之家 酷家乐 咨询 QQ1228267639";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(526, 78);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 25);
-            this.textBox1.TabIndex = 15;
             // 
             // Form1
             // 
@@ -335,7 +344,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.TextBox textBox1;
+        private HslCommunication.Controls.UserButton userButton1;
     }
 }
 
