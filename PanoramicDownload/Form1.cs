@@ -283,6 +283,9 @@ namespace PanoramicDownload
             switch (downLoadType)
             {
                 case DownLoadType.lx_x_xx_xx:
+                    PlatfromYun platfromYun = new PlatfromYun();
+
+
                     StringBuilder newUrl = new StringBuilder(200);
                     newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList.Clear();
@@ -342,25 +345,30 @@ namespace PanoramicDownload
 
                         }
                         ImageRowCount = maxIndex;
-
-                        writeTxt(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
+                        //writeTxt(DirectionType.b, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
-                        writeTxt(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
+                        //writeTxt(DirectionType.d, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
-                        writeTxt(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
+                        //writeTxt(DirectionType.f, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
-                        writeTxt(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
+                        //writeTxt(DirectionType.r, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
-                        writeTxt(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
+                       // writeTxt(DirectionType.u, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
-                        writeTxt(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+                        platfromYun.WriteDownLoad(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
+                       // writeTxt(DirectionType.l, maxIndex, newUrl, maxtpye, sw5);
                         Application.DoEvents();
                         sw5.Close();
                         sw5.Dispose();
                         if (CheckLineCount(maxIndex))
                         {
                             Mesbox("请重新点击下载按钮");
-                            return;
+                           // return;
                         }
                         Mesbox("配置文件已生成=====请等待下载");
                         var command = "-s 2 -x 2 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
@@ -671,6 +679,7 @@ namespace PanoramicDownload
             fs.Dispose();
             sr.Close();
             sr.Dispose();
+            Mesbox(lines.ToString());
             if (lines != (maxindex * maxindex * 6))
             {
                 //Mesbox("请重新下载------");
@@ -893,18 +902,40 @@ namespace PanoramicDownload
                 {
                     if (x < 10)
                     {
-                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                        if(Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg") !=null)
+                        {
+                            image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                        }
+                        else
+                        {
+
+                        }
                     }
                     else
                     {
-                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                        if(Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg") != null)
+                        {
+                            image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                        }
+                        else
+                        {
+
+                        }
                     }
 
                 }
                 else
                 {
-                    image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                    if(Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg") != null)
+                    {
+                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                    }
+                    else
+                    {
+
+                    }
                 }
+
                 int i = image3.Width;
                 contwidth += i;
                 image3.Dispose();
@@ -925,24 +956,59 @@ namespace PanoramicDownload
                     {
                         if (i < 10 && d < 10)
                         {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg") != null)
+                            {
+                                image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                            }
+                            else
+                            {
+
+                            }
                         }
                         if (d >= 10 && i >= 10)
                         {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
+                            {
+                                image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                            }
+                            else
+                            {
+
+                            }
                         }
                         if (d >= 10 && i < 10)
                         {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg") != null)
+                            {
+                                image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                            }
+                            else
+                            {
+
+                            }
                         }
                         if (d < 10 && i >= 10)
                         {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg") != null)
+                            {
+                                image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                            }
+                            else
+                            {
+
+                            }
                         }
                     }
                     else
                     {
-                        image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                        if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg") !=null)
+                        {
+                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                        }
+                        else
+                        {
+
+                        }
                     }
 
                     g.DrawImage(image1, width, high, image1.Width, image1.Height);
@@ -1310,45 +1376,52 @@ namespace PanoramicDownload
 
                     break;
                 case DownLoadType.lx_x_xx_xx:
-                    string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
-
-                    string path = ConstPath.exePath + "/下载文件/";
-                    if (strings.Length != 0)
+                    try
                     {
-                        getimg(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null);//2304//4608//3072
-                        getimg(path, ImageQualityIndex.ToString(), "f", ImageRowCount, null);//2304//4608//3072
-                        getimg(path, ImageQualityIndex.ToString(), "b", ImageRowCount, null);//2304//4608//3072
-                        getimg(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null);//2304//4608//3072
-                        getimg(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null);//2304//4608//3072
-                        getimg(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null);//2304//4608//3072
-                    }
-                    //Thread.Sleep(500);
-                    var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
-                    using (var p = new Process())
-                    {
-                        ListViewItem lvi1 = new ListViewItem();
-                        ProgressBar dd = new ProgressBar();
-                        listProg.Add(dd);
-                        this.listView1.BeginUpdate();
-                        listView1.Items.Add(lvi1);
-                        lvi1.SubItems.Add("");
-                        lvi1.SubItems.Add("");
-                        lvi1.Text = "全景大图.jpeg";
-                        dd.Parent = listView1;
-                        dd.SetBounds(lvi1.SubItems[1].Bounds.X, lvi1.SubItems[1].Bounds.Y, lvi1.SubItems[1].Bounds.Width, lvi1.SubItems[1].Bounds.Height);
-                        dd.Value = 20;
-                        Thread.Sleep(500);
-                        dd.Value = 60;
-                        Thread.Sleep(500);
+                        string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
 
-                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, null);
-                        dd.Value = 100;
-                        lvi1.SubItems[2].Text = "完成";
-                        Thread.Sleep(500);
-                        this.listView1.EndUpdate();
-                        p.Close();
+                        string path = ConstPath.exePath + "/下载文件/";
+                        if (strings.Length != 0)
+                        {
+                            getimg(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null);//2304//4608//3072
+                            getimg(path, ImageQualityIndex.ToString(), "f", ImageRowCount, null);//2304//4608//3072
+                            getimg(path, ImageQualityIndex.ToString(), "b", ImageRowCount, null);//2304//4608//3072
+                            getimg(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null);//2304//4608//3072
+                            getimg(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null);//2304//4608//3072
+                            getimg(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null);//2304//4608//3072
+                        }
+                        //Thread.Sleep(500);
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
+                        using (var p = new Process())
+                        {
+                            ListViewItem lvi1 = new ListViewItem();
+                            ProgressBar dd = new ProgressBar();
+                            listProg.Add(dd);
+                            this.listView1.BeginUpdate();
+                            listView1.Items.Add(lvi1);
+                            lvi1.SubItems.Add("");
+                            lvi1.SubItems.Add("");
+                            lvi1.Text = "全景大图.jpeg";
+                            dd.Parent = listView1;
+                            dd.SetBounds(lvi1.SubItems[1].Bounds.X, lvi1.SubItems[1].Bounds.Y, lvi1.SubItems[1].Bounds.Width, lvi1.SubItems[1].Bounds.Height);
+                            dd.Value = 20;
+                            Thread.Sleep(500);
+                            dd.Value = 60;
+                            Thread.Sleep(500);
+
+                            RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, null);
+                            dd.Value = 100;
+                            lvi1.SubItems[2].Text = "完成";
+                            Thread.Sleep(500);
+                            this.listView1.EndUpdate();
+                            p.Close();
+                        }
+                        ImagePath.Clear();
                     }
-                    ImagePath.Clear();
+                    catch(Exception ex)
+                    {
+                        SoftBasic.ShowExceptionMessage(ex);
+                    }
 
                     //Mesbox("合成完毕");
                     break;

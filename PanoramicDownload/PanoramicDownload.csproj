@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\PlatformBase.cs" />
-    <Compile Include="Core\WriteDownLoadData.cs" />
+    <Compile Include="Core\PlatfromYun.cs" />
     <Compile Include="DirectionType.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Form1.cs">
