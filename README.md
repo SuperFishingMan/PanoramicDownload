@@ -16,6 +16,6 @@
 全景图下载.NET
 
 支持720yun 汽车之家 酷家乐
-## 欧姆测试界面 [ Omron PLC Communication ]
+## 全景下载界面 [ Omron PLC Communication ]
 Using Fins-tcp protocol
-![Picture](https://raw.githubusercontent.com/dathlin/HslCommunication/master/imgs/Omron.png)
+![Picture](https://github.com/a1228267639/PanoramicDownload/blob/master/PanoramicDownload/README/page.png)
