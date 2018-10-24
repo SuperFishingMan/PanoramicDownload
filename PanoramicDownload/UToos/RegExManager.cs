@@ -14,7 +14,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
-        public static List<String> GetRegex(string txt)
+        public  List<String> GetRegex(string txt)
         {
             string re1 = ".*?"; // Non-greedy match on filler
             string re2 = "[a-z]";   // Uninteresting: w
@@ -54,7 +54,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string MatchYun(string str)
+        public  string MatchYun(string str)
         {
             string txt = str;
             string re1 = "([a-z])"; // Any Single Word Character (Not Whitespace) 1
@@ -107,7 +107,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string MatchKJL(string str)
+        public  string MatchKJL(string str)
         {           
             string re1 = ".*?"; // Non-greedy match on filler
             string re2 = "\\d"; // Uninteresting: d
@@ -162,7 +162,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string MatchWZ(string str)
+        public  string MatchWZ(string str)
         {
             //string txt = "/u/n3/5/u_5_2.jpg";
 
@@ -212,7 +212,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
-        public static List<string> GetRegexWZ(string txt)
+        public  List<string> GetRegexWZ(string txt)
         {
             //string txt = "u/n3/5/u_5_2.jpg";
 
@@ -254,7 +254,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string MatchYJ(string str)
+        public  string MatchYJ(string str)
         {
             string re1 = ".*?"; // Non-greedy match on filler
             string re2 = "(\\/)";   // Any Single Character 1
@@ -302,7 +302,7 @@ namespace PanoramicDownload.UToos
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
-        public static List<string> GetRegexYJ(string txt)
+        public  List<string> GetRegexYJ(string txt)
         {
             //string txt = "u/l2_u_1_2.jpg";
 

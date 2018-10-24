@@ -31,7 +31,7 @@ namespace PanoramicDownload.Core
         /// <param name="newUrl">前置的通用链接</param>
         /// <param name="maxtpye">最大图片质量下标</param>
         /// <param name="sw5">写入的流文件</param>
-        public virtual void WriteDownLoad(DirectionType type, int maxIndex, StringBuilder newUrl, int maxQuality, StreamWriter SWFile)
+        public virtual void WriteDownLoad(DirectionType type= DirectionType.b, int maxIndex = 1, StringBuilder newUrl= null, int maxQuality =1, StreamWriter SWFile =null)
         {
 
         }

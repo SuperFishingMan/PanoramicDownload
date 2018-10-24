@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -23,8 +24,12 @@ namespace AutoUpdateHelper
                 var manifest = xser.Deserialize(new XmlTextReader(doc, XmlNodeType.Document, null)) as Manifest;
                 if (manifest.Version != local.Version)
                 {
-                    Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, local.Update));
-                    return true;
+                    if (MessageBox.Show("是否更新最新版本！", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, local.Update));
+                        return true;
+                    }
+
                 }
                 return false;
             }

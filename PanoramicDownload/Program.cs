@@ -15,7 +15,6 @@ namespace PanoramicDownload
         [STAThread]
         static void Main()
         {
-
             try
             {
                 if (AutoUpdate.CheckAndUpdate())
