@@ -18,7 +18,6 @@ namespace PanoramicDownload
         /// <param name="srcPath"></param>
         public static void DelectDir(string srcPath)
         {
-  
             try
             {
                 DirectoryInfo dir = new DirectoryInfo(srcPath);

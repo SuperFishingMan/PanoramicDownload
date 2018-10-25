@@ -45,19 +45,19 @@ namespace PanoramicDownload
         /// <summary>
         /// 720云
         /// </summary>
-        private string InputUrlYun;
+        private string InputUrlYun = "";
         /// <summary>
         /// 酷家乐
         /// </summary>
-        private string InputUrlKJZ;
+        private string InputUrlKJZ = "";
         /// <summary>
         /// 网展
         /// </summary>
-        private string InputUrlWZ;
+        private string InputUrlWZ = "";
         /// <summary>
         /// E建网
         /// </summary>
-        private string InputUrlYJ;
+        private string InputUrlYJ = "";
 
         /// <summary>
         /// 键入的链接
@@ -178,7 +178,6 @@ namespace PanoramicDownload
 
 
             //获得url中的关键字符     b/l1/01/l1_b_01_01.jpg
-
             InputUrlYun = regExManager.MatchYun(InputUrl); //后几位
             if (InputUrlYun.Equals(""))
             {
@@ -186,11 +185,11 @@ namespace PanoramicDownload
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals(""))
             {
-                InputUrlWZ = regExManager.MatchWZ(InputUrl);
-            }
-            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals(""))
-            {
                 InputUrlYJ = regExManager.MatchYJ(InputUrl);
+            }
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlYJ.Equals(""))
+            {
+                InputUrlWZ = regExManager.MatchWZ(InputUrl);
             }
 
             //判断url是否为可下载的全景图片
@@ -558,7 +557,8 @@ namespace PanoramicDownload
                         sw5.Close();
                         sw5.Dispose();
                     });
-
+                    tr.Start();
+                    tr.Join();
                     if (CheckLineCount(maxIndexWZ))
                     {
                         Mesbox("请重新点击下载按钮");
@@ -702,6 +702,7 @@ namespace PanoramicDownload
 
         public event DelReadStdOutput ReadStdOutput;
         public event DelReadErrOutput ReadErrOutput;
+
         /// <summary>
         /// 重定向
         /// </summary>
@@ -776,16 +777,13 @@ namespace PanoramicDownload
             listView1.ProgressColumnIndex = 1;
             ProgressBar dd = new ProgressBar();
             listProg.Add(dd);
-            //this.listView1.BeginUpdate();
+
             lvi.Text = tpye + ".jpg";
             int idd = 0;
-            // lvi.SubItems.Add("");
-            // lvi.SubItems.Add("");
             this.listView1.Items.Add(lvi);
             lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
 
             dd.Maximum = 100;
-            //this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
             int contwidth = 0;
 
             for (int x = 1; x <= index; x++)
@@ -965,19 +963,15 @@ namespace PanoramicDownload
             ImagePath.Add(tpye, ConstPath.exePath + "\\下载文件\\" + tpye + ".JPG");
         }
 
-        public void GetimgYJ(string filepath, string imgName, string tpye, int index, StreamWriter sw5)
+        public void GetimgYJ(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
         {
             ListViewItem lvi = new ListViewItem();
-            ProgressBar dd = new ProgressBar();
-            //listProg.Add(dd);
-            this.listView1.BeginUpdate();
+            listView1.ProgressColumnIndex = 1;
+
             lvi.Text = tpye + ".jpg";
             int idd = 0;
-            lvi.SubItems.Add("");
-            lvi.SubItems.Add("");
             this.listView1.Items.Add(lvi);
-            dd.Maximum = 100;
-            this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
+            lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
             int contwidth = 0;
 
             for (int x = 1; x <= index; x++)
@@ -1045,24 +1039,31 @@ namespace PanoramicDownload
 
                     this.listView1.BeginUpdate();
                     //lvi.SubItems[2].Text = idd.ToString();
-                    dd.Parent = listView1;
-                    dd.SetBounds(lvi.SubItems[1].Bounds.X, lvi.SubItems[1].Bounds.Y, lvi.SubItems[1].Bounds.Width, lvi.SubItems[1].Bounds.Height);
+                    //dd.Parent = listView1;
+                    //dd.SetBounds(lvi.SubItems[1].Bounds.X, lvi.SubItems[1].Bounds.Y, lvi.SubItems[1].Bounds.Width, lvi.SubItems[1].Bounds.Height);
 
 
                     Thread.Sleep(5);
                     float max = ImageRowCount * ImageRowCount;
                     float flomax = max / 100;
-                    dd.Value = (int)(idd / flomax);
-
-                    this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
+                    //dd.Value = (int)(idd / flomax);
+                    var th = new Thread(delegate ()
+                    {
+                        listView1.SetProgress(progindex, (int)(idd / flomax));
+                        Thread.Sleep(100);
+                    });
+                    th.IsBackground = true;
+                    th.Start();
+                   // this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                     Application.DoEvents();
 
                     lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
-                    if (dd.Value == 99 || dd.Value == 100)
-                    {
-                        dd.Value = 100;
-                        lvi.SubItems[2].Text = "完成😀";
-                    }
+                   // if (dd.Value == 99 || dd.Value == 100)
+                   // {
+                        //dd.Value = 100;
+                       // lvi.SubItems[2].Text = "完成😀";
+                   // }
+
                 }
                 Image image2 = null;
                 if (newKeystrList[2].Length.Equals(2))
@@ -1131,6 +1132,46 @@ namespace PanoramicDownload
             switch (downLoadType)
             {
                 case DownLoadType.lxlxxlxlx_x_x:
+                    try
+                    {
+                        string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
+                        string pathWZ = ConstPath.exePath + "/下载文件/";
+                        if (strings.Length != 0)
+                        {
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "d", ImageRowCount, null,0);//2304//4608//3072
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "f", ImageRowCount, null,1);//2304//4608//3072
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "b", ImageRowCount, null,2);//2304//4608//3072
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "u", ImageRowCount, null,3);//2304//4608//3072
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "l", ImageRowCount, null,4);//2304//4608//3072
+                            GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "r", ImageRowCount, null,5);//2304//4608//3072
+                        }
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
+                        using (var p = new Process())
+                        {
+                            ListViewItem lvi1 = new ListViewItem();
+                            listView1.Items.Add(lvi1);
+                            lvi1.SubItems.AddRange(new string[] { "0", "0", "0" });
+                            lvi1.Text = "全景大图.jpeg";
+                            RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, null);
+                            Thread.Sleep(500);
+                            Thread.Sleep(500);
+                            if (textBox1.Text.Equals("%"))
+                            {
+                                listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                            }
+                            listView1.SetProgress(6, 100);
+                            lvi1.SubItems[2].Text = "完成😀";
+                            Thread.Sleep(500);
+                            //this.listView1.EndUpdate();
+                            p.Close();
+                        }
+                        ImagePath.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        SoftBasic.ShowExceptionMessage(ex);
+                    }
+
 
                     break;
                 case DownLoadType.lx_x_xx_xx:
@@ -1199,30 +1240,24 @@ namespace PanoramicDownload
                         getimg(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
                         getimg(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
                     }
-                    //Thread.Sleep(500);
                     var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
                     using (var p = new Process())
                     {
                         ListViewItem lvi1 = new ListViewItem();
-                        ProgressBar dd = new ProgressBar();
-                        //listProg.Add(dd);
-                        this.listView1.BeginUpdate();
                         listView1.Items.Add(lvi1);
-                        lvi1.SubItems.Add("");
-                        lvi1.SubItems.Add("");
+                        lvi1.SubItems.AddRange(new string[] { "0", "0", "0" });
                         lvi1.Text = "全景大图.jpeg";
-                        dd.Parent = listView1;
-                        dd.SetBounds(lvi1.SubItems[1].Bounds.X, lvi1.SubItems[1].Bounds.Y, lvi1.SubItems[1].Bounds.Width, lvi1.SubItems[1].Bounds.Height);
-                        dd.Value = 20;
-                        Thread.Sleep(500);
-                        dd.Value = 60;
-                        Thread.Sleep(500);
 
-                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandYJ, null);
-                        dd.Value = 100;
-                        lvi1.SubItems[2].Text = "完成😀";
                         Thread.Sleep(500);
-                        this.listView1.EndUpdate();
+                        Thread.Sleep(500);
+                        if (textBox1.Text.Equals("%"))
+                        {
+                            listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                        }
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandYJ, null);
+                        //dd.Value = 100;
+                        listView1.SetProgress(6, 100);
+                        lvi1.SubItems[2].Text = "完成😀";
                         p.Close();
                     }
                     ImagePath.Clear();
