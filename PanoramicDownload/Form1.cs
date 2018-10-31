@@ -174,9 +174,6 @@ namespace PanoramicDownload
                 UrlStateBox.Image = Properties.Resources.失败_表情;
                 return;
             }
-
-
-
             //获得url中的关键字符     b/l1/01/l1_b_01_01.jpg
             InputUrlYun = regExManager.MatchYun(InputUrl); //后几位
             if (InputUrlYun.Equals(""))
@@ -775,15 +772,13 @@ namespace PanoramicDownload
         {
             ListViewItem lvi = new ListViewItem();
             listView1.ProgressColumnIndex = 1;
-            ProgressBar dd = new ProgressBar();
-            listProg.Add(dd);
 
             lvi.Text = tpye + ".jpg";
             int idd = 0;
             this.listView1.Items.Add(lvi);
             lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
 
-            dd.Maximum = 100;
+            //dd.Maximum = 100;
             int contwidth = 0;
 
             for (int x = 1; x <= index; x++)
@@ -841,7 +836,6 @@ namespace PanoramicDownload
                 int width = 0;
                 for (int d = 1; d <= index; d++)
                 {
-                    Application.DoEvents();
                     Image image1 = null;
                     if (newKeystrList[2].Length.Equals(2))
                     {
@@ -907,34 +901,22 @@ namespace PanoramicDownload
                     image1.Dispose();
                     idd++;
 
-                    // this.listView1.BeginUpdate();
-
-                    //lvi.SubItems[2].Text = idd.ToString();
-                    //dd.Parent = listView1;
-                    //dd.SetBounds(lvi.SubItems[1].Bounds.X, lvi.SubItems[1].Bounds.Y, lvi.SubItems[1].Bounds.Width, lvi.SubItems[1].Bounds.Height);
-
 
                     Thread.Sleep(5);
                     float max = ImageRowCount * ImageRowCount;
                     float flomax = max / 100;
-                    dd.Value = (int)(idd / flomax);
+
                     var th = new Thread(delegate ()
                     {
                         listView1.SetProgress(progindex, (int)(idd / flomax));
-                        Thread.Sleep(100);
+                        Thread.Sleep(10);
                     });
                     th.IsBackground = true;
                     th.Start();
 
-                    // this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                     Application.DoEvents();
 
                     lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
-                    if (dd.Value == 99 || dd.Value == 100)
-                    {
-                        dd.Value = 100;
-                        lvi.SubItems[2].Text = "完成😀";
-                    }
                 }
                 Image image2 = null;
                 if (newKeystrList[2].Length.Equals(2))
@@ -954,6 +936,7 @@ namespace PanoramicDownload
                 }
                 high += image2.Height;
                 image2.Dispose();
+        
             }
 
             g.Flush();

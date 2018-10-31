@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localconf>
   <!--版本号，无格式要求，更新时需要修改-->
-  <version>1.2</version>
+  <version>1.5.6</version>
   <manifest>http://47.98.156.83/Web/update/mainfests.xml</manifest>
   <update>AutoUpdate.exe</update>
 </localconf>

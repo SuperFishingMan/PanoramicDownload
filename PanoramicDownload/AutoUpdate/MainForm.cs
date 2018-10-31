@@ -41,6 +41,13 @@ namespace AutoUpdate
             string doc = GetManifest(uri);
             XmlSerializer xser = new XmlSerializer(typeof(Manifest));
             manifest = xser.Deserialize(new XmlTextReader(doc, XmlNodeType.Document, null)) as Manifest;
+            if (manifest.Version == localConf.Version)
+            {
+                if (MessageBox.Show("已经是最新版本了", "提示", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    Environment.Exit(0);
+                }
+            }
             lbRemark.Text = manifest.Description;
             lbVersion.Text = manifest.Version;
             SetProcessBar(20);
@@ -111,7 +118,7 @@ namespace AutoUpdate
                 String destName = Path.Combine(destinationPath, fsi.Name);
 
                 if (fsi is System.IO.FileInfo)          //如果是文件，复制文件
-                    File.Copy(fsi.FullName, destName,true);
+                    File.Copy(fsi.FullName, destName, true);
                 else                                    //如果是文件夹，新建文件夹，递归
                 {
                     Directory.CreateDirectory(destName);
@@ -147,7 +154,7 @@ namespace AutoUpdate
             }
         }
 
-        public void UnZip(string file,string dir)
+        public void UnZip(string file, string dir)
         {
             using (ZipFile zip = new ZipFile(file, System.Text.Encoding.Default))
             {
@@ -178,7 +185,7 @@ namespace AutoUpdate
 
         }
 
-        public void DownZip(string ser,string cli)
+        public void DownZip(string ser, string cli)
         {
             WebClient webClient = new WebClient();
             Uri uri = new Uri(ser);
