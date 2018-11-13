@@ -44,7 +44,7 @@ namespace PanoramicDownload.Core
         /// <param name="tpye"></param>
         /// <param name="imageIndex"></param>
         /// <param name="SWFile"></param>
-        public virtual void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile)
+        public virtual void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile, int progindex)
         {
 
         }

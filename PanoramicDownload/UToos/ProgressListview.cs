@@ -112,6 +112,10 @@ namespace System.Windows.Forms
                 float value = 0;
                 if(float.TryParse(item.Text, out value))
                 {
+                    if (value >= 97)
+                    {
+                        value = 100;
+                    }
                     var fValue = value;
                     var percent = fValue * unit * 100;
                     if (percent >= progressMaxWidth) percent = progressMaxWidth;
@@ -119,6 +123,7 @@ namespace System.Windows.Forms
 
                     //绘制进度百分比
                     percent = fValue;
+
                     var percentText = string.Format("{0}%...", percent);
                     if (fValue >= _progressMaximun) percentText = "已完成";
                     var size = TextRenderer.MeasureText(percentText.ToString(), new Font("楷体", 10, FontStyle.Regular));
@@ -139,6 +144,10 @@ namespace System.Windows.Forms
         {
             var columnWidth = this.Columns[ProgressColumnIndex].Width;
             var progressSubItem = this.Items[itemIndex].SubItems[ProgressColumnIndex];
+            if(value >= 99)
+            {
+                value = 100;
+            }
             progressSubItem.Text = value.ToString();
         }
     }

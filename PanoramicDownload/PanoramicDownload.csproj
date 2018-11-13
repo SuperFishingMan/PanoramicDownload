@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\HttpClient.cs" />
     <Compile Include="Core\PlatformJE.cs" />
     <Compile Include="Core\PlatformBase.cs" />
     <Compile Include="Core\PlatfommKJL.cs" />

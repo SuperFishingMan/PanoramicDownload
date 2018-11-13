@@ -22,9 +22,9 @@ namespace PanoramicDownload.Core
             }
         }
 
-        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile)
+        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile, int progindex)
         {
-            base.MatchingImage(imagePath, imageQuality, tpye, imageIndex, SWFile);
+            
         }
     }
 }

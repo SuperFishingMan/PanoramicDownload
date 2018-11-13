@@ -15,7 +15,7 @@ namespace PanoramicDownload.Core
             SWFile.WriteLine(newUrl + "_" + type);
         }
 
-        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile)
+        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile, int progindex)
         {
            
         }
