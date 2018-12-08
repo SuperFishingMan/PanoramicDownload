@@ -14,7 +14,8 @@ using HslCommunication.BasicFramework;
 using System.Text;
 using Microsoft.Win32;
 using PanoramicDownload.UToos;
-
+using System.Data.SqlClient;
+using System.Data;
 
 namespace PanoramicDownload
 {
@@ -99,6 +100,7 @@ namespace PanoramicDownload
         {
 
             LocalConf conf = new LocalConf();
+            label1.Text = ConstPath.exePath + "\\下载文件";
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
@@ -218,26 +220,7 @@ namespace PanoramicDownload
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            if (appisReg)
-            {
-                Mesbox("请激活软件");
-                return;
-            }
-            if (Directory.Exists(ConstPath.exePath + "/下载文件"))
-            {
-                FileManager.DelectDir(ConstPath.exePath + "/下载文件");
-                if (listView1.Items.Count != 0)
-                {
-                    listView1.Items.Clear();
-                }
-            }
-            if (string.IsNullOrEmpty(InputUrl))
-            {
-                UrlStateBox.Image = Properties.Resources.失败_表情;
-                Mesbox("请输入链接");
-                return;
-            }
-            StartDownLoadImage();
+          
 
         }
 
@@ -336,7 +319,7 @@ namespace PanoramicDownload
                     //        Mesbox("配置文件加载失败，点击下载按钮");
                     //        // return;
                     //    }
-                    //    Mesbox("配置文件已生成=====请等待下载");
+                    //    Mesbox("配置文件已生成=====正在下载请等待");
                     //    var command = "-s 1 -x 1 -j 500  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
 
 
@@ -428,8 +411,8 @@ namespace PanoramicDownload
                             Mesbox("配置文件加载失败，点击下载按钮");
                             // return;
                         }
-                        Mesbox("配置文件已生成=====请等待下载");
-                        var command = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
+                        Mesbox("配置文件已生成=====正在下载请等待");
+                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
 
 
                         Thread dd = new Thread(() =>
@@ -497,7 +480,7 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command1 = " -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.exePath + "/下载文件/";
+                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.exePath + "/下载文件/";
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
@@ -505,9 +488,7 @@ namespace PanoramicDownload
                     }
                     //MessageBox.Show(maxIndex.ToString());
                     ImageRowCount = maxIndex;
-                    Mesbox("配置文件已生成=====请等待下载");
-
-
+                    Mesbox("配置文件已生成=====正在下载请等待");
 
                     break;
                 case DownLoadType.ssssxssss:
@@ -645,7 +626,7 @@ namespace PanoramicDownload
                         p.Close();
                     }
 
-                    Mesbox("配置文件已生成=====请等待下载");
+                    Mesbox("配置文件已生成=====正在下载请等待");
                     return;
                 case DownLoadType.lxlxx_x_x_x:
                     PlatformJE platformJE = new PlatformJE();
@@ -728,7 +709,7 @@ namespace PanoramicDownload
                         return;
                     }
 
-                    Mesbox("配置文件已生成=====请等待下载");
+                    Mesbox("配置文件已生成=====正在下载请等待");
                     var commandYJ = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
                     using (var p = new Process())
                     {
@@ -756,7 +737,7 @@ namespace PanoramicDownload
             fs.Dispose();
             sr.Close();
             sr.Dispose();
-            Mesbox(lines.ToString());
+            Mesbox("共"+lines.ToString()+"张");
             if (lines != (maxindex * maxindex * 6))
             {
                 Mesbox("参数丢失——————请重新下载");
@@ -1184,6 +1165,199 @@ namespace PanoramicDownload
         }
         private void MacthImage_Click(object sender, EventArgs e)
         {
+         
+        }
+
+
+        /// <summary>
+        /// 打开图片存储文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenImageFile_Click(object sender, EventArgs e)
+        {
+         
+
+        }
+
+        private void userButton1_Click(object sender, EventArgs e)
+        {         
+             appManager.AppActivate(softAuthorize);
+        }
+
+        #region 一般级
+        /// <summary>
+        /// 提示框封装
+        /// </summary>
+        /// <param name="content"></param>
+        public void Mesbox(string content)
+        {
+            MessageBox.Show(content, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+        }
+        public void Mesbox(string content, string Title)
+        {
+            MessageBox.Show(content, Title, MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+        }
+        /// <summary>
+        /// 发送邮件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start(ConstPath.mailUrl);
+            }
+            catch (Exception ex)
+            {
+                SoftBasic.ShowExceptionMessage(ex);
+            }
+
+        }
+
+        /// <summary>
+        /// 联系qq
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start("chrome.exe", ConstPath.qqUrl);
+            }
+            catch (Exception ex)
+            {
+                SoftBasic.ShowExceptionMessage(ex);
+            }
+
+        }
+
+        /// <summary>
+        /// 图标点击 互动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void IconInteraction_OnCilck(object sender, EventArgs e)
+        {
+            if (toolTip1.GetToolTip(pictureBox1).Equals("你瞅啥？？"))
+            {
+                this.toolTip1.SetToolTip(pictureBox1, "瞅你咋的！！");
+            }
+            else
+            {
+                this.toolTip1.SetToolTip(pictureBox1, "你瞅啥？？");
+            }
+        }
+        #endregion
+
+        #region  网络类
+        /// <summary>
+        /// 判断链接 200
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public  string GetWebStatusCode(string url, int timeout)
+        {
+            HttpWebRequest req = null;
+            //处理HttpWebRequest访问https有安全证书的问题（ 请求被中止: 未能创建 SSL/TLS 安全通道。）
+            ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+            try
+            {
+                req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
+                //req.CookieContainer = new CookieContainer();
+                //req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
+                req.Referer = "https://720yun.com";
+                //rq.Accept = "*/*";
+                req.Method = "GET";  //这是关键        
+                req.Timeout = timeout;
+
+                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                if (res.ContentType.Equals("image/jpeg"))
+                {
+                    return Convert.ToInt32(res.StatusCode).ToString();
+                }
+                return "0";
+            }
+            catch (Exception ex)
+            {
+        
+                return ex.Message;
+            }
+            finally
+            {
+                if (req != null)
+                {
+                    req.Abort();
+                    req = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 如果是图片 并且返回的是200
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public bool isPing(string url)
+        {
+            if (GetWebStatusCode(url, 10000).Equals("200"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        public void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("你确定要退出？", "系统提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                e.Cancel = false;
+            else
+                e.Cancel = true;
+        }
+
+        private void userButton2_Click(object sender, EventArgs e)
+        {
+            if (appisReg)
+            {
+                textBox1.Focus();   
+                Mesbox("请激活软件");
+                return;
+            }
+            if (Directory.Exists(ConstPath.exePath + "/下载文件"))
+            {
+                FileManager.DelectDir(ConstPath.exePath + "/下载文件");
+                if (listView1.Items.Count != 0)
+                {
+                    listView1.Items.Clear();
+                }
+            }
+            if (string.IsNullOrEmpty(InputUrl))
+            {
+               
+                UrlStateBox.Image = Properties.Resources.失败_表情;
+                Mesbox("请输入链接");
+                InputUrlTextBox.Focus();
+                return;
+            }
+            StartDownLoadImage();
+        }
+
+        private void userButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userButton3_Click_1(object sender, EventArgs e)
+        {
             if (appisReg)
             {
                 Mesbox("请激活软件");
@@ -1212,12 +1386,6 @@ namespace PanoramicDownload
                             platformWz.MatchingImage(pathWZ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
                             platformWz.MatchingImage(pathWZ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
 
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "d", ImageRowCount, null,0);//2304//4608//3072
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "f", ImageRowCount, null,1);//2304//4608//3072
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "b", ImageRowCount, null,2);//2304//4608//3072
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "u", ImageRowCount, null,3);//2304//4608//3072
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "l", ImageRowCount, null,4);//2304//4608//3072
-                            //GetimgYJ(pathWZ, ImageQualityIndex.ToString(), "r", ImageRowCount, null,5);//2304//4608//3072
                         }
                         var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
                         using (var p = new Process())
@@ -1261,19 +1429,13 @@ namespace PanoramicDownload
                             platformYun.ImageRowCount = ImageRowCount;
                             platformYun.ImagePath = ImagePath;
                             platformYun.urlKeysList = newKeystrList;
-                            platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null,0);
+                            platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
 
-                            // getimg(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);//2304//4608//3072
-                            // getimg(path, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);//2304//4608//3072
-                            // getimg(path, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);//2304//4608//3072
-                            //  getimg(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);//2304//4608//3072
-                            //getimg(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
-                            //getimg(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
                         }
                         //Thread.Sleep(500);
                         var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
@@ -1354,13 +1516,12 @@ namespace PanoramicDownload
             }
         }
 
+        private void InputUrlTextBox_TextChanged_1(object sender, EventArgs e)
+        {
 
-        /// <summary>
-        /// 打开图片存储文件夹
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenImageFile_Click(object sender, EventArgs e)
+        }
+
+        private void userButton5_Click(object sender, EventArgs e)
         {
             if (appisReg)
             {
@@ -1376,134 +1537,6 @@ namespace PanoramicDownload
             {
                 SoftBasic.ShowExceptionMessage(ex);
             }
-
         }
-
-        private void userButton1_Click(object sender, EventArgs e)
-        {
-            appManager.AppActivate(softAuthorize);
-        }
-
-        #region 一般级
-        /// <summary>
-        /// 提示框封装
-        /// </summary>
-        /// <param name="content"></param>
-        public void Mesbox(string content)
-        {
-            MessageBox.Show(content, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-        }
-        public void Mesbox(string content, string Title)
-        {
-            MessageBox.Show(content, Title, MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
-        }
-        /// <summary>
-        /// 发送邮件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start(ConstPath.mailUrl);
-            }
-            catch (Exception ex)
-            {
-                SoftBasic.ShowExceptionMessage(ex);
-            }
-
-        }
-
-        /// <summary>
-        /// 联系qq
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start("chrome.exe", ConstPath.qqUrl);
-            }
-            catch (Exception ex)
-            {
-                SoftBasic.ShowExceptionMessage(ex);
-            }
-
-        }
-
-        /// <summary>
-        /// 图标点击 互动
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void IconInteraction_OnCilck(object sender, EventArgs e)
-        {
-            if (toolTip1.GetToolTip(pictureBox1).Equals("你瞅啥？？"))
-            {
-                this.toolTip1.SetToolTip(pictureBox1, "瞅你咋的！！");
-            }
-            else
-            {
-                this.toolTip1.SetToolTip(pictureBox1, "你瞅啥？？");
-            }
-        }
-        #endregion
-
-        #region  网络类
-        /// <summary>
-        /// 判断链接 200
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
-        public static string GetWebStatusCode(string url, int timeout)
-        {
-            HttpWebRequest req = null;
-            try
-            {
-                req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
-                req.Method = "HEAD";  //这是关键        
-                req.Timeout = timeout;
-
-                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                if (res.ContentType.Equals("image/jpeg"))
-                {
-                    return Convert.ToInt32(res.StatusCode).ToString();
-                }
-                return "0";
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-            finally
-            {
-                if (req != null)
-                {
-                    req.Abort();
-                    req = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 如果是图片 并且返回的是200
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public bool isPing(string url)
-        {
-            if (GetWebStatusCode(url, 10000).Equals("200"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        #endregion
     }
 }

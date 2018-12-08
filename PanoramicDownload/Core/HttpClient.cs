@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -35,7 +37,10 @@ namespace PanoramicDownload.Core
             }
             return result;
         }
-
+        public static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            return true;
+        }
 
         /// <summary>
         /// 指定Post地址使用Get 方式获取全部字符串
@@ -45,6 +50,8 @@ namespace PanoramicDownload.Core
         public  string Post(string url, Dictionary<string, string> dic)
         {
             string result = "";
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+          //  ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Method = "POST";
             req.ContentType = "application/x-www-form-urlencoded";

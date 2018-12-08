@@ -67,13 +67,13 @@ namespace PanoramicDownload.UToos
                         pairs.Add("machine_code", softAuthorize.GetMachineCodeString());
                         pairs.Add("reg_code", AuthorizeEncrypted(softAuthorize.GetMachineCodeString()));
                         GetRegCode();
-                        MessageBox.Show("授权成功!  ", "提示");
+                        MessageBox.Show("授权成功! 到期时间： "+ GetRegCode().Trim().Split('|')[1].ToString().Trim(), "提示");
                     }
                 }
             }
             else
             {
-                MessageBox.Show("授权成功!  ", "提示");
+                MessageBox.Show("授权成功! 到期时间： " + GetRegCode().Trim().Split('|')[1].ToString().Trim(), "提示");
             }
 
             //// 检测激活码是否正确，没有文件，或激活码错误都算作激活失败
