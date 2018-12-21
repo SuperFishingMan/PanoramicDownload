@@ -22,9 +22,10 @@ namespace AutoUpdateHelper
                 string doc = GetManifest(uri);
                 XmlSerializer xser = new XmlSerializer(typeof(Manifest));
                 var manifest = xser.Deserialize(new XmlTextReader(doc, XmlNodeType.Document, null)) as Manifest;
-                if (manifest.Version != local.Version)
+                var updateVersion = manifest.Version.Replace(".", "");
+                if (GetVersionCount(manifest.Version) > GetVersionCount(local.Version))
                 {
-                    if (MessageBox.Show("是否更新最新版本！", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    if (MessageBox.Show("是否更新最新版本！v" + manifest.Version, "更新提示 现版本 v" + local.Version, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
                         Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, local.Update));
                         return true;
@@ -33,8 +34,9 @@ namespace AutoUpdateHelper
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                MessageBox.Show("错误：" + e.Data, "错误提示");
                 return false;
             }
         }
@@ -45,8 +47,11 @@ namespace AutoUpdateHelper
             return local.Version;
         }
 
-       
-
+        public static int GetVersionCount(string version)
+        {
+            int Version = int.Parse(version.Replace(".", ""));
+            return Version;
+        }
         private static string GetManifest(Uri uri)
         {
             WebRequest request = WebRequest.Create(uri);

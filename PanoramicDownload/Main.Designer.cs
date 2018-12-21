@@ -1,6 +1,6 @@
 ﻿namespace PanoramicDownload
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -37,22 +37,23 @@
             this.UrlStateBox = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.userButton1 = new HslCommunication.Controls.UserButton();
+            this.userButton6 = new HslCommunication.Controls.UserButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.userButton5 = new HslCommunication.Controls.UserButton();
             this.userButton4 = new HslCommunication.Controls.UserButton();
             this.userButton3 = new HslCommunication.Controls.UserButton();
             this.userButton2 = new HslCommunication.Controls.UserButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ProgressListview(this.components);
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.InputUrlTextBox = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ProgressListview(this.components);
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -117,7 +118,7 @@
             // UrlStateBox
             // 
             this.UrlStateBox.Image = global::PanoramicDownload.Properties.Resources.yes;
-            this.UrlStateBox.Location = new System.Drawing.Point(487, 6);
+            this.UrlStateBox.Location = new System.Drawing.Point(500, 9);
             this.UrlStateBox.Name = "UrlStateBox";
             this.UrlStateBox.Size = new System.Drawing.Size(48, 51);
             this.UrlStateBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -146,7 +147,7 @@
             this.userButton1.CustomerInformation = "";
             this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.userButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.userButton1.Location = new System.Drawing.Point(510, 44);
+            this.userButton1.Location = new System.Drawing.Point(533, 45);
             this.userButton1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.userButton1.Name = "userButton1";
             this.userButton1.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
@@ -156,10 +157,29 @@
             this.userButton1.UIText = "激活软件";
             this.userButton1.Click += new System.EventHandler(this.userButton1_Click);
             // 
+            // userButton6
+            // 
+            this.userButton6.BackColor = System.Drawing.Color.Transparent;
+            this.userButton6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.userButton6.CustomerInformation = "";
+            this.userButton6.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.userButton6.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.userButton6.Location = new System.Drawing.Point(455, 45);
+            this.userButton6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.userButton6.Name = "userButton6";
+            this.userButton6.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
+            this.userButton6.Size = new System.Drawing.Size(74, 38);
+            this.userButton6.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.userButton6, "激活软件联系 qq:1228267639");
+            this.userButton6.UIText = "付款码";
+            this.userButton6.Click += new System.EventHandler(this.userButton6_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.userButton6);
             this.panel1.Controls.Add(this.userButton5);
             this.panel1.Controls.Add(this.userButton4);
             this.panel1.Controls.Add(this.userButton3);
@@ -176,6 +196,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(621, 615);
             this.panel1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Font = new System.Drawing.Font("楷体", 8F);
+            this.label1.Location = new System.Drawing.Point(21, 413);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 11);
+            this.label1.TabIndex = 8;
+            this.label1.Text = ".........";
             // 
             // userButton5
             // 
@@ -246,42 +278,9 @@
             this.textBox1.Size = new System.Drawing.Size(570, 70);
             this.textBox1.TabIndex = 15;
             // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.listView1.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView1.Location = new System.Drawing.Point(22, 189);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
-            this.listView1.Name = "listView1";
-            this.listView1.OwnerDraw = true;
-            this.listView1.ProgressColumnIndex = -1;
-            this.listView1.Size = new System.Drawing.Size(570, 223);
-            this.listView1.TabIndex = 12;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "图片名称";
-            this.columnHeader1.Width = 100;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "合成进度";
-            this.columnHeader2.Width = 150;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "合成完成";
-            this.columnHeader3.Width = 200;
-            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Controls.Add(this.UrlStateBox);
             this.panel3.Controls.Add(this.label2);
@@ -291,17 +290,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(570, 70);
             this.panel3.TabIndex = 11;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Font = new System.Drawing.Font("楷体", 8F);
-            this.label1.Location = new System.Drawing.Point(3, 49);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 11);
-            this.label1.TabIndex = 8;
             // 
             // label2
             // 
@@ -339,7 +327,39 @@
             this.label3.TabIndex = 17;
             this.label3.Text = "目前支持平台：720云 建e网 汽车之家 酷家乐 详情咨询 QQ1228267639";
             // 
-            // Form1
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.listView1.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView1.Location = new System.Drawing.Point(22, 189);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
+            this.listView1.Name = "listView1";
+            this.listView1.OwnerDraw = true;
+            this.listView1.ProgressColumnIndex = -1;
+            this.listView1.Size = new System.Drawing.Size(570, 223);
+            this.listView1.TabIndex = 12;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "图片名称";
+            this.columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "合成进度";
+            this.columnHeader2.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "合成完成";
+            this.columnHeader3.Width = 200;
+            // 
+            // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -350,7 +370,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "全景图下载器";
             this.toolTip1.SetToolTip(this, "你知道的太多了");
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
@@ -393,6 +413,7 @@
         private HslCommunication.Controls.UserButton userButton3;
         private HslCommunication.Controls.UserButton userButton4;
         private HslCommunication.Controls.UserButton userButton5;
+        private HslCommunication.Controls.UserButton userButton6;
     }
 }
 

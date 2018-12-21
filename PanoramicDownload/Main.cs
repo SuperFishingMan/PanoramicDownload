@@ -19,10 +19,10 @@ using System.Data;
 
 namespace PanoramicDownload
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         private SoftAuthorize softAuthorize = null;
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             SetStyle(ControlStyles.UserPaint, true);
@@ -100,7 +100,7 @@ namespace PanoramicDownload
         {
 
             LocalConf conf = new LocalConf();
-            label1.Text = ConstPath.saveFile;
+            label1.Text = "图片路径:"+ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
@@ -1546,7 +1546,14 @@ namespace PanoramicDownload
             FolderBrowserDialog path = new FolderBrowserDialog();
             path.ShowDialog();
             ConstPath.saveFile = path.SelectedPath+"\\";
-            label1.Text = path.SelectedPath;
+            label1.Text = "图片路径:"+path.SelectedPath;
         }
+
+        private void userButton6_Click(object sender, EventArgs e)
+        {
+            PayForm f2 = new PayForm();
+            f2.ShowDialog(this);//
+        }
+
     }
 }

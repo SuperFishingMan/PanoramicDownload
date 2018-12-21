@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\HttpClient.cs" />
+    <Compile Include="Net\HttpClient.cs" />
     <Compile Include="Core\PlatformJE.cs" />
     <Compile Include="Core\PlatformBase.cs" />
     <Compile Include="Core\PlatfommKJL.cs" />
@@ -86,11 +86,17 @@
     <Compile Include="Core\PlatformYun.cs" />
     <Compile Include="DirectionType.cs" />
     <Compile Include="FileManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PayForm.Designer.cs">
+      <DependentUpon>PayForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,8 +105,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UToos\RegExManager.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PayForm.resx">
+      <DependentUpon>PayForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -151,8 +160,6 @@
     <None Include="Resources\图片.png" />
     <Content Include="zzx.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Net\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
