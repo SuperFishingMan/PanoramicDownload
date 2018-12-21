@@ -38,6 +38,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.userButton1 = new HslCommunication.Controls.UserButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.userButton5 = new HslCommunication.Controls.UserButton();
             this.userButton4 = new HslCommunication.Controls.UserButton();
             this.userButton3 = new HslCommunication.Controls.UserButton();
             this.userButton2 = new HslCommunication.Controls.UserButton();
@@ -52,7 +53,6 @@
             this.InputUrlTextBox = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.userButton5 = new HslCommunication.Controls.UserButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,6 +66,7 @@
             this.toolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.toolTip1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.toolTip1.InitialDelay = 500;
+            this.toolTip1.OwnerDraw = true;
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.Tag = "";
             // 
@@ -158,9 +159,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel1.Controls.Add(this.userButton5);
             this.panel1.Controls.Add(this.userButton4);
             this.panel1.Controls.Add(this.userButton3);
@@ -178,6 +177,21 @@
             this.panel1.Size = new System.Drawing.Size(621, 615);
             this.panel1.TabIndex = 5;
             // 
+            // userButton5
+            // 
+            this.userButton5.BackColor = System.Drawing.Color.Transparent;
+            this.userButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.userButton5.CustomerInformation = "";
+            this.userButton5.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.userButton5.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.userButton5.Location = new System.Drawing.Point(468, 428);
+            this.userButton5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.userButton5.Name = "userButton5";
+            this.userButton5.Size = new System.Drawing.Size(124, 39);
+            this.userButton5.TabIndex = 19;
+            this.userButton5.UIText = "打开图片目录";
+            this.userButton5.Click += new System.EventHandler(this.userButton5_Click);
+            // 
             // userButton4
             // 
             this.userButton4.BackColor = System.Drawing.Color.Transparent;
@@ -191,6 +205,7 @@
             this.userButton4.Size = new System.Drawing.Size(124, 39);
             this.userButton4.TabIndex = 18;
             this.userButton4.UIText = "设置下载目录";
+            this.userButton4.Click += new System.EventHandler(this.userButton4_Click);
             // 
             // userButton3
             // 
@@ -320,24 +335,9 @@
             this.label3.Font = new System.Drawing.Font("楷体", 11F);
             this.label3.Location = new System.Drawing.Point(13, 626);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(479, 15);
+            this.label3.Size = new System.Drawing.Size(511, 15);
             this.label3.TabIndex = 17;
-            this.label3.Text = "目前支持平台：720云 建e网 汽车之家 酷家乐 咨询 QQ1228267639";
-            // 
-            // userButton5
-            // 
-            this.userButton5.BackColor = System.Drawing.Color.Transparent;
-            this.userButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton5.CustomerInformation = "";
-            this.userButton5.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton5.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton5.Location = new System.Drawing.Point(468, 428);
-            this.userButton5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.userButton5.Name = "userButton5";
-            this.userButton5.Size = new System.Drawing.Size(124, 39);
-            this.userButton5.TabIndex = 19;
-            this.userButton5.UIText = "打开图片目录";
-            this.userButton5.Click += new System.EventHandler(this.userButton5_Click);
+            this.label3.Text = "目前支持平台：720云 建e网 汽车之家 酷家乐 详情咨询 QQ1228267639";
             // 
             // Form1
             // 

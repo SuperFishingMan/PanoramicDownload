@@ -67,40 +67,14 @@ namespace PanoramicDownload.UToos
                         pairs.Add("machine_code", softAuthorize.GetMachineCodeString());
                         pairs.Add("reg_code", AuthorizeEncrypted(softAuthorize.GetMachineCodeString()));
                         GetRegCode();
-                        MessageBox.Show("授权成功! 到期时间： "+ GetRegCode().Trim().Split('|')[1].ToString().Trim(), "提示");
+                        MessageBox.Show("授权成功! ","提示");
                     }
                 }
             }
             else
             {
                 MessageBox.Show("授权成功! 到期时间： " + GetRegCode().Trim().Split('|')[1].ToString().Trim(), "提示");
-            }
-
-            //// 检测激活码是否正确，没有文件，或激活码错误都算作激活失败
-            //if (!softAuthorize.IsAuthorizeSuccess(AuthorizeEncrypted))
-            //{
-            //    // 显示注册窗口
-            //    using (HslCommunication.BasicFramework.FormAuthorize form =
-            //        new HslCommunication.BasicFramework.FormAuthorize(
-            //            softAuthorize,
-            //            "请联系QQ1228267639获取激活码",
-            //            AuthorizeEncrypted))
-            //    {
-            //        if (form.ShowDialog() != DialogResult.OK)
-            //        {
-            //            // 授权失败，退出
-            //            //Mesbox("授权失败!  ");
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("授权成功!  ", "提示");
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("授权成功!  ", "提示");
-            //}
+            }       
         }
 
 

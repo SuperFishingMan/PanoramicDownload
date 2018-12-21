@@ -226,9 +226,9 @@ namespace PanoramicDownload.Core
 
             g.Flush();
             g.Dispose();
-            bmp.Save(ConstPath.exePath + "/下载文件/" + tpye + ".JPG", ImageFormat.Jpeg);
+            bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
             bmp.Dispose();
-            ImagePath.Add(tpye, ConstPath.exePath + "\\下载文件\\" + tpye + ".JPG");
+            ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
         }
     }
 }

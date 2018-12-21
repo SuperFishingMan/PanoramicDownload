@@ -100,7 +100,7 @@ namespace PanoramicDownload
         {
 
             LocalConf conf = new LocalConf();
-            label1.Text = ConstPath.exePath + "\\下载文件";
+            label1.Text = ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
@@ -124,6 +124,7 @@ namespace PanoramicDownload
 
             FileInfo configFile1 = new FileInfo(ConstPath.exePath + "/Output.txt");
             sw51 = configFile1.CreateText();
+
         }
 
 
@@ -412,7 +413,7 @@ namespace PanoramicDownload
                             // return;
                         }
                         Mesbox("配置文件已生成=====正在下载请等待");
-                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
+                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
 
 
                         Thread dd = new Thread(() =>
@@ -480,7 +481,7 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.exePath + "/下载文件/";
+                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
@@ -516,21 +517,21 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command2 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.exePath + "/下载文件/";
+                    var command2 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command2, (s, e) => ShowInfo("", e.Data));
                         p.Close();
                     }
                     Thread.Sleep(8000);
-                    string[] sDirectories = Directory.GetFiles(ConstPath.exePath + "\\下载文件\\");
+                    string[] sDirectories = Directory.GetFiles(ConstPath.saveFile);
 
                     for (int i = 0; i < sDirectories.Length; i++)
                     {
                         string sDirectoryName = Path.GetFileName(sDirectories[i]);
                         string newstrDir = sDirectoryName.Remove(0, sDirectoryName.Length - 1);
                         string sNewDirectoryName = newstrDir + ".jpg";
-                        string sNewDirectory = Path.Combine(ConstPath.exePath + "\\下载文件\\", sNewDirectoryName);
+                        string sNewDirectory = Path.Combine(ConstPath.saveFile, sNewDirectoryName);
                         // Directory.Move(sDirectories[i], sNewDirectory);
                         File.Move(sDirectories[i], sNewDirectory);
                         strMatc.Add(sNewDirectory);
@@ -619,7 +620,7 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command12 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
+                    var command12 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command12, (s, e) => ShowInfo("", e.Data));
@@ -710,7 +711,7 @@ namespace PanoramicDownload
                     }
 
                     Mesbox("配置文件已生成=====正在下载请等待");
-                    var commandYJ = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.exePath + "/下载文件";
+                    var commandYJ = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", commandYJ, (s, e) => ShowInfo("", e.Data));
@@ -814,6 +815,7 @@ namespace PanoramicDownload
             byte[] buffer = Encoding.GetEncoding("GB2312").GetBytes(result);
             textBox1.Text = Encoding.UTF8.GetString(buffer) + "\r\n";
             sw51.WriteLine(textBox1.Text);
+
             //Mesbox(result + "\r\n");
         }
         private void ReadErrOutputAction(string result)
@@ -999,9 +1001,9 @@ namespace PanoramicDownload
 
             g.Flush();
             g.Dispose();
-            bmp.Save(ConstPath.exePath + "/下载文件/" + tpye + ".JPG", ImageFormat.Jpeg);
+            bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
             bmp.Dispose();
-            ImagePath.Add(tpye, ConstPath.exePath + "\\下载文件\\" + tpye + ".JPG");
+            ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
         }
 
         public void GetimgYJ(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
@@ -1128,9 +1130,9 @@ namespace PanoramicDownload
 
             g.Flush();
             g.Dispose();
-            bmp.Save(ConstPath.exePath + "/下载文件/" + tpye + ".JPG", ImageFormat.Jpeg);
+            bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
             bmp.Dispose();
-            ImagePath.Add(tpye, ConstPath.exePath + "\\下载文件\\" + tpye + ".JPG");
+            ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
         }
 
         delegate void d(string args);
@@ -1332,9 +1334,9 @@ namespace PanoramicDownload
                 Mesbox("请激活软件");
                 return;
             }
-            if (Directory.Exists(ConstPath.exePath + "/下载文件"))
+            if (Directory.Exists(ConstPath.saveFile))
             {
-                FileManager.DelectDir(ConstPath.exePath + "/下载文件");
+                FileManager.DelectDir(ConstPath.saveFile);
                 if (listView1.Items.Count != 0)
                 {
                     listView1.Items.Clear();
@@ -1369,7 +1371,7 @@ namespace PanoramicDownload
                     try
                     {
                         string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
-                        string pathWZ = ConstPath.exePath + "/下载文件/";
+                        string pathWZ = ConstPath.saveFile;
                         if (strings.Length != 0)
                         {
                             PlatformWZ platformWz = new PlatformWZ();
@@ -1387,7 +1389,7 @@ namespace PanoramicDownload
                             platformWz.MatchingImage(pathWZ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
 
                         }
-                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
                             ListViewItem lvi1 = new ListViewItem();
@@ -1421,7 +1423,7 @@ namespace PanoramicDownload
                     {
                         string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
 
-                        string path = ConstPath.exePath + "/下载文件/";
+                        string path = ConstPath.saveFile;
                         if (strings.Length != 0)
                         {
                             PlatformYun platformYun = new PlatformYun();
@@ -1438,7 +1440,7 @@ namespace PanoramicDownload
 
                         }
                         //Thread.Sleep(500);
-                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
                             ListViewItem lvi1 = new ListViewItem();
@@ -1468,7 +1470,7 @@ namespace PanoramicDownload
                     //Mesbox("合成完毕");
                     break;
                 case DownLoadType.ssssxssss:
-                    var command1 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o=下载文件/sphere.jpeg";
+                    var command1 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command1, null);
@@ -1478,7 +1480,7 @@ namespace PanoramicDownload
 
                 case DownLoadType.lxlxx_x_x_x:
                     string[] stringsYJ = File.ReadAllLines(ConstPath.exePath + "/config.txt");
-                    string pathYJ = ConstPath.exePath + "/下载文件/";
+                    string pathYJ = ConstPath.saveFile;
                     if (stringsYJ.Length != 0)
                     {
                         getimg(pathYJ, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);//2304//4608//3072
@@ -1488,7 +1490,7 @@ namespace PanoramicDownload
                         getimg(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
                         getimg(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
                     }
-                    var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=下载文件/sphere.jpeg";
+                    var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
                     {
                         ListViewItem lvi1 = new ListViewItem();
@@ -1528,7 +1530,7 @@ namespace PanoramicDownload
                 Mesbox("请激活软件");
                 return;
             }
-            string path = ConstPath.exePath + "\\下载文件";
+            string path = ConstPath.saveFile;
             try
             {
                 Process.Start("explorer.exe", path);
@@ -1537,6 +1539,14 @@ namespace PanoramicDownload
             {
                 SoftBasic.ShowExceptionMessage(ex);
             }
+        }
+
+        private void userButton4_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog path = new FolderBrowserDialog();
+            path.ShowDialog();
+            ConstPath.saveFile = path.SelectedPath+"\\";
+            label1.Text = path.SelectedPath;
         }
     }
 }

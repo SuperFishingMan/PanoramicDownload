@@ -78,6 +78,11 @@ namespace PanoramicDownload
         /// 邮箱
         /// </summary>
         public const string mailUrl = "mailto:yzj520mei@126.com,test2@sample.com";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string saveFile = exePath + "\\下载文件\\";
     }
 
 }

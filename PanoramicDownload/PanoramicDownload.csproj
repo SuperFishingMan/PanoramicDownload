@@ -151,5 +151,8 @@
     <None Include="Resources\图片.png" />
     <Content Include="zzx.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Net\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
