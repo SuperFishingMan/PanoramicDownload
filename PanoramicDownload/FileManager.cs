@@ -28,17 +28,18 @@ namespace PanoramicDownload
                     {
                         DirectoryInfo subdir = new DirectoryInfo(i.FullName);
                         subdir.Delete(true);          //删除子目录和文件
+                        
                     }
                     else
                     {
                         File.Delete(i.FullName);      //删除指定文件
+                        
                     }
                 }
             }
             catch (Exception ex)
             {
                 SoftBasic.ShowExceptionMessage(ex);
-                throw;
             }
         }
     }

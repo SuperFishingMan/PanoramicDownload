@@ -39,6 +39,7 @@
             this.userButton1 = new HslCommunication.Controls.UserButton();
             this.userButton6 = new HslCommunication.Controls.UserButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.userButton5 = new HslCommunication.Controls.UserButton();
             this.userButton4 = new HslCommunication.Controls.UserButton();
@@ -49,7 +50,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.InputUrlTextBox = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.listView1 = new System.Windows.Forms.ProgressListview(this.components);
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -67,7 +68,6 @@
             this.toolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.toolTip1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.toolTip1.InitialDelay = 500;
-            this.toolTip1.OwnerDraw = true;
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.Tag = "";
             // 
@@ -178,6 +178,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.userButton6);
             this.panel1.Controls.Add(this.userButton5);
@@ -191,11 +192,23 @@
             this.panel1.Controls.Add(this.linkLabel1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.userButton1);
-            this.panel1.Location = new System.Drawing.Point(9, 10);
+            this.panel1.Location = new System.Drawing.Point(2, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(621, 615);
+            this.panel1.Size = new System.Drawing.Size(640, 670);
             this.panel1.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label3.Font = new System.Drawing.Font("楷体", 11F);
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(0, 652);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(511, 15);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "目前支持平台：720云 建e网 汽车之家 酷家乐 详情咨询 QQ1228267639";
             // 
             // label1
             // 
@@ -246,7 +259,7 @@
             this.userButton3.CustomerInformation = "";
             this.userButton3.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.userButton3.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton3.Location = new System.Drawing.Point(98, 428);
+            this.userButton3.Location = new System.Drawing.Point(88, 428);
             this.userButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userButton3.Name = "userButton3";
             this.userButton3.Size = new System.Drawing.Size(60, 39);
@@ -281,6 +294,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.linkLabel3);
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Controls.Add(this.UrlStateBox);
             this.panel3.Controls.Add(this.label2);
@@ -317,15 +331,16 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 10;
             // 
-            // label3
+            // linkLabel3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("楷体", 11F);
-            this.label3.Location = new System.Drawing.Point(13, 626);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(511, 15);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "目前支持平台：720云 建e网 汽车之家 酷家乐 详情咨询 QQ1228267639";
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(139, 6);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(53, 12);
+            this.linkLabel3.TabIndex = 21;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "使用说明";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
             // listView1
             // 
@@ -364,12 +379,13 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(638, 643);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(643, 670);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "全景图下载器";
             this.toolTip1.SetToolTip(this, "你知道的太多了");
@@ -382,7 +398,6 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -414,6 +429,7 @@
         private HslCommunication.Controls.UserButton userButton4;
         private HslCommunication.Controls.UserButton userButton5;
         private HslCommunication.Controls.UserButton userButton6;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }
 

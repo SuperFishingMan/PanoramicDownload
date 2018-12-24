@@ -1,5 +1,4 @@
 ﻿using HslCommunication.BasicFramework;
-using Microsoft.Win32;
 using PanoramicDownload.Core;
 using System;
 using System.Collections.Generic;
@@ -18,34 +17,83 @@ namespace PanoramicDownload.UToos
             // 此处使用了组件支持的DES对称加密技术
             return SoftSecurity.MD5Encrypt(origin, "19951005");
         }
-        private Dictionary<string, string> pairs = new Dictionary<string, string>();
-        public string GetRegCode(string origin="")
+        public string AuthorizeEncrypted_12(string origin)
         {
+
+            // 此处使用了组件支持的DES对称加密技术
+            return SoftSecurity.MD5Encrypt(origin, "19951005");
+        }
+
+
+        private Dictionary<string, string> pairs = new Dictionary<string, string>();
+        public string GetRegCode(string origin = "")
+        {            
             HttpClient httpClient = new HttpClient();
             return httpClient.Post("http://47.98.156.83/panoramicAppLogin/reg_app.php", pairs);
         }
-
+        SoftAuthorize soft = new SoftAuthorize();
         public bool Check_RegCode()
         {
-            pairs.Clear();
-            SoftAuthorize soft = new SoftAuthorize();
-            string machinecode = soft.GetMachineCodeString();
-            pairs.Add("action", "show_regcode");
-            pairs.Add("machine_code", machinecode);
-            GetRegCode();
-            if (AuthorizeEncrypted(machinecode).Equals(GetRegCode().Trim().Split('|')[0].ToString().Trim()))
+            try
+            {
+                pairs.Clear();
+             
+                string machinecode = soft.GetMachineCodeString();
+                pairs.Add("action", "show_regcode");
+                pairs.Add("machine_code", machinecode);
+                GetRegCode();
+                if (AuthorizeEncrypted(machinecode).Equals(GetRegCode().Trim().Split('|')[0].ToString().Trim()))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("网络连接失败! ", "提示");
+                return true;
+            }
+
+        }
+        private static Dictionary<string, string> pairs1 = new Dictionary<string, string>();
+        /// <summary>
+        /// 检测测试用户是否注册。
+        /// </summary>
+        /// <returns></returns>
+        public bool IstempApp()
+        {
+            HttpClient http = new HttpClient();
+            pairs1.Clear();
+            pairs1.Add("action", "show_regcode");
+           // pairs1.Add("downloadcount", "0");
+            pairs1.Add("machine_code", soft.GetMachineCodeString());
+            if (http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim().Equals(""))
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            MessageBox.Show("测试使用到期："+http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim());
+            Main.appisReg = true;
+            return true;
         }
 
+        /// <summary>
+        /// 新增测试用户.
+        /// </summary>
+        public void insertSqlTempUser()
+        {
+            HttpClient http = new HttpClient();
+            pairs1.Clear();
+            pairs1.Add("action", "submit_regcode");
+            pairs1.Add("downloadcount", "0");
+            pairs1.Add("machine_code", soft.GetMachineCodeString());
+            MessageBox.Show("注册时间:"+http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim());
+        }
 
         public void AppActivate(SoftAuthorize softAuthorize)
-        {       
+        {
             if (Check_RegCode())
             {
                 // 显示注册窗口
@@ -55,6 +103,7 @@ namespace PanoramicDownload.UToos
                         "请联系QQ1228267639获取激活码",
                         AuthorizeEncrypted))
                 {
+                    
                     if (form.ShowDialog() != DialogResult.OK)
                     {
                         // 授权失败，退出
@@ -62,19 +111,32 @@ namespace PanoramicDownload.UToos
                     }
                     else
                     {
-                        pairs.Clear();
-                        pairs.Add("action", "submit_regcode");
-                        pairs.Add("machine_code", softAuthorize.GetMachineCodeString());
-                        pairs.Add("reg_code", AuthorizeEncrypted(softAuthorize.GetMachineCodeString()));
-                        GetRegCode();
-                        MessageBox.Show("授权成功! ","提示");
+                        try
+                        {
+                            pairs.Clear();
+                            pairs.Add("action", "submit_regcode");
+                            pairs.Add("machine_code", softAuthorize.GetMachineCodeString());
+                            pairs.Add("reg_code", AuthorizeEncrypted(softAuthorize.GetMachineCodeString()));
+                            if (GetRegCode().Equals("400"))
+                            {
+                                return;
+                            }
+                            Main.appisReg = false;
+                            MessageBox.Show("授权成功! ", "提示");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("网络连接失败! ", "提示");
+                        }
+
                     }
                 }
             }
             else
             {
+                Main.appisReg = false;
                 MessageBox.Show("授权成功! 到期时间： " + GetRegCode().Trim().Split('|')[1].ToString().Trim(), "提示");
-            }       
+            }
         }
 
 

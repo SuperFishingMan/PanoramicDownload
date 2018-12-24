@@ -1,8 +1,10 @@
-﻿using System;
+﻿using HslCommunication.BasicFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -15,15 +17,32 @@ namespace PanoramicDownload
     {
         public PayForm()
         {
-
+        
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             InitializeComponent();
             this.toolTip1.SetToolTip(userButton1, "支付宝支付");
             this.toolTip1.SetToolTip(userButton2, "微信支付");
             this.toolTip1.SetToolTip(userButton3, "QQ支付");
+            LoadWebImage();
         }
-        Image image1 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/zhifubao.jpg").GetResponse().GetResponseStream());
-        Image image2 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/weixin.jpg").GetResponse().GetResponseStream());
-        Image image3 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/qqzhifu.jpg").GetResponse().GetResponseStream());
+        private Image image1;
+        private Image image2;
+        private Image image3;
+        public void LoadWebImage()
+        {
+            try
+            {
+                image1 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/zhifubao.jpg").GetResponse().GetResponseStream());
+                image2 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/weixin.jpg").GetResponse().GetResponseStream());
+                image3 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/qqzhifu.jpg").GetResponse().GetResponseStream());
+            }
+            catch(Exception ex)
+            {
+                SoftBasic.ShowExceptionMessage("错误原因：请检查网络连接！！！  \n",ex);
+            }
+       
+        }
+
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
             if (e.AssociatedControl == userButton1)

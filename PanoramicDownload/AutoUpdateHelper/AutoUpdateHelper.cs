@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HslCommunication.BasicFramework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -36,7 +37,8 @@ namespace AutoUpdateHelper
             }
             catch (Exception e)
             {
-                MessageBox.Show("错误：" + e.Data, "错误提示");
+                SoftBasic.ShowExceptionMessage("错误原因：请检查网络连接！！！  \n", e);
+                //MessageBox.Show("错误：" +"检测网络！！", "错误提示");
                 return false;
             }
         }

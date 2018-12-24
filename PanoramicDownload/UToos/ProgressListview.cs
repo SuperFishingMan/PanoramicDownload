@@ -126,11 +126,11 @@ namespace System.Windows.Forms
 
                     var percentText = string.Format("{0}%...", percent);
                     if (fValue >= _progressMaximun) percentText = "已完成";
-                    var size = TextRenderer.MeasureText(percentText.ToString(), new Font("楷体", 10, FontStyle.Regular));
+                    var size = TextRenderer.MeasureText(percentText.ToString(), new Font("楷体",10, Drawing.FontStyle.Regular));
 
                     var x = rect.X + (progressRect.Width - size.Width) / 2.0;
                     var y = rect.Y + (progressRect.Height - size.Height) / 2.0 + 3;
-                    g.DrawString(percentText, new Font("楷体", 10, FontStyle.Regular), new SolidBrush(Color.Black), float.Parse(x.ToString()), float.Parse(y.ToString()));
+                    g.DrawString(percentText, new Font("楷体", 10, Drawing.FontStyle.Regular), new SolidBrush(Color.Black), float.Parse(x.ToString()), float.Parse(y.ToString()));
                 }
             }
             else
