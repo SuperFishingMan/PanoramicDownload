@@ -32,6 +32,11 @@ namespace PanoramicDownload.UToos
             return httpClient.Post("http://47.98.156.83/panoramicAppLogin/reg_app.php", pairs);
         }
         SoftAuthorize soft = new SoftAuthorize();
+
+        /// <summary>
+        /// 检测机器是否注册激活
+        /// </summary>
+        /// <returns></returns>
         public bool Check_RegCode()
         {
             try
@@ -72,7 +77,20 @@ namespace PanoramicDownload.UToos
             pairs1.Add("machine_code", soft.GetMachineCodeString());
             if (http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim().Equals(""))
             {
+                //Main.appisReg = true;
                 return false;
+            }
+            if (http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim().Equals("到期了"))
+            {
+                MessageBox.Show("测试使用到期：" + http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim());
+                Main.appisReg = true;
+                return true;
+            }
+            if (http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[2].ToString().Trim().Equals("测试"))
+            {
+                MessageBox.Show("测试使用到期：" + http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim());
+                Main.appisReg = false;
+                return true;
             }
             MessageBox.Show("测试使用到期："+http.Post("http://47.98.156.83/panoramicAppLogin/tempuser.php", pairs1).Trim().Split('|')[0].ToString().Trim());
             Main.appisReg = true;

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HslCommunication.BasicFramework;
+using System.Security.Cryptography;
+
 namespace PackProject
 {
     public partial class MainForm : Form
@@ -124,6 +126,26 @@ namespace PackProject
         {
             richTextBox1.Text = AuthorizeEncrypted(textBox1.Text);
             richTextBox1.Copy();
+        }
+
+        public static string MD5Encrypt(string pToEncrypt, string Password)
+        {
+            DESCryptoServiceProvider dESCryptoServiceProvider = new DESCryptoServiceProvider();
+            byte[] bytes = Encoding.Default.GetBytes(pToEncrypt);
+            dESCryptoServiceProvider.Key = Encoding.ASCII.GetBytes(Password);
+            dESCryptoServiceProvider.IV = Encoding.ASCII.GetBytes(Password);
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, dESCryptoServiceProvider.CreateEncryptor(), CryptoStreamMode.Write);
+            cryptoStream.Write(bytes, 0, bytes.Length);
+            cryptoStream.FlushFinalBlock();
+            StringBuilder stringBuilder = new StringBuilder();
+            byte[] array = memoryStream.ToArray();
+            foreach (byte b in array)
+            {
+                stringBuilder.AppendFormat("{0:X2}", b);
+            }
+            stringBuilder.ToString();
+            return stringBuilder.ToString();
         }
 
         private string AuthorizeEncrypted(string origin)

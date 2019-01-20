@@ -122,7 +122,7 @@ namespace PanoramicDownload
                 }
                 else
                 {
-                    appisReg = true;
+                    //appisReg = true;
                 }
                 //
             }
@@ -1294,7 +1294,7 @@ namespace PanoramicDownload
             {
                 req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
                 //req.CookieContainer = new CookieContainer();
-                //req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
+               // req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
                 req.Referer = "https://720yun.com";
                 //rq.Accept = "*/*";
                 req.Method = "GET";  //这是关键        
