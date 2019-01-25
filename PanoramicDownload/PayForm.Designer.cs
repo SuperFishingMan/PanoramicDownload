@@ -53,7 +53,7 @@ namespace PanoramicDownload
             this.userButton1.CustomerInformation = "";
             this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.userButton1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton1.Location = new System.Drawing.Point(56, 38);
+            this.userButton1.Location = new System.Drawing.Point(64, 37);
             this.userButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userButton1.Name = "userButton1";
             this.userButton1.Size = new System.Drawing.Size(78, 25);
@@ -66,7 +66,7 @@ namespace PanoramicDownload
             this.userButton2.CustomerInformation = "";
             this.userButton2.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.userButton2.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton2.Location = new System.Drawing.Point(56, 83);
+            this.userButton2.Location = new System.Drawing.Point(64, 82);
             this.userButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userButton2.Name = "userButton2";
             this.userButton2.Size = new System.Drawing.Size(78, 25);
@@ -79,7 +79,7 @@ namespace PanoramicDownload
             this.userButton3.CustomerInformation = "";
             this.userButton3.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.userButton3.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton3.Location = new System.Drawing.Point(56, 128);
+            this.userButton3.Location = new System.Drawing.Point(64, 127);
             this.userButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userButton3.Name = "userButton3";
             this.userButton3.Size = new System.Drawing.Size(78, 25);
@@ -90,7 +90,7 @@ namespace PanoramicDownload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(195, 203);
+            this.ClientSize = new System.Drawing.Size(208, 203);
             this.Controls.Add(this.userButton3);
             this.Controls.Add(this.userButton2);
             this.Controls.Add(this.userButton1);

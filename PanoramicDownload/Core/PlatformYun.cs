@@ -75,9 +75,7 @@ namespace PanoramicDownload.Core
                 int contwidth = 0;
                 for (int x = 1; x <= imageIndex; x++)
                 {
-
                     Image image = null;
-
                     if (urlKeysList[2].Length.Equals(2))
                     {
                         if (x < 10)

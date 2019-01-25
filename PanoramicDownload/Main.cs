@@ -101,14 +101,14 @@ namespace PanoramicDownload
         private void UIInit()
         {
             linkLabel3.Links.Add(0,4, ConstPath.exePath+ "\\建e网演示.jpg"); 
-            LocalConf conf = new LocalConf();
+            //LocalConf conf = new LocalConf();
             label1.Text = "图片路径:"+ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             //softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
             //softAuthorize.LoadByFile();
             //同步版本UI
-            Text = "猪猪全景图下载器  v" + conf.Version;
+            //Text = "猪猪全景图下载器  v" + conf.Version;
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
                    
@@ -148,11 +148,15 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            label3.Left += 1;
-            if (label3.Left == this.Width)
+            Thread thread = new Thread(() =>
             {
-                label3.Left = -label3.Width;
-            }
+                label3.Left += 1;
+                if (label3.Left == this.Width)
+                {
+                    label3.Left = -label3.Width;
+                }
+            });
+            thread.Start();
         }
 
         /// <summary>
@@ -171,7 +175,8 @@ namespace PanoramicDownload
             //判断url是否为可访问 
             if (string.IsNullOrEmpty(InputUrlTextBox.Text.Trim()) || !isPing(InputUrl))
             {
-                Mesbox(GetWebStatusCode(InputUrl, 10000), "错误提示");
+                //Mesbox(GetWebStatusCode(InputUrl, 10000), "错误提示");
+                //this.Activate();  //
                 UrlStateBox.Image = Properties.Resources.失败_表情;
                 return;
             }
@@ -237,18 +242,17 @@ namespace PanoramicDownload
           
 
         }
-
+        int DownloadCount = 0; 
         public void StartDownLoadImage()
         {
             configFile = new FileInfo(ConstPath.exePath + "/config.txt");
             StreamWriter sw5 = configFile.CreateText();
-
+ 
+            DownloadCount++;
             switch (downLoadType)
             {
                 case DownLoadType.lx_x_xx_xx:
-                    PlatformYun platfromYun = new PlatformYun();
-
-
+                    PlatformYun platfromYun = new PlatformYun();                   
                     StringBuilder newUrl = new StringBuilder(200);
                     newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList.Clear();
@@ -426,7 +430,13 @@ namespace PanoramicDownload
                             // return;
                         }
                         Mesbox("配置文件已生成=====正在下载请等待");
-                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
+                        this.Activate();
+                        if (!Directory.Exists(ConstPath.saveFile+"720yun"+ DownloadCount))
+                        {
+                            Directory.CreateDirectory(ConstPath.saveFile + "720yun" + DownloadCount);
+                        }
+
+                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile + "720yun" + DownloadCount;
 
 
                         Thread dd = new Thread(() =>
@@ -434,7 +444,7 @@ namespace PanoramicDownload
                             using (var p = new Process())
                             {
                                 RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command, (s, e) => ShowInfo("", e.Data));
-                                p.Close();
+                                //p.Close();
                             }
                         });
                         dd.Start();
@@ -503,7 +513,7 @@ namespace PanoramicDownload
                     //MessageBox.Show(maxIndex.ToString());
                     ImageRowCount = maxIndex;
                     Mesbox("配置文件已生成=====正在下载请等待");
-
+                    this.Activate();
                     break;
                 case DownLoadType.ssssxssss:
                     PlatfommKJL platfromKJL = new PlatfommKJL();
@@ -641,6 +651,7 @@ namespace PanoramicDownload
                     }
 
                     Mesbox("配置文件已生成=====正在下载请等待");
+                    this.Activate();
                     return;
                 case DownLoadType.lxlxx_x_x_x:
                     PlatformJE platformJE = new PlatformJE();
@@ -724,6 +735,7 @@ namespace PanoramicDownload
                     }
 
                     Mesbox("配置文件已生成=====正在下载请等待");
+                    this.Activate();
                     var commandYJ = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
@@ -752,6 +764,7 @@ namespace PanoramicDownload
             sr.Close();
             sr.Dispose();
             Mesbox("共"+lines.ToString()+"张");
+            this.Activate();
             if (lines != (maxindex * maxindex * 6))
             {
                 Mesbox("参数丢失——————请重新下载");
@@ -824,10 +837,22 @@ namespace PanoramicDownload
 
         private void ReadStdOutputAction(string result)
         {
+            const string ree1 = ".*?"; // Non-greedy match on filler
+            const string ree2 = "(\\(.*\\))"; // Round Braces 1
 
+            var rr = new Regex(ree1 + ree2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    
             byte[] buffer = Encoding.GetEncoding("GB2312").GetBytes(result);
-            textBox1.Text = Encoding.UTF8.GetString(buffer) + "\r\n";
-            sw51.WriteLine(textBox1.Text);
+            var mm = rr.Match(Encoding.UTF8.GetString(buffer) + "\r\n");
+            var rbraces1 = mm.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
+            if (rbraces1 == "OK")
+            {
+                rbraces1 = "100";
+            }
+
+            textBox1.Text = DateTime.Now.ToString().Replace("/", "-") + "    下载进度:" + rbraces1 + "%";
+
+            sw51.WriteLine(Encoding.UTF8.GetString(buffer) + "\r\n");
 
             //Mesbox(result + "\r\n");
         }
@@ -1373,6 +1398,7 @@ namespace PanoramicDownload
             {           
                 UrlStateBox.Image = Properties.Resources.失败_表情;
                 Mesbox("请输入链接");
+                this.Activate();
                 InputUrlTextBox.Focus();
                 return;
             }
@@ -1540,6 +1566,7 @@ namespace PanoramicDownload
                     return;
                 default:
                     Mesbox("请下载图片后在合成");
+                    this.Activate();
                     return;
             }
         }
@@ -1557,13 +1584,28 @@ namespace PanoramicDownload
                 return;
             }
             string path = ConstPath.saveFile;
-            try
+            if (!Directory.Exists(path))
             {
-                Process.Start("explorer.exe", path);
+                Directory.CreateDirectory(path);
+                try
+                {
+                    Process.Start("explorer.exe", path);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                SoftBasic.ShowExceptionMessage(ex);
+                try
+                {
+                    Process.Start("explorer.exe", path);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
             }
         }
 
@@ -1584,11 +1626,6 @@ namespace PanoramicDownload
         {
             PayForm f2 = new PayForm();
             f2.ShowDialog(this);//
-        }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

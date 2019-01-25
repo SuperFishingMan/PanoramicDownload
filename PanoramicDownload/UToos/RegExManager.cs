@@ -16,6 +16,7 @@ namespace PanoramicDownload.UToos
         /// <returns></returns>
         public  List<String> GetRegex(string txt)
         {
+
             string re1 = ".*?"; // Non-greedy match on filler
             string re2 = "[a-z]";   // Uninteresting: w
             string re3 = ".*?"; // Non-greedy match on filler

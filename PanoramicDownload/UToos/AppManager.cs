@@ -17,12 +17,6 @@ namespace PanoramicDownload.UToos
             // 此处使用了组件支持的DES对称加密技术
             return SoftSecurity.MD5Encrypt(origin, "19951005");
         }
-        public string AuthorizeEncrypted_12(string origin)
-        {
-
-            // 此处使用了组件支持的DES对称加密技术
-            return SoftSecurity.MD5Encrypt(origin, "19951005");
-        }
 
 
         private Dictionary<string, string> pairs = new Dictionary<string, string>();
