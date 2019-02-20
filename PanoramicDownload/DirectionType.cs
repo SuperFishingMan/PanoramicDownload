@@ -58,8 +58,11 @@ namespace PanoramicDownload
         /// <summary>       
         /// E建
         /// </summary>
-        lxlxx_x_x_x  // /u/l2_u_2_1.jpg";
-
+        lxlxx_x_x_x,  // /u/l2_u_2_1.jpg";
+        /// <summary>
+        /// 鱼模网
+        /// </summary>
+        xxxx_x//http://720.ajun720.cn/447/works/3536c9e41100e40b/pano_r.jpg
     }
 
     public  static class ConstPath

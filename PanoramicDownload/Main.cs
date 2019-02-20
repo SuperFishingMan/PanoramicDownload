@@ -59,6 +59,10 @@ namespace PanoramicDownload
         /// E建网
         /// </summary>
         private string InputUrlYJ = "";
+        /// <summary>
+        /// 鱼模网
+        /// </summary>
+        private string InputUrlYMW = "";
 
         /// <summary>
         /// 键入的链接
@@ -148,15 +152,13 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            Thread thread = new Thread(() =>
-            {
+
                 label3.Left += 1;
                 if (label3.Left == this.Width)
                 {
                     label3.Left = -label3.Width;
                 }
-            });
-            thread.Start();
+
         }
 
         /// <summary>
@@ -195,9 +197,12 @@ namespace PanoramicDownload
             {
                 InputUrlWZ = regExManager.MatchWZ(InputUrl);
             }
-
+            if(InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
+            {
+                InputUrlYMW = regExManager.MatchYMW(InputUrl);
+            }
             //判断url是否为可下载的全景图片
-            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals(""))
             {
                 Mesbox("请输入支持的全景图下载地址");
                 downLoadType = DownLoadType.empty;
@@ -230,6 +235,12 @@ namespace PanoramicDownload
                 UrlStateBox.Image = Properties.Resources.yes;
                 return;
             }
+            if (!InputUrlYMW.Equals(""))
+            {
+                downLoadType = DownLoadType.xxxx_x;
+                UrlStateBox.Image = Properties.Resources.yes;
+                return;
+            }
         }
 
 
@@ -248,9 +259,10 @@ namespace PanoramicDownload
             configFile = new FileInfo(ConstPath.exePath + "/config.txt");
             StreamWriter sw5 = configFile.CreateText();
  
-            DownloadCount++;
+            //DownloadCount++;
             switch (downLoadType)
             {
+                //720yun
                 case DownLoadType.lx_x_xx_xx:
                     PlatformYun platfromYun = new PlatformYun();                   
                     StringBuilder newUrl = new StringBuilder(200);
@@ -431,12 +443,12 @@ namespace PanoramicDownload
                         }
                         Mesbox("配置文件已生成=====正在下载请等待");
                         this.Activate();
-                        if (!Directory.Exists(ConstPath.saveFile+"720yun"+ DownloadCount))
-                        {
-                            Directory.CreateDirectory(ConstPath.saveFile + "720yun" + DownloadCount);
-                        }
+                        //if (!Directory.Exists(ConstPath.saveFile+"720yun"+ DownloadCount))
+                        //{
+                        //    Directory.CreateDirectory(ConstPath.saveFile + "720yun" + DownloadCount);
+                        //}
 
-                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile + "720yun" + DownloadCount;
+                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
 
 
                         Thread dd = new Thread(() =>
@@ -651,7 +663,7 @@ namespace PanoramicDownload
                     }
 
                     Mesbox("配置文件已生成=====正在下载请等待");
-                    this.Activate();
+
                     return;
                 case DownLoadType.lxlxx_x_x_x:
                     PlatformJE platformJE = new PlatformJE();
@@ -742,7 +754,45 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", commandYJ, (s, e) => ShowInfo("", e.Data));
                         p.Close();
                     }
+                    return;
 
+                case DownLoadType.xxxx_x:
+
+                    PlatformYMW platformYMW = new PlatformYMW();
+                    
+                    Thread trYMW = new Thread(() =>
+                    {
+                         int index = InputUrl.IndexOf(InputUrlYMW, 1, InputUrl.Length - 1);
+                        //StringBuilder newstr = new StringBuilder(InputUrl);
+                        StringBuilder newstr = new StringBuilder(InputUrl.Remove(index+5, 6));
+                        //Mesbox(newstr.ToString());
+                        platformYMW.WriteDownLoad(DirectionType.l, 0, newstr, 0, sw5);
+                        platformYMW.WriteDownLoad(DirectionType.f, 0, newstr, 0, sw5);
+                        platformYMW.WriteDownLoad(DirectionType.r, 0, newstr, 0, sw5);
+                        platformYMW.WriteDownLoad(DirectionType.b, 0, newstr, 0, sw5);
+                        platformYMW.WriteDownLoad(DirectionType.u, 0, newstr, 0, sw5);
+                        platformYMW.WriteDownLoad(DirectionType.d, 0, newstr, 0, sw5);
+                        sw5.Close();
+                        sw5.Dispose();
+                    });
+                    trYMW.Start();
+                    var command3 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    using (var p = new Process())
+                    {
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command3, (s, e) => ShowInfo("", e.Data));
+                        p.Close();
+                    }
+                    string[] sDirectoriesYMW = Directory.GetFiles(ConstPath.saveFile);
+                    for (int i = 0; i < sDirectoriesYMW.Length; i++)
+                    {
+                        string sDirectoryName = Path.GetFileName(sDirectoriesYMW[i]);
+                       // string newstrDir = sDirectoryName.Remove(0, sDirectoryName.Length - 1);
+                        //string sNewDirectoryName = newstrDir + ".jpg";
+                        string sNewDirectory = Path.Combine(ConstPath.saveFile, sDirectoryName);
+                        // Directory.Move(sDirectories[i], sNewDirectory);
+                       // File.Move(sDirectoriesYMW[i], sNewDirectory);
+                        strMatc.Add(sNewDirectory);
+                    }
                     return;
                 default:
                     Mesbox("未知错误------->" + downLoadType);
@@ -1242,6 +1292,7 @@ namespace PanoramicDownload
         public void Mesbox(string content)
         {
             MessageBox.Show(content, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+            this.TopMost = true;//使窗口 最上层
         }
         public void Mesbox(string content, string Title)
         {
@@ -1377,8 +1428,9 @@ namespace PanoramicDownload
         {
             if (appisReg)
             {
-                textBox1.Focus();   
+    
                 Mesbox("请激活软件");
+                //this.TopMost = true;
                 return;
             }
             if (Directory.Exists(ConstPath.saveFile))
@@ -1397,8 +1449,7 @@ namespace PanoramicDownload
             if (string.IsNullOrEmpty(InputUrl))
             {           
                 UrlStateBox.Image = Properties.Resources.失败_表情;
-                Mesbox("请输入链接");
-                this.Activate();
+                Mesbox("请输入链接");      
                 InputUrlTextBox.Focus();
                 return;
             }
@@ -1528,6 +1579,16 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command1, null);
                         p.Close();
                     }
+                    strMatc.Clear();
+                    return;
+                case DownLoadType.xxxx_x:
+                    var command2 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
+                    using (var p = new Process())
+                    {
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command2, null);
+                        p.Close();
+                    }
+                    strMatc.Clear();
                     return;
 
                 case DownLoadType.lxlxx_x_x_x:

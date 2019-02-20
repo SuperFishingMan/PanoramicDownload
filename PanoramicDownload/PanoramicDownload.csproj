@@ -47,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>zzx.ico</ApplicationIcon>
@@ -85,6 +86,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\PlatformYMW.cs" />
     <Compile Include="Net\HttpClient.cs" />
     <Compile Include="Core\PlatformJE.cs" />
     <Compile Include="Core\PlatformBase.cs" />

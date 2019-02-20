@@ -333,5 +333,48 @@ namespace PanoramicDownload.UToos
             }
             return keyStr;
         }
+
+        /// <summary>
+        /// 鱼模网 
+        /// </summary>
+        public string MatchYMW(string txt)
+        {
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "\\/"; // Uninteresting: c
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "\\/"; // Uninteresting: c
+            string re5 = ".*?"; // Non-greedy match on filler
+            string re6 = "\\/"; // Uninteresting: c
+            string re7 = ".*?"; // Non-greedy match on filler
+            string re8 = "\\/"; // Uninteresting: c
+            string re9 = ".*?"; // Non-greedy match on filler
+            string re10 = "\\/";    // Uninteresting: c
+            string re11 = ".*?";    // Non-greedy match on filler
+            string re12 = "(\\/)";  // Any Single Character 1
+            string re13 = "((?:[a-z][a-z]+))";  // Word 1
+            string re14 = "(_)";    // Any Single Character 2
+            string re15 = "(.)";    // Any Single Character 3
+            string re16 = "(.)";    // Any Single Character 4
+            string re17 = "(.)";    // Any Single Character 5
+            string re18 = "(.)";    // Any Single Character 6
+            string re19 = "(.)";    // Any Single Character 7
+
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15 + re16 + re17 + re18 + re19, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                string c1 = m.Groups[1].ToString();
+                string word1 = m.Groups[2].ToString();
+                string c2 = m.Groups[3].ToString();
+                string c3 = m.Groups[4].ToString();
+                string c4 = m.Groups[5].ToString();
+                string c5 = m.Groups[6].ToString();
+                string c6 = m.Groups[7].ToString();
+                string c7 = m.Groups[8].ToString();
+                return c1.ToString()  + word1.ToString()  + c2.ToString()+ c3.ToString()  + c4.ToString()  + c5.ToString()  + c6.ToString() + c7.ToString();
+               // Console.Write("(" + c1.ToString() + ")" + "(" + word1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + c4.ToString() + ")" + "(" + c5.ToString() + ")" + "(" + c6.ToString() + ")" + "(" + c7.ToString() + ")" + "\n");
+            }
+            return "";
+        }
     }
 }
