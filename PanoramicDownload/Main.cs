@@ -98,15 +98,64 @@ namespace PanoramicDownload
         StreamWriter sw51;
         private RegExManager regExManager;
         private AppManager appManager;
+        private void button6_Click()
+        {
+            int contwidth = 0;
+            for (int x = 1; x <= 156 / 4; x++)
+            {
+                Image image = null;
 
+                if (Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + 1 + "_" + x + ".jpg") != null)
+                {
+                    image = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + 1 + "_" + x + ".jpg");
+                }
+                else
+                {
+
+                }
+                int i = image.Width;
+                contwidth += i;
+                image.Dispose();
+            }
+            Image bmp = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\" + "1234" + ".JPG");
+            Graphics g = Graphics.FromImage(bmp);
+            int high = 512+512;
+            Image image1 = null;
+            Image image2 = null;
+            for (int i = 76; i <= 114; i++)
+            {
+                int width = 0;
+                for (int d = 76; d <= 114; d++)
+                {
+                    if (Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + i + "_" + d + ".jpg") != null)
+                    {
+                        image1 = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + i + "_" + d + ".jpg");
+                    }
+                    else
+                    {
+
+                    }
+                    g.DrawImage(image1, width, high, image1.Width, image1.Height);
+                    width += image1.Width;
+                    image1.Dispose();
+                }
+            }
+            g.Save();
+            g.Flush();
+            g.Dispose();
+
+            bmp.Save(@"C:\Users\Administrator.USER-20181202MU\Desktop\" + "12345" + ".JPG", ImageFormat.Jpeg);
+            bmp.Dispose();
+        }
         /// <summary>
         /// UI状态初始化
         /// </summary>
         private void UIInit()
         {
-            linkLabel3.Links.Add(0,4, ConstPath.exePath+ "\\建e网演示.jpg"); 
+            button6_Click();
+            linkLabel3.Links.Add(0, 4, ConstPath.exePath + "\\建e网演示.jpg");
             //LocalConf conf = new LocalConf();
-            label1.Text = "图片路径:"+ConstPath.saveFile;
+            label1.Text = "图片路径:" + ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             //softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
@@ -115,9 +164,9 @@ namespace PanoramicDownload
             //Text = "猪猪全景图下载器  v" + conf.Version;
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
-                   
+
             //如果没有激活
-            if(appManager.Check_RegCode())
+            if (appManager.Check_RegCode())
             {
                 //第一次使用测试用户
                 if (!appManager.IstempApp())
@@ -153,11 +202,11 @@ namespace PanoramicDownload
         private void Timer1_Tick(object sender, EventArgs e)
         {
 
-                label3.Left += 1;
-                if (label3.Left == this.Width)
-                {
-                    label3.Left = -label3.Width;
-                }
+            label3.Left += 1;
+            if (label3.Left == this.Width)
+            {
+                label3.Left = -label3.Width;
+            }
 
         }
 
@@ -175,7 +224,7 @@ namespace PanoramicDownload
             }
             InputUrl = InputUrlTextBox.Text.Trim();
             //判断url是否为可访问 
-            if (string.IsNullOrEmpty(InputUrlTextBox.Text.Trim()) || !isPing(InputUrl))
+            if (string.IsNullOrEmpty(InputUrlTextBox.Text.Trim()) || !isPing(InputUrl, "https://720yun.com/"))
             {
                 //Mesbox(GetWebStatusCode(InputUrl, 10000), "错误提示");
                 //this.Activate();  //
@@ -197,7 +246,7 @@ namespace PanoramicDownload
             {
                 InputUrlWZ = regExManager.MatchWZ(InputUrl);
             }
-            if(InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
             {
                 InputUrlYMW = regExManager.MatchYMW(InputUrl);
             }
@@ -250,21 +299,21 @@ namespace PanoramicDownload
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-          
+
 
         }
-        int DownloadCount = 0; 
+        int DownloadCount = 0;
         public void StartDownLoadImage()
         {
             configFile = new FileInfo(ConstPath.exePath + "/config.txt");
             StreamWriter sw5 = configFile.CreateText();
- 
+
             //DownloadCount++;
             switch (downLoadType)
             {
                 //720yun
                 case DownLoadType.lx_x_xx_xx:
-                    PlatformYun platfromYun = new PlatformYun();                   
+                    PlatformYun platfromYun = new PlatformYun();
                     StringBuilder newUrl = new StringBuilder(200);
                     newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList.Clear();
@@ -366,13 +415,13 @@ namespace PanoramicDownload
                     //    return;
                     //}
                     #endregion
-                    if (newKeystrList[2].Length.Equals(2))
+                    if (newKeystrList[0].Length.Equals(3))
                     {
                         for (int j = 1; j < 20; j++)
                         {
                             newkey1.Clear();
                             newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01."));
-                            if (isPing(newUrl + "" + newkey1))
+                            if (isPing(newUrl + "" + newkey1, ""))
                             {
                                 maxtpye = j;
                             }
@@ -393,7 +442,7 @@ namespace PanoramicDownload
                             if (i >= 10)
                             {
                                 value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
-                                if (isPing(newUrl + value1))
+                                if (isPing(newUrl + value1, "https://720yun.com/"))
                                 {
                                     maxIndex = i;
                                 }
@@ -405,7 +454,7 @@ namespace PanoramicDownload
                             else
                             {
                                 value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
-                                if (isPing(newUrl + value1))
+                                if (isPing(newUrl + value1, "https://720yun.com/"))
                                 {
                                     maxIndex = i;
                                 }
@@ -468,7 +517,7 @@ namespace PanoramicDownload
                     {
                         newkey1.Clear();
                         newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1."));
-                        if (isPing(newUrl + "" + newkey1))
+                        if (isPing(newUrl + "" + newkey1, "https://720yun.com/"))
                         {
                             maxtpye = j;
                         }
@@ -483,10 +532,10 @@ namespace PanoramicDownload
                     newkey1.Clear();
                     newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + maxtpye).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1."));
                     newKeystr1 = regExManager.GetRegex(newkey1 + "");
-                    for (int i = 1; i < 20; i++)
+                    for (int i = 1; i < 180; i++)
                     {
                         string value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
-                        if (isPing(newUrl + "" + value1))
+                        if (isPing(newUrl + "" + value1, "https://720yun.com/"))
                         {
                             maxIndex = i;
                         }
@@ -589,7 +638,7 @@ namespace PanoramicDownload
                     for (int j = 1; j < 20; j++)//"u/n3/5/u_5_2.jpg";
                     {
                         newkey11 = InputUrlWZ.Replace(newKeystrList[0], "n" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1.");
-                        if (isPing(newUrlWZ + newkey11))
+                        if (isPing(newUrlWZ + newkey11, "https://www.expoon.com/"))
                         {
                             maxtpyeWZ = j;
                         }
@@ -611,7 +660,7 @@ namespace PanoramicDownload
                         {
                             value1.Clear();
                             value1.Append(newkey11.Replace("/" + newKeystr11[1], "/" + i).Replace("_" + newKeystr11[2] + "_", "_" + i + "_"));
-                            if (isPing(newUrlWZ + "" + value1))
+                            if (isPing(newUrlWZ + "" + value1, "https://www.expoon.com/"))
                             {
                                 maxIndexWZ = i;
                             }
@@ -624,7 +673,7 @@ namespace PanoramicDownload
                         {
                             value1.Clear();
                             value1.Append(newkey11.Replace("/" + newKeystr11[1], "/" + i).Replace("_" + newKeystr11[2] + "_", "_" + i + "_"));
-                            if (isPing(newUrlWZ + "" + value1))
+                            if (isPing(newUrlWZ + "" + value1, "https://www.expoon.com/"))
                             {
                                 maxIndexWZ = i;
                             }
@@ -680,7 +729,7 @@ namespace PanoramicDownload
                     for (int j = 1; j < 20; j++)//"u/n3/5/u_5_2.jpg";
                     {
                         newkeyYJ = InputUrlYJ.Replace(newKeystrList[0], "l" + j).Replace("_" + newKeystrList[1] + "_", "_1_").Replace("_" + newKeystrList[2] + ".", "_1.");
-                        if (isPing(newUrlYJ + newkeyYJ))
+                        if (isPing(newUrlYJ + newkeyYJ, "https://vr.justeasy.cn"))
                         {
                             maxtpyeJY = j;
                         }
@@ -700,7 +749,7 @@ namespace PanoramicDownload
                         {
                             value1.Clear();
                             value1.Append(newkeyYJ.Replace("_" + newKeystrYJ[1] + "_", "_" + i + "_").Replace("_" + newKeystrYJ[2] + ".", "_" + i + "."));
-                            if (isPing(newUrlYJ + "" + value1))
+                            if (isPing(newUrlYJ + "" + value1, "https://vr.justeasy.cn"))
                             {
                                 maxIndexJY = i;
                             }
@@ -713,7 +762,7 @@ namespace PanoramicDownload
                         {
                             value1.Clear();
                             value1.Append(newkeyYJ.Replace("_" + newKeystrYJ[1], "_" + i).Replace("_" + newKeystrYJ[2] + ".", "_" + i + "."));
-                            if (isPing(newUrlYJ + "" + value1))
+                            if (isPing(newUrlYJ + "" + value1, "https://vr.justeasy.cn"))
                             {
                                 maxIndexJY = i;
                             }
@@ -759,12 +808,12 @@ namespace PanoramicDownload
                 case DownLoadType.xxxx_x:
 
                     PlatformYMW platformYMW = new PlatformYMW();
-                    
+
                     Thread trYMW = new Thread(() =>
                     {
-                         int index = InputUrl.IndexOf(InputUrlYMW, 1, InputUrl.Length - 1);
+                        int index = InputUrl.IndexOf(InputUrlYMW, 1, InputUrl.Length - 1);
                         //StringBuilder newstr = new StringBuilder(InputUrl);
-                        StringBuilder newstr = new StringBuilder(InputUrl.Remove(index+5, 6));
+                        StringBuilder newstr = new StringBuilder(InputUrl.Remove(index + 5, 6));
                         //Mesbox(newstr.ToString());
                         platformYMW.WriteDownLoad(DirectionType.l, 0, newstr, 0, sw5);
                         platformYMW.WriteDownLoad(DirectionType.f, 0, newstr, 0, sw5);
@@ -803,7 +852,7 @@ namespace PanoramicDownload
             fs.Dispose();
             sr.Close();
             sr.Dispose();
-            Mesbox("共"+lines.ToString()+"张");
+            Mesbox("共" + lines.ToString() + "张");
             this.Activate();
             if (lines != (maxindex * maxindex * 6))
             {
@@ -881,7 +930,7 @@ namespace PanoramicDownload
             const string ree2 = "(\\(.*\\))"; // Round Braces 1
 
             //var rr = new Regex(ree1 + ree2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-    
+
             byte[] buffer = Encoding.GetEncoding("GB2312").GetBytes(result);
             //var mm = rr.Match(Encoding.UTF8.GetString(buffer) + "\r\n");
             //var rbraces1 = mm.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
@@ -1091,7 +1140,7 @@ namespace PanoramicDownload
             {
                 SoftBasic.ShowExceptionMessage(ex);
             }
-            
+
         }
 
         public void GetimgYJ(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
@@ -1185,15 +1234,15 @@ namespace PanoramicDownload
                     });
                     th.IsBackground = true;
                     th.Start();
-                   // this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
+                    // this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                     Application.DoEvents();
 
                     lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
-                   // if (dd.Value == 99 || dd.Value == 100)
-                   // {
-                        //dd.Value = 100;
-                       // lvi.SubItems[2].Text = "完成😀";
-                   // }
+                    // if (dd.Value == 99 || dd.Value == 100)
+                    // {
+                    //dd.Value = 100;
+                    // lvi.SubItems[2].Text = "完成😀";
+                    // }
 
                 }
                 Image image2 = null;
@@ -1255,7 +1304,7 @@ namespace PanoramicDownload
         }
         private void MacthImage_Click(object sender, EventArgs e)
         {
-         
+
         }
 
 
@@ -1266,13 +1315,13 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void OpenImageFile_Click(object sender, EventArgs e)
         {
-         
+
 
         }
 
         private void userButton1_Click(object sender, EventArgs e)
-        {         
-             appManager.AppActivate(softAuthorize);
+        {
+            appManager.AppActivate(softAuthorize);
         }
 
         #region 一般级
@@ -1350,7 +1399,7 @@ namespace PanoramicDownload
         /// <param name="url"></param>
         /// <param name="timeout"></param>
         /// <returns></returns>
-        public  string GetWebStatusCode(string url, int timeout)
+        public string GetWebStatusCode(string url, int timeout, string referer)
         {
             HttpWebRequest req = null;
             //处理HttpWebRequest访问https有安全证书的问题（ 请求被中止: 未能创建 SSL/TLS 安全通道。）
@@ -1361,14 +1410,14 @@ namespace PanoramicDownload
             {
                 req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
                 //req.CookieContainer = new CookieContainer();
-               // req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
-                req.Referer = "https://720yun.com";
+                // req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
+                req.Referer = referer; //"https://720yun.com";
                 //rq.Accept = "*/*";
                 req.Method = "GET";  //这是关键        
                 req.Timeout = timeout;
 
                 HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                if (res.ContentType.Equals("image/jpeg"))
+                if (res.ContentType.Equals("image/jpeg") || res.ContentType.Equals("application/octet-stream"))
                 {
                     return Convert.ToInt32(res.StatusCode).ToString();
                 }
@@ -1376,7 +1425,7 @@ namespace PanoramicDownload
             }
             catch (Exception ex)
             {
-        
+
                 return ex.Message;
             }
             finally
@@ -1394,9 +1443,9 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public bool isPing(string url)
+        public bool isPing(string url, string referer)
         {
-            if (GetWebStatusCode(url, 10000).Equals("200"))
+            if (GetWebStatusCode(url, 10000, referer).Equals("200"))
             {
                 return true;
             }
@@ -1419,14 +1468,15 @@ namespace PanoramicDownload
         {
             if (appisReg)
             {
-    
+
                 Mesbox("请激活软件");
                 //this.TopMost = true;
                 return;
             }
             if (Directory.Exists(ConstPath.saveFile))
             {
-                Task task = new Task(() => {
+                Task task = new Task(() =>
+                {
                     FileManager.DelectDir(ConstPath.saveFile);
 
                 });
@@ -1438,9 +1488,9 @@ namespace PanoramicDownload
                 }
             }
             if (string.IsNullOrEmpty(InputUrl))
-            {           
+            {
                 UrlStateBox.Image = Properties.Resources.失败_表情;
-                Mesbox("请输入链接");      
+                Mesbox("请输入链接");
                 InputUrlTextBox.Focus();
                 return;
             }
@@ -1483,7 +1533,7 @@ namespace PanoramicDownload
                             platformWz.MatchingImage(pathWZ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
 
                         }
-                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
                             ListViewItem lvi1 = new ListViewItem();
@@ -1534,7 +1584,7 @@ namespace PanoramicDownload
 
                         }
                         //Thread.Sleep(500);
-                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
+                        var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
                             ListViewItem lvi1 = new ListViewItem();
@@ -1564,7 +1614,7 @@ namespace PanoramicDownload
                     //Mesbox("合成完毕");
                     break;
                 case DownLoadType.ssssxssss:
-                    var command1 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
+                    var command1 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command1, null);
@@ -1605,7 +1655,7 @@ namespace PanoramicDownload
                         getimg(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
                         getimg(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
                     }
-                    var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o="+ ConstPath.saveFile + "sphere.jpeg";
+                    var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
                     {
                         ListViewItem lvi1 = new ListViewItem();
@@ -1681,8 +1731,8 @@ namespace PanoramicDownload
             }
             FolderBrowserDialog path = new FolderBrowserDialog();
             path.ShowDialog();
-            ConstPath.saveFile = path.SelectedPath+"\\";
-            label1.Text = "图片路径:"+path.SelectedPath;
+            ConstPath.saveFile = path.SelectedPath + "\\";
+            label1.Text = "图片路径:" + path.SelectedPath;
         }
 
         private void userButton6_Click(object sender, EventArgs e)
