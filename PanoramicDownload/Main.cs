@@ -782,17 +782,7 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command3, (s, e) => ShowInfo("", e.Data));
                         p.Close();
                     }
-                    string[] sDirectoriesYMW = Directory.GetFiles(ConstPath.saveFile);
-                    for (int i = 0; i < sDirectoriesYMW.Length; i++)
-                    {
-                        string sDirectoryName = Path.GetFileName(sDirectoriesYMW[i]);
-                       // string newstrDir = sDirectoryName.Remove(0, sDirectoryName.Length - 1);
-                        //string sNewDirectoryName = newstrDir + ".jpg";
-                        string sNewDirectory = Path.Combine(ConstPath.saveFile, sDirectoryName);
-                        // Directory.Move(sDirectories[i], sNewDirectory);
-                       // File.Move(sDirectoriesYMW[i], sNewDirectory);
-                        strMatc.Add(sNewDirectory);
-                    }
+
                     return;
                 default:
                     Mesbox("未知错误------->" + downLoadType);
@@ -890,19 +880,20 @@ namespace PanoramicDownload
             const string ree1 = ".*?"; // Non-greedy match on filler
             const string ree2 = "(\\(.*\\))"; // Round Braces 1
 
-            var rr = new Regex(ree1 + ree2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            //var rr = new Regex(ree1 + ree2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
     
             byte[] buffer = Encoding.GetEncoding("GB2312").GetBytes(result);
-            var mm = rr.Match(Encoding.UTF8.GetString(buffer) + "\r\n");
-            var rbraces1 = mm.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
-            if (rbraces1 == "OK")
-            {
-                rbraces1 = "100";
-            }
+            //var mm = rr.Match(Encoding.UTF8.GetString(buffer) + "\r\n");
+            //var rbraces1 = mm.Groups[1].ToString().Replace("(", "").Replace(")", "").Replace("%", "").Replace("s", "0");
+            //if (rbraces1 == "OK")
+            //{
+            //    rbraces1 = "100";
+            //}
 
-            textBox1.Text = DateTime.Now.ToString().Replace("/", "-") + "    下载进度:" + rbraces1 + "%";
+            //textBox1.Text = DateTime.Now.ToString().Replace("/", "-") + "    下载进度:" + rbraces1 + "%";
 
-            sw51.WriteLine(Encoding.UTF8.GetString(buffer) + "\r\n");
+            //sw51.WriteLine(Encoding.UTF8.GetString(buffer) + "\r\n");
+            textBox1.Text = result;
 
             //Mesbox(result + "\r\n");
         }
@@ -1582,6 +1573,17 @@ namespace PanoramicDownload
                     strMatc.Clear();
                     return;
                 case DownLoadType.xxxx_x:
+                    string[] sDirectoriesYMW = Directory.GetFiles(ConstPath.saveFile);
+                    for (int i = 0; i < sDirectoriesYMW.Length; i++)
+                    {
+                        string sDirectoryName = Path.GetFileName(sDirectoriesYMW[i]);
+                        // string newstrDir = sDirectoryName.Remove(0, sDirectoryName.Length - 1);
+                        //string sNewDirectoryName = newstrDir + ".jpg";
+                        string sNewDirectory = Path.Combine(ConstPath.saveFile, sDirectoryName);
+                        // Directory.Move(sDirectories[i], sNewDirectory);
+                        // File.Move(sDirectoriesYMW[i], sNewDirectory);
+                        strMatc.Add(sNewDirectory);
+                    }
                     var command2 = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
                     {
@@ -1695,6 +1697,20 @@ namespace PanoramicDownload
             {
                 System.Diagnostics.Process.Start("explorer.exe", e.Link.LinkData.ToString());
             }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userButton7_Click(object sender, EventArgs e)
+        {
+            MakePano makePano = new MakePano();
+            makePano.TopMost = true;
+            makePano.StartPosition = FormStartPosition.CenterParent;
+            makePano.ShowDialog();
 
         }
     }

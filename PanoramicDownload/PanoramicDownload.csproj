@@ -87,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\PlatformYMW.cs" />
+    <Compile Include="MakePano.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MakePano.Designer.cs">
+      <DependentUpon>MakePano.cs</DependentUpon>
+    </Compile>
     <Compile Include="Net\HttpClient.cs" />
     <Compile Include="Core\PlatformJE.cs" />
     <Compile Include="Core\PlatformBase.cs" />
@@ -116,6 +122,9 @@
     <Compile Include="UToos\RegExManager.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MakePano.resx">
+      <DependentUpon>MakePano.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PayForm.resx">
       <DependentUpon>PayForm.cs</DependentUpon>
