@@ -23,10 +23,10 @@ namespace PanoramicDownload
         {
 
         }
-
+        string filename;
         private void userButton1_Click(object sender, EventArgs e)
         {
-            string filename;
+            
             using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
             {
                 //定义打开的默认文件夹位置
@@ -38,10 +38,12 @@ namespace PanoramicDownload
                 filename = OpenFD.FileName;
             }
             txtProject.Text = filename;
-            if (txtProject.Text.Contains("sphere.jpeg"))
+            int index = filename.LastIndexOf(@"\");
+            string ImageName = filename.Remove(0, index + 1);
+            if (txtProject.Text.Contains(ImageName))
             {
                 var conmm = ConstPath.exePath + @"\krpanotools64.exe";
-                var arg = @"  makepano  " + ConstPath.saveFile + "sphere.jpeg   " + ConstPath.exePath + @"\templates\normal.config";
+                var arg = @"  makepano  " + filename + "   " + ConstPath.exePath + @"\templates\normal.config";
                 using (var pro = new Process())
                 {
                     RedirectExcuteProcess(pro, conmm, arg, null);
@@ -52,11 +54,22 @@ namespace PanoramicDownload
 
         private void userButton2_Click(object sender, EventArgs e)
         {
-            if(File.Exists(ConstPath.saveFile+ @"sphere\tour_testingserver.exe"))
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("请先选择全景图片");
+                return;
+            }
+            int index = filename.LastIndexOf(@"\");
+            string ImageName = filename.Remove(0, index+1);
+            int ImageNameIndex = ImageName.LastIndexOf(".");
+            ImageName = ImageName.Remove(ImageNameIndex, ImageName.Length - ImageNameIndex);
+            string filepath= filename.Remove(index, filename.Length - index);
+            string Imagepath = Path.Combine(filepath+"\\" + ImageName + "\\tour_testingserver.exe");
+            if (File.Exists(Imagepath))
             {
                 using (var pro = new Process())
                 {
-                    RedirectExcuteProcess(pro, ConstPath.saveFile + @"sphere\tour_testingserver.exe", "", null);
+                    RedirectExcuteProcess(pro, Imagepath, "", null);
                 }
             }
             else

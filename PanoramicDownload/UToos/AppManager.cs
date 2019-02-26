@@ -139,6 +139,7 @@ namespace PanoramicDownload.UToos
                         catch (Exception ex)
                         {
                             MessageBox.Show("网络连接失败! ", "提示");
+                          
                         }
 
                     }

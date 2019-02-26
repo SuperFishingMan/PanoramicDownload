@@ -177,9 +177,16 @@ namespace PanoramicDownload
                 {
                     //appisReg = true;
                 }
+                userButton6.Show();
+                userButton1.Show();
                 //
             }
-
+            else
+            {
+                userButton1.Hide();
+                userButton6.Hide();
+            }
+           
             regExManager = new RegExManager();
             //添加链接检测事件
             InputUrlTextBox.TextChanged += InputUrlTextBox_TextChanged;
