@@ -152,16 +152,16 @@ namespace PanoramicDownload
         /// </summary>
         private void UIInit()
         {
-            button6_Click();
+           // button6_Click();
             linkLabel3.Links.Add(0, 4, ConstPath.exePath + "\\建e网演示.jpg");
-            //LocalConf conf = new LocalConf();
+            LocalConf conf = new LocalConf();
             label1.Text = "图片路径:" + ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
             //softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
             //softAuthorize.LoadByFile();
             //同步版本UI
-            //Text = "猪猪全景图下载器  v" + conf.Version;
+            Text = "猪猪全景图下载器  v" + conf.Version;
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
 
@@ -201,7 +201,6 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
         {
-
             label3.Left += 1;
             if (label3.Left == this.Width)
             {
@@ -565,7 +564,7 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com/  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
@@ -1761,6 +1760,21 @@ namespace PanoramicDownload
             makePano.TopMost = true;
             makePano.StartPosition = FormStartPosition.CenterParent;
             makePano.ShowDialog();
+
+        }
+
+        private void toolStripContainer1_BottomToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripContainer2_ContentPanel_Load(object sender, EventArgs e)
+        {
 
         }
     }

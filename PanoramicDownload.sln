@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanoramicDownload", "PanoramicDownload\PanoramicDownload.csproj", "{CC51A360-6540-4069-B5C5-708C7C96C87F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "D:\application\GitHub\PanoramicDownload\PanoramicDownload\AutoUpdate\AutoUpdate.csproj", "{FF189389-5153-4F55-AE77-16D2813AFBA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdate", "F:\GItHub\PanoramicDownload\PanoramicDownload\AutoUpdate\AutoUpdate.csproj", "{FF189389-5153-4F55-AE77-16D2813AFBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdateHelper", "D:\application\GitHub\PanoramicDownload\PanoramicDownload\AutoUpdateHelper\AutoUpdateHelper.csproj", "{5E4B6B64-D400-42F4-A6D4-471724FEC6DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdateHelper", "F:\GItHub\PanoramicDownload\PanoramicDownload\AutoUpdateHelper\AutoUpdateHelper.csproj", "{5E4B6B64-D400-42F4-A6D4-471724FEC6DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackProject", "D:\application\GitHub\PanoramicDownload\PanoramicDownload\PackProject\PackProject.csproj", "{41F07419-9EE4-4BEC-8F18-1631770EA32B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackProject", "F:\GItHub\PanoramicDownload\PanoramicDownload\PackProject\PackProject.csproj", "{41F07419-9EE4-4BEC-8F18-1631770EA32B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

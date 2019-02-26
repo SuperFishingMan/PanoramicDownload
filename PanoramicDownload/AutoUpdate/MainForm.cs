@@ -50,7 +50,7 @@ namespace AutoUpdate
             }
             lbRemark.Text = manifest.Description;
             lbVersion.Text = manifest.Version;
-            SetProcessBar(20);
+            SetProcessBar(20,"对比版本");
             if (manifest.Version != localConf.Version)
             {
                 string cmd = "taskkill /im " + Path.Combine(Environment.CurrentDirectory, manifest.ExePath) + " /f ";
@@ -68,14 +68,15 @@ namespace AutoUpdate
             Thread.Sleep(1000);
             string serPath = Path.Combine(manifest.WebPath, manifest.Version + ".zip");
             string cliPath = Path.Combine(tmpPath, manifest.Version + ".zip");
+            SetProcessBar(40, "开始下载");
             DownZip(serPath, cliPath);
-            SetProcessBar(40);
+            SetProcessBar(60, "开始解压");
             UnZip(cliPath, tmpFilePath);
-            SetProcessBar(60);
+
             CopyDirectory(tmpFilePath, Environment.CurrentDirectory);
-            SetProcessBar(90);
+            SetProcessBar(90,"配置信息");
             DeleteFolder(tmpPath);
-            SetProcessBar(100);
+            SetProcessBar(100,"完毕");
             Thread.Sleep(5000);
             Process.Start(Path.Combine(Environment.CurrentDirectory, manifest.ExePath));
 
@@ -127,13 +128,13 @@ namespace AutoUpdate
             }
         }
 
-        delegate void SetProcessBarCallBack(int current);
-        private void SetProcessBar(int current)
+        delegate void SetProcessBarCallBack(int current,string value);
+        private void SetProcessBar(int current,string value)
         {
             if (this.progressBar1.InvokeRequired)
             {
                 SetProcessBarCallBack cb = new SetProcessBarCallBack(SetProcessBar);
-                this.Invoke(cb, new object[] { current });
+                this.Invoke(cb, new object[] { current,value });
             }
             else
             {
@@ -142,6 +143,7 @@ namespace AutoUpdate
                     current = 100;
                 }
                 this.progressBar1.Value = current;
+                this.label2.Text = value;
             }
         }
 
