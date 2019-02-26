@@ -19,11 +19,13 @@ namespace PanoramicDownload
             InitializeComponent();
         }
 
-        private void txtProject_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        string filename;
+        //保存选择的图片路径
+        string filenamePath;
+        /// <summary>
+        ///  选择全景图片  生成离线全景文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton1_Click(object sender, EventArgs e)
         {
             
@@ -37,13 +39,13 @@ namespace PanoramicDownload
                 OpenFD.RestoreDirectory = true;
                 filename = OpenFD.FileName;
             }
-            txtProject.Text = filename;
-            int index = filename.LastIndexOf(@"\");
-            string ImageName = filename.Remove(0, index + 1);
+            txtProject.Text = filenamePath;
+            int index = filenamePath.LastIndexOf(@"\");
+            string ImageName = filenamePath.Remove(0, index + 1);
             if (txtProject.Text.Contains(ImageName))
             {
                 var conmm = ConstPath.exePath + @"\krpanotools64.exe";
-                var arg = @"  makepano  " + filename + "   " + ConstPath.exePath + @"\templates\normal.config";
+                var arg = @"  makepano  " + filenamePath + "   " + ConstPath.exePath + @"\templates\normal.config";
                 using (var pro = new Process())
                 {
                     RedirectExcuteProcess(pro, conmm, arg, null);
@@ -51,20 +53,24 @@ namespace PanoramicDownload
             }
 
         }
-
+        /// <summary>
+        /// 查看全景 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton2_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(filename))
+            if (string.IsNullOrEmpty(filenamePath))
             {
                 MessageBox.Show("请先选择全景图片");
                 return;
             }
-            int index = filename.LastIndexOf(@"\");
-            string ImageName = filename.Remove(0, index+1);
-            int ImageNameIndex = ImageName.LastIndexOf(".");
-            ImageName = ImageName.Remove(ImageNameIndex, ImageName.Length - ImageNameIndex);
-            string filepath= filename.Remove(index, filename.Length - index);
-            string Imagepath = Path.Combine(filepath+"\\" + ImageName + "\\tour_testingserver.exe");
+            int index = filenamePath.LastIndexOf(@"\"); //查找最后一个“\”的下标
+            string ImageName = filenamePath.Remove(0, index+1);//截取 图片name 带后缀名的字符串
+            int ImageNameIndex = ImageName.LastIndexOf(".");//查找图片name  “.”的 下标
+            ImageName = ImageName.Remove(ImageNameIndex, ImageName.Length - ImageNameIndex);//截取不带 后缀的图片name
+            string filepath= filenamePath.Remove(index, filenamePath.Length - index); //截取出图片的 本级路径
+            string Imagepath = Path.Combine(filepath+"\\" + ImageName + "\\tour_testingserver.exe"); //合成完整路径
             if (File.Exists(Imagepath))
             {
                 using (var pro = new Process())
@@ -78,10 +84,7 @@ namespace PanoramicDownload
             }
         }
 
-        private void userVerticalProgress1_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void RedirectExcuteProcess(Process p, string exe, string arg, DataReceivedEventHandler output)
         {

@@ -42,7 +42,6 @@
             this.txtProject.Name = "txtProject";
             this.txtProject.Size = new System.Drawing.Size(193, 21);
             this.txtProject.TabIndex = 1;
-            this.txtProject.TextChanged += new System.EventHandler(this.txtProject_TextChanged);
             // 
             // label1
             // 
