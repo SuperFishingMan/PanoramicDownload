@@ -83,7 +83,7 @@ namespace PanoramicDownload
         public const string mailUrl = "mailto:yzj520mei@126.com,test2@sample.com";
 
         /// <summary>
-        /// 
+        /// 图片下载保存的路径
         /// </summary>
         public static string saveFile = exePath + "\\下载文件\\";
     }

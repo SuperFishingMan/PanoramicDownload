@@ -2,6 +2,7 @@
 using HslCommunication.BasicFramework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,38 @@ namespace PanoramicDownload
             catch (Exception ex)
             {
                 SoftBasic.ShowExceptionMessage(ex);
+            }
+        }
+
+        public static void SelectSavePath()
+        {
+
+        }
+
+        public  static void OpenFolder(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                try
+                {
+                    Process.Start("explorer.exe", folderPath);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
+            }
+            else
+            {
+                try
+                {
+                    Process.Start("explorer.exe", folderPath);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
             }
         }
     }

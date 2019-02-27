@@ -103,6 +103,16 @@ namespace PanoramicDownload.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 建e网演示 {
+            get {
+                object obj = ResourceManager.GetObject("建e网演示", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 拼图 {
             get {
                 object obj = ResourceManager.GetObject("拼图", resourceCulture);

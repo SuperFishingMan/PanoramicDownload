@@ -1470,6 +1470,11 @@ namespace PanoramicDownload
                 e.Cancel = true;
         }
 
+        /// <summary>
+        /// 下载全景图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton2_Click(object sender, EventArgs e)
         {
             if (appisReg)
@@ -1503,11 +1508,12 @@ namespace PanoramicDownload
             StartDownLoadImage();
         }
 
-        private void userButton3_Click(object sender, EventArgs e)
-        {
 
-        }
-
+        /// <summary>
+        /// 合成图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton3_Click_1(object sender, EventArgs e)
         {
             if (appisReg)
@@ -1690,11 +1696,11 @@ namespace PanoramicDownload
             }
         }
 
-        private void InputUrlTextBox_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// 打开图片目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton5_Click(object sender, EventArgs e)
         {
             if (appisReg)
@@ -1702,32 +1708,14 @@ namespace PanoramicDownload
                 Mesbox("请激活软件");
                 return;
             }
-            string path = ConstPath.saveFile;
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-                try
-                {
-                    Process.Start("explorer.exe", path);
-                }
-                catch (Exception ex)
-                {
-                    SoftBasic.ShowExceptionMessage(ex);
-                }
-            }
-            else
-            {
-                try
-                {
-                    Process.Start("explorer.exe", path);
-                }
-                catch (Exception ex)
-                {
-                    SoftBasic.ShowExceptionMessage(ex);
-                }
-            }
+            FileManager.OpenFolder(ConstPath.saveFile);
         }
 
+        /// <summary>
+        /// 选择图片的保存路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton4_Click(object sender, EventArgs e)
         {
             if (appisReg)
@@ -1735,25 +1723,44 @@ namespace PanoramicDownload
                 Mesbox("请激活软件");
                 return;
             }
-            FolderBrowserDialog path = new FolderBrowserDialog();
-            path.ShowDialog();
-            ConstPath.saveFile = path.SelectedPath + "\\";
-            label1.Text = "图片路径:" + path.SelectedPath;
+            FolderBrowserDialog Savepath = new FolderBrowserDialog();        
+            Savepath.ShowDialog();
+            if (string.IsNullOrEmpty(Savepath.SelectedPath))
+            {
+                label1.Text = "图片路径:" + ConstPath.saveFile;
+                return;
+            }
+            ConstPath.saveFile = Savepath.SelectedPath + "\\";
+            label1.Text = "图片路径:" + ConstPath.saveFile;
         }
 
+        /// <summary>
+        /// 打开支付窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userButton6_Click(object sender, EventArgs e)
         {
             PayForm f2 = new PayForm();
-            f2.ShowDialog(this);//
+            f2.ShowDialog(this);
         }
+
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (File.Exists(e.Link.LinkData.ToString()))
-            {
-                System.Diagnostics.Process.Start("explorer.exe", e.Link.LinkData.ToString());
-            }
-
+            //if (File.Exists(e.Link.LinkData.ToString()))
+            //{
+            //    try
+            //    {
+            //        Process.Start("explorer.exe", e.Link.LinkData.ToString());
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        SoftBasic.ShowExceptionMessage(ex);
+            //    }
+            //}
+            UseForm useForm = new UseForm();
+            useForm.ShowDialog();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -1767,21 +1774,6 @@ namespace PanoramicDownload
             makePano.TopMost = true;
             makePano.StartPosition = FormStartPosition.CenterParent;
             makePano.ShowDialog();
-
-        }
-
-        private void toolStripContainer1_BottomToolStripPanel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripContainer2_ContentPanel_Load(object sender, EventArgs e)
-        {
 
         }
     }

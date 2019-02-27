@@ -37,7 +37,7 @@ namespace PanoramicDownload
                 OpenFD.FilterIndex = 2;
                 OpenFD.ShowDialog();                  //显示打开本地文件的窗体
                 OpenFD.RestoreDirectory = true;
-                filename = OpenFD.FileName;
+                filenamePath = OpenFD.FileName;
             }
             txtProject.Text = filenamePath;
             int index = filenamePath.LastIndexOf(@"\");
@@ -51,7 +51,6 @@ namespace PanoramicDownload
                     RedirectExcuteProcess(pro, conmm, arg, null);
                 }
             }
-
         }
         /// <summary>
         /// 查看全景 

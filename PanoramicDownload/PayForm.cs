@@ -25,16 +25,16 @@ namespace PanoramicDownload
             this.toolTip1.SetToolTip(userButton3, "QQ支付");
             LoadWebImage();
         }
-        private Image image1;
-        private Image image2;
-        private Image image3;
+        private Image zhifubaoImage;
+        private Image weixinImage;
+        private Image qqzhifuImage;
         public void LoadWebImage()
         {
             try
             {
-                image1 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/zhifubao.jpg").GetResponse().GetResponseStream());
-                image2 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/weixin.jpg").GetResponse().GetResponseStream());
-                image3 = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/qqzhifu.jpg").GetResponse().GetResponseStream());
+                zhifubaoImage = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/zhifubao.jpg").GetResponse().GetResponseStream());
+                weixinImage = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/weixin.jpg").GetResponse().GetResponseStream());
+                qqzhifuImage = Image.FromStream(WebRequest.Create("http://47.98.156.83/Web/images/qqzhifu.jpg").GetResponse().GetResponseStream());
             }
             catch(Exception ex)
             {
@@ -47,15 +47,15 @@ namespace PanoramicDownload
         {
             if (e.AssociatedControl == userButton1)
             {
-                e.ToolTipSize = new Size(image1.Width, image1.Height);
+                e.ToolTipSize = new Size(zhifubaoImage.Width, zhifubaoImage.Height);
             }
             else if (e.AssociatedControl == userButton2)
             {
-                e.ToolTipSize = new Size(image2.Width, image2.Height);
+                e.ToolTipSize = new Size(weixinImage.Width, weixinImage.Height);
             }
             else if (e.AssociatedControl == userButton3)
             {
-                e.ToolTipSize = new Size(image3.Width, image3.Height);
+                e.ToolTipSize = new Size(qqzhifuImage.Width, qqzhifuImage.Height);
             }
         }
 
@@ -66,27 +66,28 @@ namespace PanoramicDownload
             if (e.AssociatedControl == userButton1)
             {
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
-                Rectangle rc = new Rectangle(0, 0, image1.Width, image1.Height);
+                Rectangle rc = new Rectangle(0, 0, zhifubaoImage.Width, zhifubaoImage.Height);
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
                 e.DrawBorder();
-                e.Graphics.DrawImage(image1, 0, 0, image1.Width, image1.Height);
+                e.Graphics.DrawImage(zhifubaoImage, 0, 0, zhifubaoImage.Width, zhifubaoImage.Height);
             }
             else if (e.AssociatedControl == userButton2)
             {
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
-                Rectangle rc = new Rectangle(0, 0, image2.Width, image2.Height);
+                Rectangle rc = new Rectangle(0, 0, weixinImage.Width, weixinImage.Height);
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
                 e.DrawBorder();
-                e.Graphics.DrawImage(image2, 0, 0, image2.Width, image2.Height);
+                e.Graphics.DrawImage(weixinImage, 0, 0, weixinImage.Width, weixinImage.Height);
             }
             else if (e.AssociatedControl == userButton3)
             {
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
-                Rectangle rc = new Rectangle(0, 0, image3.Width, image3.Height);
+                Rectangle rc = new Rectangle(0, 0, qqzhifuImage.Width, qqzhifuImage.Height);
                 e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, e.Bounds);
                 e.DrawBorder();
-                e.Graphics.DrawImage(image3, 0, 0, image3.Width, image3.Height);
+                e.Graphics.DrawImage(qqzhifuImage, 0, 0, qqzhifuImage.Width, qqzhifuImage.Height);
             }
         }
+
     }
 }

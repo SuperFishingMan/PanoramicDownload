@@ -31,13 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.UrlStateBox = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.userButton6 = new HslCommunication.Controls.UserButton();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.userButton1 = new HslCommunication.Controls.UserButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -57,18 +54,21 @@
             this.userButton7 = new HslCommunication.Controls.UserButton();
             this.label3 = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.UrlStateBox = new System.Windows.Forms.PictureBox();
             this.listView1 = new System.Windows.Forms.ProgressListview(this.components);
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).BeginInit();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -79,29 +79,6 @@
             this.toolTip1.InitialDelay = 500;
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.Tag = "";
-            // 
-            // UrlStateBox
-            // 
-            this.UrlStateBox.Image = global::PanoramicDownload.Properties.Resources.yes;
-            this.UrlStateBox.Location = new System.Drawing.Point(500, 9);
-            this.UrlStateBox.Name = "UrlStateBox";
-            this.UrlStateBox.Size = new System.Drawing.Size(48, 51);
-            this.UrlStateBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.UrlStateBox.TabIndex = 6;
-            this.UrlStateBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.UrlStateBox, "使用笑脸判断链接是否为可下载的全景图链接");
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::PanoramicDownload.Properties.Resources.问好;
-            this.pictureBox2.Location = new System.Drawing.Point(116, 2);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(18, 19);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox2, "请输入本软件支持平台的全景链接  先观看使用说明在进行操作");
             // 
             // linkLabel2
             // 
@@ -125,8 +102,8 @@
             this.userButton6.Cursor = System.Windows.Forms.Cursors.Default;
             this.userButton6.CustomerInformation = "";
             this.userButton6.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton6.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.userButton6.Location = new System.Drawing.Point(437, 46);
+            this.userButton6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.userButton6.Location = new System.Drawing.Point(441, 46);
             this.userButton6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.userButton6.Name = "userButton6";
             this.userButton6.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
@@ -168,20 +145,6 @@
             this.toolTip1.SetToolTip(this.userButton1, "激活软件联系 qq:1228267639");
             this.userButton1.UIText = "激活软件";
             this.userButton1.Click += new System.EventHandler(this.userButton1_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(29, 23);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(75, 80);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, "你瞅啥？？");
-            this.pictureBox1.Click += new System.EventHandler(this.IconInteraction_OnCilck);
             // 
             // timer1
             // 
@@ -229,7 +192,6 @@
             this.ContentPanel.AutoScroll = true;
             this.ContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ContentPanel.Size = new System.Drawing.Size(666, 719);
-            this.ContentPanel.Load += new System.EventHandler(this.toolStripContainer1_ContentPanel_Load);
             // 
             // userButton2
             // 
@@ -330,7 +292,6 @@
             this.InputUrlTextBox.Name = "InputUrlTextBox";
             this.InputUrlTextBox.Size = new System.Drawing.Size(470, 21);
             this.InputUrlTextBox.TabIndex = 3;
-            this.InputUrlTextBox.TextChanged += new System.EventHandler(this.InputUrlTextBox_TextChanged_1);
             // 
             // userButton5
             // 
@@ -338,11 +299,11 @@
             this.userButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.userButton5.CustomerInformation = "";
             this.userButton5.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton5.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton5.Location = new System.Drawing.Point(374, 4);
-            this.userButton5.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.userButton5.Font = new System.Drawing.Font("微软雅黑", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.userButton5.Location = new System.Drawing.Point(373, 4);
+            this.userButton5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.userButton5.Name = "userButton5";
-            this.userButton5.Size = new System.Drawing.Size(135, 39);
+            this.userButton5.Size = new System.Drawing.Size(134, 39);
             this.userButton5.TabIndex = 19;
             this.userButton5.UIText = "打开图片目录";
             this.userButton5.Click += new System.EventHandler(this.userButton5_Click);
@@ -378,9 +339,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.Font = new System.Drawing.Font("宋体", 12F);
+            this.label3.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(10, 610);
+            this.label3.Location = new System.Drawing.Point(3, 597);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(512, 16);
             this.label3.TabIndex = 22;
@@ -393,6 +354,7 @@
             // 
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
             this.toolStripContainer1.ContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.label3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tableLayoutPanel1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pictureBox1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.userButton1);
@@ -403,14 +365,70 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.panel3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.listView1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(631, 647);
-            this.toolStripContainer1.ContentPanel.Load += new System.EventHandler(this.toolStripContainer1_ContentPanel_Load);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(631, 622);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(631, 647);
             this.toolStripContainer1.TabIndex = 22;
             this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.userButton3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.userButton7, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.userButton4, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.userButton5, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.userButton2, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(28, 442);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(527, 49);
+            this.tableLayoutPanel1.TabIndex = 22;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(29, 23);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(75, 80);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "你瞅啥？？");
+            this.pictureBox1.Click += new System.EventHandler(this.IconInteraction_OnCilck);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::PanoramicDownload.Properties.Resources.问好;
+            this.pictureBox2.Location = new System.Drawing.Point(116, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(18, 19);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox2, "请输入本软件支持平台的全景链接  先观看使用说明在进行操作");
+            // 
+            // UrlStateBox
+            // 
+            this.UrlStateBox.Image = global::PanoramicDownload.Properties.Resources.yes;
+            this.UrlStateBox.Location = new System.Drawing.Point(491, 8);
+            this.UrlStateBox.Name = "UrlStateBox";
+            this.UrlStateBox.Size = new System.Drawing.Size(48, 51);
+            this.UrlStateBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.UrlStateBox.TabIndex = 6;
+            this.UrlStateBox.TabStop = false;
+            this.toolTip1.SetToolTip(this.UrlStateBox, "使用笑脸判断链接是否为可下载的全景图链接");
             // 
             // listView1
             // 
@@ -444,32 +462,11 @@
             this.columnHeader3.Text = "合成完成";
             this.columnHeader3.Width = 200;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.userButton3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton7, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton4, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton5, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton2, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(28, 442);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(527, 49);
-            this.tableLayoutPanel1.TabIndex = 22;
-            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(631, 647);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.toolStripContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -480,9 +477,6 @@
             this.Text = "全景图下载器";
             this.toolTip1.SetToolTip(this, "你知道的太多了");
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -490,8 +484,10 @@
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UrlStateBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
