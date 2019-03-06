@@ -421,7 +421,7 @@ namespace PanoramicDownload
                     //    return;
                     //}
                     #endregion
-                    if (newKeystrList[0].Length.Equals(3))
+                    if (newKeystrList[2].Length.Equals(2))
                     {
                         for (int j = 1; j < 20; j++)
                         {
@@ -1415,9 +1415,16 @@ namespace PanoramicDownload
             try
             {
                 req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
-                //req.CookieContainer = new CookieContainer();
-                // req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
-                req.Referer = referer; //"https://720yun.com";
+               // req.CookieContainer = new CookieContainer();
+                req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36";
+                if (url.Contains("720static"))
+                {
+                    req.Referer = "https://720yun.com";
+                }
+                else
+                {
+                    req.Referer = ""; //"https://720yun.com";
+                }           
                 //rq.Accept = "*/*";
                 req.Method = "GET";  //这是关键        
                 req.Timeout = timeout;
