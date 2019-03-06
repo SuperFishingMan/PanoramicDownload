@@ -376,5 +376,88 @@ namespace PanoramicDownload.UToos
             }
             return "";
         }
+
+        /// <summary>
+        /// 全景客
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        public string MatchQJK(string txt)
+        {
+            // txt = "http://www.quanjingke.com/attachment/2015/08/07578600.tiles/l2_f_01_02.jpg";
+
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "\\/"; // Uninteresting: c
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "\\/"; // Uninteresting: c
+            string re5 = ".*?"; // Non-greedy match on filler
+            string re6 = "\\/"; // Uninteresting: c
+            string re7 = ".*?"; // Non-greedy match on filler
+            string re8 = "\\/"; // Uninteresting: c
+            string re9 = ".*?"; // Non-greedy match on filler
+            string re10 = "\\/";    // Uninteresting: c
+            string re11 = ".*?";    // Non-greedy match on filler
+            string re12 = "\\/";    // Uninteresting: c
+            string re13 = ".*?";    // Non-greedy match on filler
+            string re14 = "(\\/)";  // Any Single Character 1
+            string re15 = "([a-z])";    // Any Single Word Character (Not Whitespace) 1
+            string re16 = "(\\d+)"; // Integer Number 1
+            string re17 = "(.)";    // Any Single Character 2
+            string re18 = "([a-z])";    // Any Single Word Character (Not Whitespace) 2
+            string re19 = "(.)";    // Any Single Character 3
+            string re20 = "(\\d+)"; // Integer Number 2
+            string re21 = "(.)";    // Any Single Character 4
+            string re22 = "(\\d+)"; // Integer Number 3
+            string re23 = "(\\.)";  // Any Single Character 5
+            string re24 = "((?:[a-z][a-z]+))";  // Word 1
+
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15 + re16 + re17 + re18 + re19 + re20 + re21 + re22 + re23 + re24, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                string c1 = m.Groups[1].ToString();
+                string w1 = m.Groups[2].ToString();
+                string int1 = m.Groups[3].ToString();
+                string c2 = m.Groups[4].ToString();
+                string w2 = m.Groups[5].ToString();
+                string c3 = m.Groups[6].ToString();
+                string int2 = m.Groups[7].ToString();
+                string c4 = m.Groups[8].ToString();
+                string int3 = m.Groups[9].ToString();
+                string c5 = m.Groups[10].ToString();
+                string word1 = m.Groups[11].ToString();
+                return c1.ToString() + w1.ToString()  + int1.ToString()  + c2.ToString()  + w2.ToString() + c3.ToString()  + int2.ToString()+ c4.ToString()  + int3.ToString() + c5.ToString()  + word1.ToString();
+               // Console.Write("(" + c1.ToString() + ")" + "(" + w1.ToString() + ")" + "(" + int1.ToString() + ")" + "(" + c2.ToString() + ")" + "(" + w2.ToString() + ")" + "(" + c3.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + c4.ToString() + ")" + "(" + int3.ToString() + ")" + "(" + c5.ToString() + ")" + "(" + word1.ToString() + ")" + "\n");
+            }
+            return "";
+        }
+
+        public List<string> GetRegexQJK(string txt)
+        {
+            //string txt = "l3_f_02_01.jpg";
+            List<string> liststr = new List<string>();
+            string re1 = ".*?"; // Non-greedy match on filler
+            string re2 = "(\\d+)";  // Integer Number 1
+            string re3 = ".*?"; // Non-greedy match on filler
+            string re4 = "(\\d+)";  // Integer Number 2
+            string re5 = ".*?"; // Non-greedy match on filler
+            string re6 = "(\\d+)";  // Integer Number 3
+
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Match m = r.Match(txt);
+            if (m.Success)
+            {
+                string int1 = m.Groups[1].ToString();
+                string int2 = m.Groups[2].ToString();
+                string int3 = m.Groups[3].ToString();
+                liststr.Add(int1);
+                liststr.Add(int2);
+                liststr.Add(int3);
+                return liststr;
+                //Console.Write("(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
+            }
+            return liststr;
+            //Console.ReadLine();
+        }
     }
 }

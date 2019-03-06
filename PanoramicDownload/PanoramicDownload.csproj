@@ -87,6 +87,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\PlatformQJK.cs" />
     <Compile Include="Core\PlatformYMW.cs" />
     <Compile Include="MakePano.cs">
       <SubType>Form</SubType>
