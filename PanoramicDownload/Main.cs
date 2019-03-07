@@ -866,6 +866,7 @@ namespace PanoramicDownload
                     int index1 = InputUrl.IndexOf(InputUrlQJK, 1, InputUrl.Length - 1);
                     StringBuilder UrlHeadQJK = new StringBuilder(InputUrl.Remove(index1, InputUrlQJK.Length));
                     int maxindex_QJK = 0;
+                    int maxtype_QJK = 0;
                     List<string> liststr = new List<string>();
                     liststr = regExManager.GetRegexQJK(InputUrlQJK);
 
@@ -876,6 +877,20 @@ namespace PanoramicDownload
 
                         if (isPing(UrlHeadQJK + "" + tempstr, ""))
                         {
+                            maxtype_QJK = j;
+
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    for (int j = 1; j < 15; j++)
+                    {
+                        tempstr.Clear();
+                        tempstr.Append(InputUrlQJK.Replace(liststr[0],""+ maxtype_QJK).Replace("_" + liststr[1] + "_", "_0"+j+"_").Replace("_" + liststr[2] + ".", "_01."));
+                        if (isPing(UrlHeadQJK + "" + tempstr, ""))
+                        {
                             maxindex_QJK = j;
 
                         }
@@ -884,22 +899,21 @@ namespace PanoramicDownload
                             break;
                         }
                     }
-
-                    Mesbox(maxindex_QJK.ToString());
+                    Mesbox((maxindex_QJK *maxindex_QJK*6).ToString());
                     Thread threadQJK = new Thread(() =>
                      {
 
-                         platfromQJK.WriteDownLoad(DirectionType.l, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
-                         platfromQJK.WriteDownLoad(DirectionType.f, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
-                         platfromQJK.WriteDownLoad(DirectionType.r, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
-                         platfromQJK.WriteDownLoad(DirectionType.b, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
-                         platfromQJK.WriteDownLoad(DirectionType.u, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
-                         platfromQJK.WriteDownLoad(DirectionType.d, maxindex_QJK, UrlHeadQJK, maxindex_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.l, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.f, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.r, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.b, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.u, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
+                         platfromQJK.WriteDownLoad(DirectionType.d, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
                          sw5.Close();
                          sw5.Dispose();
                      });
                     threadQJK.Start();
-                    var commandQJK = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    var commandQJK = "-s 1 -x 1 -j 20  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", commandQJK, (s, e) => ShowInfo("", e.Data));
@@ -1495,7 +1509,7 @@ namespace PanoramicDownload
                 req.Timeout = timeout;
 
                 HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                if (res.ContentType.Equals("image/jpeg") || res.ContentType.Equals("application/octet-stream"))
+                if (res.ContentType.Equals("image/jpeg") || res.ContentType.Equals("application/octet-stream") && res.StatusCode.Equals("200"))
                 {
                     return Convert.ToInt32(res.StatusCode).ToString();
                 }
