@@ -585,7 +585,16 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer=https://720yun.com/  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    string referer = "https://720yun.com/";
+                    if (InputUrl.Contains("720static"))
+                    {
+                        referer = "https://720yun.com/";
+                    }
+                    else
+                    {
+                        referer = "";
+                    }
+                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer="+ referer + "  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
