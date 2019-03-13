@@ -11,6 +11,15 @@ namespace PanoramicDownload.UToos
 {
     public class AppManager
     {
+        /// <summary>
+        /// 软件激活 广告 联系方式
+        /// </summary>
+        public string ADW_RegCode = "请联系QQ1228267639获取激活码";
+
+        /// <summary>
+        /// 是否打开广告
+        /// </summary>
+        public bool IsOpenADW = false;
 
         public string AuthorizeEncrypted(string origin)
         {
@@ -109,10 +118,14 @@ namespace PanoramicDownload.UToos
             if (Check_RegCode())
             {
                 // 显示注册窗口
+                if (!IsOpenADW)
+                {
+                    ADW_RegCode = "";
+                }
                 using (HslCommunication.BasicFramework.FormAuthorize form =
                     new HslCommunication.BasicFramework.FormAuthorize(
                         softAuthorize,
-                        "请联系QQ1228267639获取激活码",
+                        ADW_RegCode,
                         AuthorizeEncrypted))
                 {
                     
@@ -153,18 +166,18 @@ namespace PanoramicDownload.UToos
         }
 
 
-        public string OpenText()
-        {
-            using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
-            {
-                //定义打开的默认文件夹位置
-                OpenFD.InitialDirectory = Application.StartupPath;
-                OpenFD.Filter = "All files(*.*)|*.*|txt files(*.txt)|*.txt";
-                OpenFD.FilterIndex = 2;
-                OpenFD.ShowDialog();                  //显示打开本地文件的窗体
-                OpenFD.RestoreDirectory = true;
-                return OpenFD.FileName;       //把 路径名称 赋给 fileName
-            }
-        }
+        //public string OpenText()
+        //{
+        //    using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
+        //    {
+        //        //定义打开的默认文件夹位置
+        //        OpenFD.InitialDirectory = Application.StartupPath;
+        //        OpenFD.Filter = "All files(*.*)|*.*|txt files(*.txt)|*.txt";
+        //        OpenFD.FilterIndex = 2;
+        //        OpenFD.ShowDialog();                  //显示打开本地文件的窗体
+        //        OpenFD.RestoreDirectory = true;
+        //        return OpenFD.FileName;       //把 路径名称 赋给 fileName
+        //    }
+        //}
     }
 }

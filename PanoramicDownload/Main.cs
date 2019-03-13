@@ -195,7 +195,17 @@ namespace PanoramicDownload
             //添加链接检测事件
             InputUrlTextBox.TextChanged += InputUrlTextBox_TextChanged;
             //跑马灯定时器
-            timer1.Tick += Timer1_Tick;
+            if (appManager.IsOpenADW)
+            {
+                timer1.Tick += Timer1_Tick;
+            }
+            else
+            {
+                label3.Hide();
+                linkLabel1.Hide();
+                linkLabel2.Hide();
+            }
+
             ReadStdOutput += new DelReadStdOutput(ReadStdOutputAction);
             ReadErrOutput += new DelReadErrOutput(ReadErrOutputAction);
 
@@ -217,7 +227,6 @@ namespace PanoramicDownload
             {
                 label3.Left = -label3.Width;
             }
-
         }
 
         /// <summary>
@@ -1439,15 +1448,17 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            if (appManager.IsOpenADW)
             {
-                Process.Start(ConstPath.mailUrl);
+                try
+                {
+                    Process.Start(ConstPath.mailUrl);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
             }
-            catch (Exception ex)
-            {
-                SoftBasic.ShowExceptionMessage(ex);
-            }
-
         }
 
         /// <summary>
@@ -1457,15 +1468,17 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
+            if (appManager.IsOpenADW)
             {
-                Process.Start("chrome.exe", ConstPath.qqUrl);
+                try
+                {
+                    Process.Start("chrome.exe", ConstPath.qqUrl);
+                }
+                catch (Exception ex)
+                {
+                    SoftBasic.ShowExceptionMessage(ex);
+                }
             }
-            catch (Exception ex)
-            {
-                SoftBasic.ShowExceptionMessage(ex);
-            }
-
         }
 
         /// <summary>
