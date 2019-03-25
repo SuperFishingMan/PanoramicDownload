@@ -22,7 +22,7 @@ namespace PanoramicDownload.Core
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    StringBuilder url = new StringBuilder(newUrl + "/l" + maxQuality + "_" + type + "_0" + i + "_0" + x + ".jpg");
+                    StringBuilder url = new StringBuilder(newUrl + "/l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
                     SWFile.WriteLine(url);
                 }
             }
@@ -41,9 +41,9 @@ namespace PanoramicDownload.Core
                 for (int x = 1; x <= imageIndex; x++)
                 {
                     Image image = null;
-                    if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg") != null)
+                    if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg") != null)
                     {
-                        image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                        image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
                     }
                     int i = image.Width;
                     contwidth += i;
@@ -60,9 +60,9 @@ namespace PanoramicDownload.Core
                     int width = 0;
                     for (int d = 1; d <= imageIndex; d++)
                     {
-                        if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg") != null)
+                        if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
                         {
-                            image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                            image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
                         }
                         g.DrawImage(image1, width, high, image1.Width, image1.Height);
                         width += image1.Width;

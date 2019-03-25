@@ -891,7 +891,7 @@ namespace PanoramicDownload
                     for (int j = 1; j < 15; j++)
                     {
                         tempstr.Clear();
-                        tempstr.Append(InputUrlQJK.Replace(liststr[0], "" + j).Replace("_" + liststr[1] + "_", "_01_").Replace("_" + liststr[2] + ".", "_01."));
+                        tempstr.Append(InputUrlQJK.Replace(liststr[0], "" + j).Replace("_" + liststr[1] + "_", "_1_").Replace("_" + liststr[2] + ".", "_1."));
 
                         if (isPing(UrlHeadQJK + "" + tempstr, ""))
                         {
@@ -906,7 +906,7 @@ namespace PanoramicDownload
                     for (int j = 1; j < 15; j++)
                     {
                         tempstr.Clear();
-                        tempstr.Append(InputUrlQJK.Replace(liststr[0],""+ maxtype_QJK).Replace("_" + liststr[1] + "_", "_0"+j+"_").Replace("_" + liststr[2] + ".", "_01."));
+                        tempstr.Append(InputUrlQJK.Replace(liststr[0],""+ maxtype_QJK).Replace("_" + liststr[1] + "_", "_"+j+"_").Replace("_" + liststr[2] + ".", "_1."));
                         if (isPing(UrlHeadQJK + "" + tempstr, ""))
                         {
                             maxindex_QJK = j;
@@ -1804,6 +1804,7 @@ namespace PanoramicDownload
                     ImagePath.Clear();
                     return;
                 #endregion
+                #region 全景客
                 case DownLoadType.lx_x_0x_0x:
                     try
                     {
@@ -1850,6 +1851,7 @@ namespace PanoramicDownload
 
                     }
                     break;
+#endregion
                 default:
                     Mesbox("请下载图片后在合成");
                     this.Activate();

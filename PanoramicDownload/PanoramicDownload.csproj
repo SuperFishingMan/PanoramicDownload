@@ -193,6 +193,7 @@
   <ItemGroup>
     <None Include="Resources\图片.png" />
     <None Include="bin\Debug\建e网演示.jpg" />
+    <None Include="bin\Debug\演示.jpg" />
     <Content Include="zzx.ico" />
   </ItemGroup>
   <ItemGroup />

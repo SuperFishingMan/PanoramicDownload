@@ -44,6 +44,15 @@ namespace PanoramicDownload
             string ImageName = filenamePath.Remove(0, index + 1);
             if (txtProject.Text.Contains(ImageName))
             {
+                string argreg = @"register ""FXsqTqaGNSZER5dSETEm+VzQEh9sWSa5DZMFsSmMxYV9GcXs8W3R8A/mWXrGNUceXvrihmh28hfRF1ivrW0HMzEychPvNiD8B/4/ZzDaUE9Rh6Ig22aKJGDbja1/kYIqmc/VKfItRE2RTSOIbIroxOtsz626NIpxWksAAifwhpNwuPXqDQpz2sRUMBzoPqZktpkItoSenN2mKd8Klfx7pOuB6CIK3e1CDXgyndqOt2mWybLZcU/wfJVAecfxk15ghiqrzaDsbqrdABDowg==""";
+                Process regProcess = new Process();
+                regProcess.StartInfo.FileName = ConstPath.exePath + @"\krpanotools64.exe";
+                regProcess.StartInfo.Arguments = argreg;
+
+                regProcess.Start();
+                regProcess.Close();
+
+                
                 var conmm = ConstPath.exePath + @"\krpanotools64.exe";
                 var arg = @"  makepano  " + filenamePath + "   " + ConstPath.exePath + @"\templates\normal.config";
                 using (var pro = new Process())
@@ -96,7 +105,7 @@ namespace PanoramicDownload
            // p.StartInfo.RedirectStandardOutput = true; // 重定向标准输出
             //p.StartInfo.RedirectStandardError = true;  // 重定向错误输出
             p.StartInfo.ErrorDialog = false;
-         
+            p.Exited += P_Exited;
             p.EnableRaisingEvents = true;                      // 启用Exited事件
             p.Start();                    //启动线程
            // p.BeginErrorReadLine();
@@ -105,6 +114,11 @@ namespace PanoramicDownload
             Application.DoEvents();
 
             //p.WaitForExit();            //等待进程结束
+        }
+
+        private void P_Exited(object sender, EventArgs e)
+        {
+            MessageBox.Show("wanc");
         }
     }
 }

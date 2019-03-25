@@ -19,7 +19,7 @@ namespace PanoramicDownload.UToos
         /// <summary>
         /// 是否打开广告
         /// </summary>
-        public bool IsOpenADW = false;
+        public bool IsOpenADW = true;
 
         public string AuthorizeEncrypted(string origin)
         {

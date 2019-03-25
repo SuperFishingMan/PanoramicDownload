@@ -454,10 +454,8 @@ namespace PanoramicDownload.UToos
                 liststr.Add(int2);
                 liststr.Add(int3);
                 return liststr;
-                //Console.Write("(" + int1.ToString() + ")" + "(" + int2.ToString() + ")" + "(" + int3.ToString() + ")" + "\n");
             }
             return liststr;
-            //Console.ReadLine();
         }
     }
 }

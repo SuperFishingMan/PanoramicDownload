@@ -38,10 +38,10 @@
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::PanoramicDownload.Properties.Resources.建e网演示;
+            this.pictureBox1.Image = global::PanoramicDownload.Properties.Resources.演示;
             this.pictureBox1.Location = new System.Drawing.Point(3, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1517, 5937);
+            this.pictureBox1.Size = new System.Drawing.Size(1500, 7000);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
