@@ -23,6 +23,7 @@ namespace AutoUpdate
         private string tmpPath = Path.Combine(Environment.CurrentDirectory, "tmp");
         private string tmpFilePath;
         private Manifest manifest;
+        private DateTime StartTime;
         public MainForm()
         {
             InitializeComponent();
@@ -65,23 +66,26 @@ namespace AutoUpdate
 
         public void ProcessUpdate()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             string serPath = Path.Combine(manifest.WebPath, manifest.Version + ".zip");
             string cliPath = Path.Combine(tmpPath, manifest.Version + ".zip");
-            SetProcessBar(40, "开始下载");
+            // SetProcessBar(40, "开始下载");
+            StartTime = DateTime.Now;
+            SetProcessBar(0, "开始下载");
+            Thread.Sleep(100);
             DownZip(serPath, cliPath);
-            SetProcessBar(60, "开始解压");
-            UnZip(cliPath, tmpFilePath);
+            //SetProcessBar(60, "开始解压");
+            //UnZip(cliPath, tmpFilePath);
 
-            CopyDirectory(tmpFilePath, Environment.CurrentDirectory);
-            SetProcessBar(90,"配置信息");
-            DeleteFolder(tmpPath);
-            SetProcessBar(100,"完毕");
-            Thread.Sleep(5000);
-            Process.Start(Path.Combine(Environment.CurrentDirectory, manifest.ExePath));
+            //CopyDirectory(tmpFilePath, Environment.CurrentDirectory);
+            //SetProcessBar(90,"配置信息");
+            //DeleteFolder(tmpPath);
+            //SetProcessBar(100,"完毕");
+            //Thread.Sleep(5000);
+            //Process.Start(Path.Combine(Environment.CurrentDirectory, manifest.ExePath));
 
-            //Application.Exit();
-            Environment.Exit(0);
+            ////Application.Exit();
+            //Environment.Exit(0);
         }
 
 
@@ -161,6 +165,7 @@ namespace AutoUpdate
             using (ZipFile zip = new ZipFile(file, System.Text.Encoding.Default))
             {
                 zip.ExtractAll(dir, ExtractExistingFileAction.OverwriteSilently);
+                
             }
         }
 
@@ -191,7 +196,33 @@ namespace AutoUpdate
         {
             WebClient webClient = new WebClient();
             Uri uri = new Uri(ser);
-            webClient.DownloadFile(uri, cli);
+            //webClient.DownloadFile(uri, cli);
+            webClient.DownloadProgressChanged += WebClient_DownloadProgressChanged;
+            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+            webClient.DownloadFileAsync(uri, cli);
+        }
+
+        private void WebClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            string cliPath = Path.Combine(tmpPath, manifest.Version + ".zip");
+            UnZip(cliPath, tmpFilePath);
+            CopyDirectory(tmpFilePath, Environment.CurrentDirectory);
+            SetProcessBar(90, "配置信息");
+            Thread.Sleep(1000);
+            DeleteFolder(tmpPath);
+            SetProcessBar(100, "完毕");
+            Thread.Sleep(1000);
+            Process.Start(Path.Combine(Environment.CurrentDirectory, manifest.ExePath));
+            //Application.Exit();
+            Environment.Exit(0);
+        }
+
+        private void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            var s = (DateTime.Now - StartTime).TotalSeconds;
+            var sd = ReadableFilesize(e.BytesReceived / s);
+            //label1.Text = "下载速度" + sd + "/秒" + ",已下载" + ReadableFilesize(e.BytesReceived) + "/总计" + ReadableFilesize(e.TotalBytesToReceive);
+            SetProcessBar(Convert.ToInt32(e.ProgressPercentage*0.9f), "下载速度" + sd + "/秒" + ",已下载" + ReadableFilesize(e.BytesReceived) + "/总计" + ReadableFilesize(e.TotalBytesToReceive));
         }
 
         private string GetManifest(Uri uri)
@@ -207,6 +238,19 @@ namespace AutoUpdate
                 }
             }
             return response;
+        }
+
+        private string ReadableFilesize(double size)
+        {
+            String[] units = { "B", "KB", "MB", "GB", "TB", "PB" };
+            double mod = 1024.0;
+            int i = 0;
+            while (size >= mod)
+            {
+                size /= mod;
+                i++;
+            }
+            return Math.Round(size) + units[i];
         }
     }
 }
