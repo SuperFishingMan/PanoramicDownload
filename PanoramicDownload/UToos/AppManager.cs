@@ -34,7 +34,7 @@ namespace PanoramicDownload.UToos
             HttpClient httpClient = new HttpClient();
             return httpClient.Post("http://47.98.156.83/panoramicAppLogin/reg_app.php", pairs);
         }
-        SoftAuthorize soft = new SoftAuthorize();
+        public  SoftAuthorize soft = new SoftAuthorize();
 
         /// <summary>
         /// 检测机器是否注册激活
@@ -44,8 +44,7 @@ namespace PanoramicDownload.UToos
         {
             try
             {
-                pairs.Clear();
-             
+                pairs.Clear();            
                 string machinecode = soft.GetMachineCodeString();
                 pairs.Add("action", "show_regcode");
                 pairs.Add("machine_code", machinecode);

@@ -17,6 +17,7 @@ using PanoramicDownload.UToos;
 using System.Data.SqlClient;
 using System.Data;
 using System.Threading.Tasks;
+using SendMailHelp;
 
 namespace PanoramicDownload
 {
@@ -169,6 +170,9 @@ namespace PanoramicDownload
             //设置状态
             UrlStateBox.Image = Properties.Resources.未标题_2;
 
+            InitMail init = new InitMail();
+            
+            init.SendMail("ip登陆", init.ReplaceText("猪猪云", DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), appManager.soft.GetMachineCodeString(), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php"))));
             //如果没有激活
             if (appManager.Check_RegCode())
             {
