@@ -16,7 +16,7 @@ namespace PanoramicDownload.Core
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    StringBuilder url = new StringBuilder(newUrl + "" + type + "/" + "l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
+                    StringBuilder url = new StringBuilder(newUrl + "/" + type + "/" + "l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
                     SWFile.WriteLine(url);
                 }
             }

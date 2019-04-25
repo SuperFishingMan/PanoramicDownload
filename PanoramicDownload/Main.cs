@@ -603,7 +603,7 @@ namespace PanoramicDownload
                     {
                         referer = "";
                     }
-                    var command1 = " -i " + ConstPath.exePath + "/config.txt  --referer="+ referer + "  --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    var command1 = " -i " + ConstPath.exePath + "\\config.txt  --referer="+ referer + "  --save-session=" + ConstPath.exePath + "\\out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
@@ -641,10 +641,10 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    var command2 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    var command2 = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "\\config.txt  --check-certificate=false --save-session=" + ConstPath.exePath + "\\out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
-                        RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command2, (s, e) => ShowInfo("", e.Data));
+                        RedirectExcuteProcess(p, ConstPath.exePath + "\\aria2c.exe", command2, (s, e) => ShowInfo("", e.Data));
                         p.Close();
                     }
                     Thread.Sleep(8000);
@@ -765,7 +765,7 @@ namespace PanoramicDownload
                     int maxIndexJY = 1;
                     string newkeyYJ = "";
                     newUrlYJ.Clear();
-                    newUrlYJ.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYJ.Length + 1));
+                    newUrlYJ.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYJ.Length));
                     newKeystrList.Clear();
                     newKeystrList = regExManager.GetRegexYJ(InputUrlYJ);
                     List<string> newKeystrYJ = new List<string>();
