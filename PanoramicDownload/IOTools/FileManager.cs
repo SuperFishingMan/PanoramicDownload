@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace PanoramicDownload
 {
+    /// <summary>
+    /// 文件管理类
+    /// </summary>
     public  class FileManager
     {
 
@@ -44,11 +47,11 @@ namespace PanoramicDownload
             }
         }
 
-        public static void SelectSavePath()
-        {
 
-        }
-
+        /// <summary>
+        /// 打开文件路径
+        /// </summary>
+        /// <param name="folderPath"></param>
         public  static void OpenFolder(string folderPath)
         {
             if (!Directory.Exists(folderPath))

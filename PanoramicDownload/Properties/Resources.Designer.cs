@@ -113,9 +113,9 @@ namespace PanoramicDownload.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap 未标题_2 {
+        internal static System.Drawing.Bitmap 演示 {
             get {
-                object obj = ResourceManager.GetObject("未标题-2", resourceCulture);
+                object obj = ResourceManager.GetObject("演示", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace PanoramicDownload.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap 演示 {
+        internal static System.Drawing.Bitmap 笑脸 {
             get {
-                object obj = ResourceManager.GetObject("演示", resourceCulture);
+                object obj = ResourceManager.GetObject("笑脸", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

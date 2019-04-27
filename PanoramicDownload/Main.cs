@@ -1,5 +1,4 @@
 ﻿using System;
-using AutoUpdateHelper;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -23,7 +22,7 @@ namespace PanoramicDownload
 {
     public partial class Main : Form
     {
-        private SoftAuthorize softAuthorize = null;
+
         public Main()
         {
             InitializeComponent();
@@ -32,9 +31,7 @@ namespace PanoramicDownload
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲  
             this.DoubleBuffered = true;
             CheckForIllegalCrossThreadCalls = false;
-
-            UIInit();
-
+            UiInit();
         }
 
         /// <summary>
@@ -64,7 +61,6 @@ namespace PanoramicDownload
         /// 鱼模网
         /// </summary>
         private string InputUrlYMW = "";
-
         /// <summary>
         /// 全景客
         /// </summary>
@@ -92,6 +88,9 @@ namespace PanoramicDownload
         /// </summary>
         private FileInfo configFile;
 
+        /// <summary>
+        /// 软件是否激活  True 是没有激活  False 是激活了
+        /// </summary>
         public static bool appisReg = false;
         /// <summary>
         /// 存储单张图片 质量关键字
@@ -99,80 +98,30 @@ namespace PanoramicDownload
         private List<string> newKeystrList = new List<string>();
 
         private List<string> strMatc = new List<string>();
+
+        public Dictionary<string, string> ImagePath = new Dictionary<string, string>();
         #endregion
         StreamWriter sw51;
         private RegExManager regExManager;
         private AppManager appManager;
-        private void button6_Click()
-        {
-            int contwidth = 0;
-            for (int x = 1; x <= 156 / 4; x++)
-            {
-                Image image = null;
-
-                if (Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + 1 + "_" + x + ".jpg") != null)
-                {
-                    image = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + 1 + "_" + x + ".jpg");
-                }
-                else
-                {
-
-                }
-                int i = image.Width;
-                contwidth += i;
-                image.Dispose();
-            }
-            Image bmp = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\" + "1234" + ".JPG");
-            Graphics g = Graphics.FromImage(bmp);
-            int high = 512 + 512;
-            Image image1 = null;
-            Image image2 = null;
-            for (int i = 76; i <= 114; i++)
-            {
-                int width = 0;
-                for (int d = 76; d <= 114; d++)
-                {
-                    if (Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + i + "_" + d + ".jpg") != null)
-                    {
-                        image1 = Image.FromFile(@"C:\Users\Administrator.USER-20181202MU\Desktop\b\" + "l" + "8" + "_" + "b" + "_" + i + "_" + d + ".jpg");
-                    }
-                    else
-                    {
-
-                    }
-                    g.DrawImage(image1, width, high, image1.Width, image1.Height);
-                    width += image1.Width;
-                    image1.Dispose();
-                }
-            }
-            g.Save();
-            g.Flush();
-            g.Dispose();
-
-            bmp.Save(@"C:\Users\Administrator.USER-20181202MU\Desktop\" + "12345" + ".JPG", ImageFormat.Jpeg);
-            bmp.Dispose();
-        }
+        private SoftAuthorize softAuthorize = null;
         /// <summary>
-        /// UI状态初始化
+        /// Ui事件及状态的初始化
         /// </summary>
-        private void UIInit()
+        private void UiInit()
         {
-            // button6_Click();
-            linkLabel3.Links.Add(0, 4, ConstPath.exePath + "\\建e网演示.jpg");
-            LocalConf conf = new LocalConf();
-            label1.Text = "图片路径:" + ConstPath.saveFile;
+            UseExplain_Link.Links.Add(0, 4, ConstPath.exePath + "\\建e网演示.jpg");
+            ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
             softAuthorize = new SoftAuthorize();
             appManager = new AppManager();
-            //softAuthorize.FileSavePath = Application.StartupPath + @"\Authorize.txt"; // 设置存储激活码的文件，该存储是加密的
-            //softAuthorize.LoadByFile();
+            Text = appManager.GetAppVersion();
             //同步版本UI
-            Text = "猪猪全景图下载器  v" + conf.Version;
-            //设置状态
-            UrlStateBox.Image = Properties.Resources.未标题_2;
 
-            InitMail init = new InitMail();
-            
-            init.SendMail("ip登陆", init.ReplaceText("猪猪云", DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), appManager.soft.GetMachineCodeString(), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php"))));
+            //设置状态
+            UrlStateBox.Image = Properties.Resources.笑脸;
+
+            //InitMail init = new InitMail();         
+            //init.SendMail("ip登陆", init.ReplaceText("猪猪云", DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), appManager.soft.GetMachineCodeString(), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php"))));
             //如果没有激活
             if (appManager.Check_RegCode())
             {
@@ -185,36 +134,32 @@ namespace PanoramicDownload
                 {
                     //appisReg = true;
                 }
-                userButton6.Show();
-                userButton1.Show();
-                //
+                Pay_Button.Show();
+                Activate_Button.Show();
             }
             else
             {
-                userButton1.Hide();
-                userButton6.Hide();
+                //Activate_Button.Hide();
+                //Pay_Button.Hide();
             }
 
             regExManager = new RegExManager();
             //添加链接检测事件
-            InputUrlTextBox.TextChanged += InputUrlTextBox_TextChanged;
+            InputUrl_TextBox.TextChanged += InputUrl_TextBox_TextChanged;
             //跑马灯定时器
             if (appManager.IsOpenADW)
             {
-                timer1.Tick += Timer1_Tick;
+                timer_Tick.Tick += Timer1_Tick;
             }
             else
             {
-                label3.Hide();
-                linkLabel1.Hide();
-                linkLabel2.Hide();
+                ADW_label.Hide();
+                Mail_Link.Hide();
+                QQ_Link.Hide();
             }
 
             ReadStdOutput += new DelReadStdOutput(ReadStdOutputAction);
             ReadErrOutput += new DelReadErrOutput(ReadErrOutputAction);
-
-            FileInfo configFile1 = new FileInfo(ConstPath.exePath + "/Output.txt");
-            sw51 = configFile1.CreateText();
 
         }
 
@@ -226,10 +171,10 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            label3.Left += 1;
-            if (label3.Left == this.Width)
+            ADW_label.Left += 1;
+            if (ADW_label.Left == this.Width)
             {
-                label3.Left = -label3.Width;
+                ADW_label.Left = -ADW_label.Width;
             }
         }
 
@@ -238,16 +183,16 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InputUrlTextBox_TextChanged(object sender, EventArgs e)
+        private void InputUrl_TextBox_TextChanged(object sender, EventArgs e)
         {
             if (appisReg)
             {
                 Mesbox("请激活软件");
                 return;
             }
-            InputUrl = InputUrlTextBox.Text.Trim();
+            InputUrl = InputUrl_TextBox.Text.Trim();
             //判断url是否为可访问 
-            if (string.IsNullOrEmpty(InputUrlTextBox.Text.Trim()) || !isPing(InputUrl, "https://720yun.com/"))
+            if (string.IsNullOrEmpty(InputUrl_TextBox.Text.Trim()) || !isPing(InputUrl, "https://720yun.com/"))
             {
                 //Mesbox(GetWebStatusCode(InputUrl, 10000), "错误提示");
                 //this.Activate();  //
@@ -325,17 +270,6 @@ namespace PanoramicDownload
             }
         }
 
-
-        public Dictionary<string, string> ImagePath = new Dictionary<string, string>();
-
-
-
-        private void LoadButton_Click(object sender, EventArgs e)
-        {
-
-
-        }
-        int DownloadCount = 0;
         public void StartDownLoadImage()
         {
             configFile = new FileInfo(ConstPath.exePath + "/config.txt");
@@ -1017,7 +951,6 @@ namespace PanoramicDownload
 
             //p.WaitForExit();            //等待进程结束
         }
-
         private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != null)
@@ -1025,7 +958,6 @@ namespace PanoramicDownload
                 this.Invoke(ReadErrOutput, new object[] { e.Data });
             }
         }
-
         private void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data != null)
@@ -1034,7 +966,6 @@ namespace PanoramicDownload
                 this.Invoke(ReadStdOutput, new object[] { e.Data });
             }
         }
-
         private void ReadStdOutputAction(string result)
         {
             const string ree1 = ".*?"; // Non-greedy match on filler
@@ -1050,10 +981,9 @@ namespace PanoramicDownload
             //    rbraces1 = "100";
             //}
 
-            //textBox1.Text = DateTime.Now.ToString().Replace("/", "-") + "    下载进度:" + rbraces1 + "%";
+            //Log_texBox.Text = DateTime.Now.ToString().Replace("/", "-") + "    下载进度:" + rbraces1 + "%";
 
-            //sw51.WriteLine(Encoding.UTF8.GetString(buffer) + "\r\n");
-            textBox1.Text = result;
+            Log_texBox.Text = result;
 
             //Mesbox(result + "\r\n");
         }
@@ -1066,6 +996,7 @@ namespace PanoramicDownload
             Mesbox("执行完毕" + e.ToString());
             // 执行结束后触发
         }
+
 
         public void getimg(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
         {
@@ -1416,17 +1347,11 @@ namespace PanoramicDownload
 
 
         /// <summary>
-        /// 打开图片存储文件夹
+        /// 打开激活界面
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenImageFile_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void userButton1_Click(object sender, EventArgs e)
+        /// <param name="e"></param> 
+        private void Activate_Button_Click(object sender, EventArgs e)
         {
             appManager.AppActivate(softAuthorize);
         }
@@ -1452,17 +1377,17 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (appManager.IsOpenADW)
-            {
-                try
-                {
-                    Process.Start(ConstPath.mailUrl);
-                }
-                catch (Exception ex)
-                {
-                    SoftBasic.ShowExceptionMessage(ex);
-                }
-            }
+            //if (appManager.IsOpenADW)
+            //{
+            //    try
+            //    {
+            //        Process.Start(ConstPath.mailUrl);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        SoftBasic.ShowExceptionMessage(ex);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -1472,17 +1397,17 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (appManager.IsOpenADW)
-            {
-                try
-                {
-                    Process.Start("chrome.exe", ConstPath.qqUrl);
-                }
-                catch (Exception ex)
-                {
-                    SoftBasic.ShowExceptionMessage(ex);
-                }
-            }
+            //if (appManager.IsOpenADW)
+            //{
+            //    try
+            //    {
+            //        Process.Start("chrome.exe", ConstPath.qqUrl);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        SoftBasic.ShowExceptionMessage(ex);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -1574,20 +1499,14 @@ namespace PanoramicDownload
         }
         #endregion
 
-        public void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("你确定要退出？", "系统提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                e.Cancel = false;
-            else
-                e.Cancel = true;
-        }
+
 
         /// <summary>
         /// 下载全景图片
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void userButton2_Click(object sender, EventArgs e)
+        private void DownLoadImage_Button_Click(object sender, EventArgs e)
         {
             if (appisReg)
             {
@@ -1614,7 +1533,7 @@ namespace PanoramicDownload
             {
                 UrlStateBox.Image = Properties.Resources.失败_表情;
                 Mesbox("请输入链接");
-                InputUrlTextBox.Focus();
+                InputUrl_TextBox.Focus();
                 return;
             }
             StartDownLoadImage();
@@ -1626,7 +1545,7 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void userButton3_Click_1(object sender, EventArgs e)
+        private void MakeImage_Button_Click_1(object sender, EventArgs e)
         {
             if (appisReg)
             {
@@ -1668,9 +1587,9 @@ namespace PanoramicDownload
                             RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, null);
                             Thread.Sleep(500);
                             Thread.Sleep(500);
-                            if (textBox1.Text.Equals("%"))
+                            if (Log_texBox.Text.Equals("%"))
                             {
-                                listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                                listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
                             lvi1.SubItems[2].Text = "完成😀";
@@ -1719,9 +1638,9 @@ namespace PanoramicDownload
                             RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, null);
                             Thread.Sleep(500);
                             Thread.Sleep(500);
-                            if (textBox1.Text.Equals("%"))
+                            if (Log_texBox.Text.Equals("%"))
                             {
-                                listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                                listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
                             lvi1.SubItems[2].Text = "完成😀";
@@ -1795,9 +1714,9 @@ namespace PanoramicDownload
 
                         Thread.Sleep(500);
                         Thread.Sleep(500);
-                        if (textBox1.Text.Equals("%"))
+                        if (Log_texBox.Text.Equals("%"))
                         {
-                            listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                            listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                         }
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandYJ, null);
                         //dd.Value = 100;
@@ -1838,9 +1757,9 @@ namespace PanoramicDownload
                             RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandQJK, null);
                             Thread.Sleep(500);
                             Thread.Sleep(500);
-                            if (textBox1.Text.Equals("%"))
+                            if (Log_texBox.Text.Equals("%"))
                             {
-                                listView1.SetProgress(6, int.Parse(textBox1.Text.Replace("%", "")));
+                                listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
                             lvi1.SubItems[2].Text = "完成";
@@ -1868,7 +1787,7 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void userButton5_Click(object sender, EventArgs e)
+        private void OpenImagePath_Button_Click(object sender, EventArgs e)
         {
             if (appisReg)
             {
@@ -1883,7 +1802,7 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void userButton4_Click(object sender, EventArgs e)
+        private void SetImageSavePath_Button_Click(object sender, EventArgs e)
         {
             if (appisReg)
             {
@@ -1894,11 +1813,11 @@ namespace PanoramicDownload
             Savepath.ShowDialog();
             if (string.IsNullOrEmpty(Savepath.SelectedPath))
             {
-                label1.Text = "图片路径:" + ConstPath.saveFile;
+                ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
                 return;
             }
             ConstPath.saveFile = Savepath.SelectedPath + "\\";
-            label1.Text = "图片路径:" + ConstPath.saveFile;
+            ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
         }
 
         /// <summary>
@@ -1906,14 +1825,19 @@ namespace PanoramicDownload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void userButton6_Click(object sender, EventArgs e)
+        private void Pay_Button_Click(object sender, EventArgs e)
         {
-            PayForm f2 = new PayForm();
-            f2.ShowDialog(this);
+            PayForm pay_Form = new PayForm();
+            pay_Form.ShowDialog(this);
         }
 
 
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        /// <summary>
+        /// 软件使用说明
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UseExplain_Link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //if (File.Exists(e.Link.LinkData.ToString()))
             //{
@@ -1930,18 +1854,31 @@ namespace PanoramicDownload
             useForm.ShowDialog();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void userButton7_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 打开查看全景界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MakePano_Button_Click(object sender, EventArgs e)
         {
             MakePano makePano = new MakePano();
-            makePano.TopMost = true;
+            //makePano.TopMost = true;
             makePano.StartPosition = FormStartPosition.CenterParent;
             makePano.ShowDialog();
+        }
 
+        /// <summary>
+        /// Quit事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("你确定要退出？", "系统提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                e.Cancel = false;
+            else
+                e.Cancel = true;
         }
     }
 }

@@ -31,31 +31,31 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.userButton6 = new HslCommunication.Controls.UserButton();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.userButton1 = new HslCommunication.Controls.UserButton();
+            this.QQ_Link = new System.Windows.Forms.LinkLabel();
+            this.Pay_Button = new HslCommunication.Controls.UserButton();
+            this.Mail_Link = new System.Windows.Forms.LinkLabel();
+            this.Activate_Button = new HslCommunication.Controls.UserButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.UrlStateBox = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer_Tick = new System.Windows.Forms.Timer(this.components);
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
-            this.userButton2 = new HslCommunication.Controls.UserButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.userButton3 = new HslCommunication.Controls.UserButton();
-            this.userButton4 = new HslCommunication.Controls.UserButton();
+            this.DownLoadImage_Button = new HslCommunication.Controls.UserButton();
+            this.Log_texBox = new System.Windows.Forms.TextBox();
+            this.MakeImage_Button = new HslCommunication.Controls.UserButton();
+            this.SetImageSavePath_Button = new HslCommunication.Controls.UserButton();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.UseExplain_Link = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
-            this.InputUrlTextBox = new System.Windows.Forms.TextBox();
-            this.userButton5 = new HslCommunication.Controls.UserButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.userButton7 = new HslCommunication.Controls.UserButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.InputUrl_TextBox = new System.Windows.Forms.TextBox();
+            this.OpenImagePath_Button = new HslCommunication.Controls.UserButton();
+            this.ImageSavePath_Label = new System.Windows.Forms.Label();
+            this.MakePano_Button = new HslCommunication.Controls.UserButton();
+            this.ADW_label = new System.Windows.Forms.Label();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listView1 = new System.Windows.Forms.ProgressListview(this.components);
@@ -80,71 +80,71 @@
             this.toolTip1.ReshowDelay = 100;
             this.toolTip1.Tag = "";
             // 
-            // linkLabel2
+            // QQ_Link
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel2.Location = new System.Drawing.Point(121, 60);
-            this.linkLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(113, 24);
-            this.linkLabel2.TabIndex = 7;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "QQ:1228267639";
-            this.toolTip1.SetToolTip(this.linkLabel2, "我的QQ");
-            this.linkLabel2.UseCompatibleTextRendering = true;
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            this.QQ_Link.AutoSize = true;
+            this.QQ_Link.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.QQ_Link.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.QQ_Link.Location = new System.Drawing.Point(121, 60);
+            this.QQ_Link.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.QQ_Link.Name = "QQ_Link";
+            this.QQ_Link.Size = new System.Drawing.Size(113, 24);
+            this.QQ_Link.TabIndex = 7;
+            this.QQ_Link.TabStop = true;
+            this.QQ_Link.Text = "QQ:1228267639";
+            this.toolTip1.SetToolTip(this.QQ_Link, "我的QQ");
+            this.QQ_Link.UseCompatibleTextRendering = true;
+            this.QQ_Link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
-            // userButton6
+            // Pay_Button
             // 
-            this.userButton6.BackColor = System.Drawing.Color.Transparent;
-            this.userButton6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.userButton6.CustomerInformation = "";
-            this.userButton6.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton6.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.userButton6.Location = new System.Drawing.Point(441, 46);
-            this.userButton6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.userButton6.Name = "userButton6";
-            this.userButton6.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
-            this.userButton6.Size = new System.Drawing.Size(74, 38);
-            this.userButton6.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.userButton6, "激活软件联系 qq:1228267639");
-            this.userButton6.UIText = "付款码";
-            this.userButton6.Click += new System.EventHandler(this.userButton6_Click);
+            this.Pay_Button.BackColor = System.Drawing.Color.Transparent;
+            this.Pay_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Pay_Button.CustomerInformation = "";
+            this.Pay_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.Pay_Button.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.Pay_Button.Location = new System.Drawing.Point(441, 46);
+            this.Pay_Button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.Pay_Button.Name = "Pay_Button";
+            this.Pay_Button.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
+            this.Pay_Button.Size = new System.Drawing.Size(74, 38);
+            this.Pay_Button.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.Pay_Button, "激活软件联系 qq:1228267639");
+            this.Pay_Button.UIText = "付款码";
+            this.Pay_Button.Click += new System.EventHandler(this.Pay_Button_Click);
             // 
-            // linkLabel1
+            // Mail_Link
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.linkLabel1.Location = new System.Drawing.Point(238, 60);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(195, 24);
-            this.linkLabel1.TabIndex = 6;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Email:yzj520mei@162.cim";
-            this.toolTip1.SetToolTip(this.linkLabel1, "我的邮箱");
-            this.linkLabel1.UseCompatibleTextRendering = true;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.Mail_Link.AutoSize = true;
+            this.Mail_Link.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Mail_Link.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.Mail_Link.Location = new System.Drawing.Point(238, 60);
+            this.Mail_Link.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Mail_Link.Name = "Mail_Link";
+            this.Mail_Link.Size = new System.Drawing.Size(195, 24);
+            this.Mail_Link.TabIndex = 6;
+            this.Mail_Link.TabStop = true;
+            this.Mail_Link.Text = "Email:yzj520mei@162.cim";
+            this.toolTip1.SetToolTip(this.Mail_Link, "我的邮箱");
+            this.Mail_Link.UseCompatibleTextRendering = true;
+            this.Mail_Link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // userButton1
+            // Activate_Button
             // 
-            this.userButton1.BackColor = System.Drawing.Color.Transparent;
-            this.userButton1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.userButton1.CustomerInformation = "";
-            this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.userButton1.Location = new System.Drawing.Point(524, 46);
-            this.userButton1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.userButton1.Name = "userButton1";
-            this.userButton1.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
-            this.userButton1.Size = new System.Drawing.Size(74, 38);
-            this.userButton1.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.userButton1, "激活软件联系 qq:1228267639");
-            this.userButton1.UIText = "激活软件";
-            this.userButton1.Click += new System.EventHandler(this.userButton1_Click);
+            this.Activate_Button.BackColor = System.Drawing.Color.Transparent;
+            this.Activate_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Activate_Button.CustomerInformation = "";
+            this.Activate_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.Activate_Button.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.Activate_Button.Location = new System.Drawing.Point(524, 46);
+            this.Activate_Button.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.Activate_Button.Name = "Activate_Button";
+            this.Activate_Button.OriginalColor = System.Drawing.SystemColors.InactiveCaption;
+            this.Activate_Button.Size = new System.Drawing.Size(74, 38);
+            this.Activate_Button.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.Activate_Button, "激活软件联系 qq:1228267639");
+            this.Activate_Button.UIText = "激活软件";
+            this.Activate_Button.Click += new System.EventHandler(this.Activate_Button_Click);
             // 
             // pictureBox1
             // 
@@ -183,10 +183,10 @@
             this.UrlStateBox.TabStop = false;
             this.toolTip1.SetToolTip(this.UrlStateBox, "使用笑脸判断链接是否为可下载的全景图链接");
             // 
-            // timer1
+            // timer_Tick
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer_Tick.Enabled = true;
+            this.timer_Tick.Interval = 10;
             // 
             // BottomToolStripPanel
             // 
@@ -230,85 +230,84 @@
             this.ContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ContentPanel.Size = new System.Drawing.Size(666, 719);
             // 
-            // userButton2
+            // DownLoadImage_Button
             // 
-            this.userButton2.BackColor = System.Drawing.Color.Transparent;
-            this.userButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton2.CustomerInformation = "";
-            this.userButton2.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton2.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton2.Location = new System.Drawing.Point(3, 4);
-            this.userButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton2.Name = "userButton2";
-            this.userButton2.Size = new System.Drawing.Size(60, 39);
-            this.userButton2.TabIndex = 16;
-            this.userButton2.UIText = "下载";
-            this.userButton2.Click += new System.EventHandler(this.userButton2_Click);
+            this.DownLoadImage_Button.BackColor = System.Drawing.Color.Transparent;
+            this.DownLoadImage_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.DownLoadImage_Button.CustomerInformation = "";
+            this.DownLoadImage_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.DownLoadImage_Button.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.DownLoadImage_Button.Location = new System.Drawing.Point(3, 4);
+            this.DownLoadImage_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.DownLoadImage_Button.Name = "DownLoadImage_Button";
+            this.DownLoadImage_Button.Size = new System.Drawing.Size(60, 39);
+            this.DownLoadImage_Button.TabIndex = 16;
+            this.DownLoadImage_Button.UIText = "下载";
+            this.DownLoadImage_Button.Click += new System.EventHandler(this.DownLoadImage_Button_Click);
             // 
-            // textBox1
+            // Log_texBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(28, 496);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(570, 70);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.Log_texBox.Location = new System.Drawing.Point(28, 496);
+            this.Log_texBox.Margin = new System.Windows.Forms.Padding(2);
+            this.Log_texBox.Multiline = true;
+            this.Log_texBox.Name = "Log_texBox";
+            this.Log_texBox.Size = new System.Drawing.Size(570, 70);
+            this.Log_texBox.TabIndex = 15;
             // 
-            // userButton3
+            // MakeImage_Button
             // 
-            this.userButton3.BackColor = System.Drawing.Color.Transparent;
-            this.userButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton3.CustomerInformation = "";
-            this.userButton3.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton3.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton3.Location = new System.Drawing.Point(69, 4);
-            this.userButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton3.Name = "userButton3";
-            this.userButton3.Size = new System.Drawing.Size(60, 39);
-            this.userButton3.TabIndex = 17;
-            this.userButton3.UIText = "合成";
-            this.userButton3.Click += new System.EventHandler(this.userButton3_Click_1);
+            this.MakeImage_Button.BackColor = System.Drawing.Color.Transparent;
+            this.MakeImage_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.MakeImage_Button.CustomerInformation = "";
+            this.MakeImage_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.MakeImage_Button.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.MakeImage_Button.Location = new System.Drawing.Point(69, 4);
+            this.MakeImage_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MakeImage_Button.Name = "MakeImage_Button";
+            this.MakeImage_Button.Size = new System.Drawing.Size(60, 39);
+            this.MakeImage_Button.TabIndex = 17;
+            this.MakeImage_Button.UIText = "合成";
+            this.MakeImage_Button.Click += new System.EventHandler(this.MakeImage_Button_Click_1);
             // 
-            // userButton4
+            // SetImageSavePath_Button
             // 
-            this.userButton4.BackColor = System.Drawing.Color.Transparent;
-            this.userButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton4.CustomerInformation = "";
-            this.userButton4.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton4.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton4.Location = new System.Drawing.Point(137, 4);
-            this.userButton4.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.userButton4.Name = "userButton4";
-            this.userButton4.Size = new System.Drawing.Size(124, 39);
-            this.userButton4.TabIndex = 18;
-            this.userButton4.UIText = "设置下载目录";
-            this.userButton4.Click += new System.EventHandler(this.userButton4_Click);
+            this.SetImageSavePath_Button.BackColor = System.Drawing.Color.Transparent;
+            this.SetImageSavePath_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SetImageSavePath_Button.CustomerInformation = "";
+            this.SetImageSavePath_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.SetImageSavePath_Button.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.SetImageSavePath_Button.Location = new System.Drawing.Point(137, 4);
+            this.SetImageSavePath_Button.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.SetImageSavePath_Button.Name = "SetImageSavePath_Button";
+            this.SetImageSavePath_Button.Size = new System.Drawing.Size(124, 39);
+            this.SetImageSavePath_Button.TabIndex = 18;
+            this.SetImageSavePath_Button.UIText = "设置下载目录";
+            this.SetImageSavePath_Button.Click += new System.EventHandler(this.SetImageSavePath_Button_Click);
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.linkLabel3);
+            this.panel3.Controls.Add(this.UseExplain_Link);
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Controls.Add(this.UrlStateBox);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.InputUrlTextBox);
+            this.panel3.Controls.Add(this.InputUrl_TextBox);
             this.panel3.Location = new System.Drawing.Point(28, 120);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(570, 70);
             this.panel3.TabIndex = 11;
             // 
-            // linkLabel3
+            // UseExplain_Link
             // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(139, 6);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(53, 12);
-            this.linkLabel3.TabIndex = 21;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "使用说明";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+            this.UseExplain_Link.AutoSize = true;
+            this.UseExplain_Link.Location = new System.Drawing.Point(139, 6);
+            this.UseExplain_Link.Name = "UseExplain_Link";
+            this.UseExplain_Link.Size = new System.Drawing.Size(53, 12);
+            this.UseExplain_Link.TabIndex = 21;
+            this.UseExplain_Link.TabStop = true;
+            this.UseExplain_Link.Text = "使用说明";
+            this.UseExplain_Link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UseExplain_Link_LinkClicked);
             // 
             // label2
             // 
@@ -322,67 +321,67 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "全景图下载链接";
             // 
-            // InputUrlTextBox
+            // InputUrl_TextBox
             // 
-            this.InputUrlTextBox.Location = new System.Drawing.Point(6, 26);
-            this.InputUrlTextBox.Margin = new System.Windows.Forms.Padding(2);
-            this.InputUrlTextBox.Name = "InputUrlTextBox";
-            this.InputUrlTextBox.Size = new System.Drawing.Size(470, 21);
-            this.InputUrlTextBox.TabIndex = 3;
+            this.InputUrl_TextBox.Location = new System.Drawing.Point(6, 26);
+            this.InputUrl_TextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.InputUrl_TextBox.Name = "InputUrl_TextBox";
+            this.InputUrl_TextBox.Size = new System.Drawing.Size(470, 21);
+            this.InputUrl_TextBox.TabIndex = 3;
             // 
-            // userButton5
+            // OpenImagePath_Button
             // 
-            this.userButton5.BackColor = System.Drawing.Color.Transparent;
-            this.userButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton5.CustomerInformation = "";
-            this.userButton5.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton5.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton5.Location = new System.Drawing.Point(373, 4);
-            this.userButton5.Margin = new System.Windows.Forms.Padding(4);
-            this.userButton5.Name = "userButton5";
-            this.userButton5.Size = new System.Drawing.Size(134, 39);
-            this.userButton5.TabIndex = 19;
-            this.userButton5.UIText = "打开图片目录";
-            this.userButton5.Click += new System.EventHandler(this.userButton5_Click);
+            this.OpenImagePath_Button.BackColor = System.Drawing.Color.Transparent;
+            this.OpenImagePath_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.OpenImagePath_Button.CustomerInformation = "";
+            this.OpenImagePath_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.OpenImagePath_Button.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.OpenImagePath_Button.Location = new System.Drawing.Point(373, 4);
+            this.OpenImagePath_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.OpenImagePath_Button.Name = "OpenImagePath_Button";
+            this.OpenImagePath_Button.Size = new System.Drawing.Size(134, 39);
+            this.OpenImagePath_Button.TabIndex = 19;
+            this.OpenImagePath_Button.UIText = "打开图片目录";
+            this.OpenImagePath_Button.Click += new System.EventHandler(this.OpenImagePath_Button_Click);
             // 
-            // label1
+            // ImageSavePath_Label
             // 
-            this.label1.AutoSize = true;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label1.Font = new System.Drawing.Font("楷体", 8F);
-            this.label1.Location = new System.Drawing.Point(27, 428);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 11);
-            this.label1.TabIndex = 8;
-            this.label1.Text = ".........";
+            this.ImageSavePath_Label.AutoSize = true;
+            this.ImageSavePath_Label.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ImageSavePath_Label.Font = new System.Drawing.Font("楷体", 8F);
+            this.ImageSavePath_Label.Location = new System.Drawing.Point(27, 428);
+            this.ImageSavePath_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ImageSavePath_Label.Name = "ImageSavePath_Label";
+            this.ImageSavePath_Label.Size = new System.Drawing.Size(59, 11);
+            this.ImageSavePath_Label.TabIndex = 8;
+            this.ImageSavePath_Label.Text = ".........";
             // 
-            // userButton7
+            // MakePano_Button
             // 
-            this.userButton7.BackColor = System.Drawing.Color.Transparent;
-            this.userButton7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userButton7.CustomerInformation = "";
-            this.userButton7.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton7.Font = new System.Drawing.Font("微软雅黑", 12.75F);
-            this.userButton7.Location = new System.Drawing.Point(271, 4);
-            this.userButton7.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.userButton7.Name = "userButton7";
-            this.userButton7.Size = new System.Drawing.Size(93, 39);
-            this.userButton7.TabIndex = 21;
-            this.userButton7.UIText = "查看全景";
-            this.userButton7.Click += new System.EventHandler(this.userButton7_Click);
+            this.MakePano_Button.BackColor = System.Drawing.Color.Transparent;
+            this.MakePano_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.MakePano_Button.CustomerInformation = "";
+            this.MakePano_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.MakePano_Button.Font = new System.Drawing.Font("微软雅黑", 12.75F);
+            this.MakePano_Button.Location = new System.Drawing.Point(271, 4);
+            this.MakePano_Button.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.MakePano_Button.Name = "MakePano_Button";
+            this.MakePano_Button.Size = new System.Drawing.Size(93, 39);
+            this.MakePano_Button.TabIndex = 21;
+            this.MakePano_Button.UIText = "查看全景";
+            this.MakePano_Button.Click += new System.EventHandler(this.MakePano_Button_Click);
             // 
-            // label3
+            // ADW_label
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(29, 611);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(512, 16);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "目前支持平台：720yun 建e网 汽车之家 酷家乐 详情咨询：1228267639";
+            this.ADW_label.AutoSize = true;
+            this.ADW_label.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ADW_label.Font = new System.Drawing.Font("楷体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ADW_label.ForeColor = System.Drawing.Color.Red;
+            this.ADW_label.Location = new System.Drawing.Point(29, 611);
+            this.ADW_label.Name = "ADW_label";
+            this.ADW_label.Size = new System.Drawing.Size(512, 16);
+            this.ADW_label.TabIndex = 22;
+            this.ADW_label.Text = "目前支持平台：720yun 建e网 汽车之家 酷家乐 详情咨询：1228267639";
             // 
             // toolStripContainer1
             // 
@@ -393,14 +392,14 @@
             this.toolStripContainer1.ContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tableLayoutPanel1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pictureBox1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.userButton1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.linkLabel1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.userButton6);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.linkLabel2);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.Activate_Button);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.ImageSavePath_Label);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.Mail_Link);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.Pay_Button);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.QQ_Link);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.panel3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.listView1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox1);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.Log_texBox);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(631, 647);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
@@ -417,11 +416,11 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.userButton3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton7, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton4, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton5, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.userButton2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.MakeImage_Button, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.MakePano_Button, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.SetImageSavePath_Button, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.OpenImagePath_Button, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.DownLoadImage_Button, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(28, 442);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -466,7 +465,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(631, 647);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ADW_label);
             this.Controls.Add(this.toolStripContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -497,30 +496,63 @@
 
         #endregion
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Timer timer1;
-        private HslCommunication.Controls.UserButton userButton2;
-        private System.Windows.Forms.TextBox textBox1;
-        private HslCommunication.Controls.UserButton userButton3;
+        /// <summary>
+        /// 跑马灯定时器
+        /// </summary>
+        private System.Windows.Forms.Timer timer_Tick;
+        private HslCommunication.Controls.UserButton DownLoadImage_Button;
+        /// <summary>
+        /// 日志输出Text
+        /// </summary>
+        private System.Windows.Forms.TextBox Log_texBox;
+        private HslCommunication.Controls.UserButton MakeImage_Button;
         private System.Windows.Forms.ProgressListview listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private HslCommunication.Controls.UserButton userButton4;
+        private HslCommunication.Controls.UserButton SetImageSavePath_Button;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.LinkLabel linkLabel3;
+        /// <summary>
+        /// 软件使用说明 
+        /// </summary>
+        private System.Windows.Forms.LinkLabel UseExplain_Link;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox UrlStateBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox InputUrlTextBox;
-        private HslCommunication.Controls.UserButton userButton5;
-        private System.Windows.Forms.LinkLabel linkLabel2;
-        private HslCommunication.Controls.UserButton userButton6;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label1;
-        private HslCommunication.Controls.UserButton userButton1;
+        /// <summary>
+        /// URL输入框
+        /// </summary>
+        private System.Windows.Forms.TextBox InputUrl_TextBox;
+        private HslCommunication.Controls.UserButton OpenImagePath_Button;
+        /// <summary>
+        /// QQ文字 跳链
+        /// </summary>
+        private System.Windows.Forms.LinkLabel QQ_Link;
+        /// <summary>
+        /// 激活Button
+        /// </summary>
+        private HslCommunication.Controls.UserButton Pay_Button;
+        /// <summary>
+        /// 邮箱文字 跳链
+        /// </summary>
+        private System.Windows.Forms.LinkLabel Mail_Link;
+        /// <summary>
+        /// 下载图片的保存路径
+        /// </summary>
+        private System.Windows.Forms.Label ImageSavePath_Label;
+        /// <summary>
+        /// 付款Button
+        /// </summary>
+        private HslCommunication.Controls.UserButton Activate_Button;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private HslCommunication.Controls.UserButton userButton7;
-        private System.Windows.Forms.Label label3;
+        /// <summary>
+        /// 查看全景按钮
+        /// </summary>
+        private HslCommunication.Controls.UserButton MakePano_Button;
+        /// <summary>
+        /// 跑马灯广告文字
+        /// </summary>
+        private System.Windows.Forms.Label ADW_label;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
         private System.Windows.Forms.ToolStripPanel TopToolStripPanel;

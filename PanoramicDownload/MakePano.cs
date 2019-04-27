@@ -27,8 +27,7 @@ namespace PanoramicDownload
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void userButton1_Click(object sender, EventArgs e)
-        {
-            
+        {          
             using (OpenFileDialog OpenFD = new OpenFileDialog())     //实例化一个 OpenFileDialog 的对象
             {
                 //定义打开的默认文件夹位置
@@ -42,17 +41,18 @@ namespace PanoramicDownload
             txtProject.Text = filenamePath;
             int index = filenamePath.LastIndexOf(@"\");
             string ImageName = filenamePath.Remove(0, index + 1);
+            if(txtProject.Text.Equals("") || ImageName.Equals(""))
+            {
+                return;
+            }
             if (txtProject.Text.Contains(ImageName))
             {
                 string argreg = @"register ""FXsqTqaGNSZER5dSETEm+VzQEh9sWSa5DZMFsSmMxYV9GcXs8W3R8A/mWXrGNUceXvrihmh28hfRF1ivrW0HMzEychPvNiD8B/4/ZzDaUE9Rh6Ig22aKJGDbja1/kYIqmc/VKfItRE2RTSOIbIroxOtsz626NIpxWksAAifwhpNwuPXqDQpz2sRUMBzoPqZktpkItoSenN2mKd8Klfx7pOuB6CIK3e1CDXgyndqOt2mWybLZcU/wfJVAecfxk15ghiqrzaDsbqrdABDowg==""";
                 Process regProcess = new Process();
                 regProcess.StartInfo.FileName = ConstPath.exePath + @"\krpanotools64.exe";
                 regProcess.StartInfo.Arguments = argreg;
-
                 regProcess.Start();
-                regProcess.Close();
-
-                
+                regProcess.Close();              
                 var conmm = ConstPath.exePath + @"\krpanotools64.exe";
                 var arg = @"  makepano  " + filenamePath + "   " + ConstPath.exePath + @"\templates\normal.config";
                 using (var pro = new Process())

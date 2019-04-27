@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace PanoramicDownload.UToos
 {
+    /// <summary>
+    /// 正则判断
+    /// </summary>
     public class RegExManager
     {
         /// <summary>
@@ -16,7 +19,6 @@ namespace PanoramicDownload.UToos
         /// <returns></returns>
         public  List<String> GetRegex(string txt)
         {
-
             string re1 = ".*?"; // Non-greedy match on filler
             string re2 = "[a-z]";   // Uninteresting: w
             string re3 = ".*?"; // Non-greedy match on filler

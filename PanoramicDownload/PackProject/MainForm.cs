@@ -70,9 +70,6 @@ namespace PackProject
             }
             using (ZipFile zip = new ZipFile(destinationPath, System.Text.Encoding.Default))
             {
-                //zip.AddDirectory(@"E:\test");//添加文件夹
-                //zip.AddFile(@"E:\房屋租赁协议.doc");//添加文件,文件不存在抛错FileNotFoundException
-                //zip.Save();
                 DirectoryInfo info = new DirectoryInfo(sourcePath);
                 
                 foreach (FileSystemInfo fsi in info.GetFileSystemInfos())

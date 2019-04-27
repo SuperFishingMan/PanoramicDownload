@@ -33,9 +33,9 @@ namespace PanoramicDownload
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PayForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.userButton1 = new HslCommunication.Controls.UserButton();
-            this.userButton2 = new HslCommunication.Controls.UserButton();
-            this.userButton3 = new HslCommunication.Controls.UserButton();
+            this.ZFB_Button = new HslCommunication.Controls.UserButton();
+            this.WX_Button = new HslCommunication.Controls.UserButton();
+            this.QQ_Button = new HslCommunication.Controls.UserButton();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -47,53 +47,53 @@ namespace PanoramicDownload
             this.toolTip1.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.toolTip1_Draw);
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // userButton1
+            // ZFB_Button
             // 
-            this.userButton1.BackColor = System.Drawing.Color.Transparent;
-            this.userButton1.CustomerInformation = "";
-            this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton1.Location = new System.Drawing.Point(64, 37);
-            this.userButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton1.Name = "userButton1";
-            this.userButton1.Size = new System.Drawing.Size(78, 25);
-            this.userButton1.TabIndex = 0;
-            this.userButton1.UIText = "支付宝";
+            this.ZFB_Button.BackColor = System.Drawing.Color.Transparent;
+            this.ZFB_Button.CustomerInformation = "";
+            this.ZFB_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.ZFB_Button.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.ZFB_Button.Location = new System.Drawing.Point(64, 37);
+            this.ZFB_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ZFB_Button.Name = "ZFB_Button";
+            this.ZFB_Button.Size = new System.Drawing.Size(78, 25);
+            this.ZFB_Button.TabIndex = 0;
+            this.ZFB_Button.UIText = "支付宝";
             // 
-            // userButton2
+            // WX_Button
             // 
-            this.userButton2.BackColor = System.Drawing.Color.Transparent;
-            this.userButton2.CustomerInformation = "";
-            this.userButton2.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton2.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton2.Location = new System.Drawing.Point(64, 82);
-            this.userButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton2.Name = "userButton2";
-            this.userButton2.Size = new System.Drawing.Size(78, 25);
-            this.userButton2.TabIndex = 1;
-            this.userButton2.UIText = "微信";
+            this.WX_Button.BackColor = System.Drawing.Color.Transparent;
+            this.WX_Button.CustomerInformation = "";
+            this.WX_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.WX_Button.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.WX_Button.Location = new System.Drawing.Point(64, 82);
+            this.WX_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.WX_Button.Name = "WX_Button";
+            this.WX_Button.Size = new System.Drawing.Size(78, 25);
+            this.WX_Button.TabIndex = 1;
+            this.WX_Button.UIText = "微信";
             // 
-            // userButton3
+            // QQ_Button
             // 
-            this.userButton3.BackColor = System.Drawing.Color.Transparent;
-            this.userButton3.CustomerInformation = "";
-            this.userButton3.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton3.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.userButton3.Location = new System.Drawing.Point(64, 127);
-            this.userButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton3.Name = "userButton3";
-            this.userButton3.Size = new System.Drawing.Size(78, 25);
-            this.userButton3.TabIndex = 2;
-            this.userButton3.UIText = "QQ";
+            this.QQ_Button.BackColor = System.Drawing.Color.Transparent;
+            this.QQ_Button.CustomerInformation = "";
+            this.QQ_Button.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.QQ_Button.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.QQ_Button.Location = new System.Drawing.Point(64, 127);
+            this.QQ_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.QQ_Button.Name = "QQ_Button";
+            this.QQ_Button.Size = new System.Drawing.Size(78, 25);
+            this.QQ_Button.TabIndex = 2;
+            this.QQ_Button.UIText = "QQ";
             // 
             // PayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(208, 203);
-            this.Controls.Add(this.userButton3);
-            this.Controls.Add(this.userButton2);
-            this.Controls.Add(this.userButton1);
+            this.Controls.Add(this.QQ_Button);
+            this.Controls.Add(this.WX_Button);
+            this.Controls.Add(this.ZFB_Button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -106,8 +106,8 @@ namespace PanoramicDownload
         #endregion
 
         private System.Windows.Forms.ToolTip toolTip1;
-        private HslCommunication.Controls.UserButton userButton1;
-        private HslCommunication.Controls.UserButton userButton2;
-        private HslCommunication.Controls.UserButton userButton3;
+        private HslCommunication.Controls.UserButton ZFB_Button;
+        private HslCommunication.Controls.UserButton WX_Button;
+        private HslCommunication.Controls.UserButton QQ_Button;
     }
 }

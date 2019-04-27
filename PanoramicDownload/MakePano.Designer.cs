@@ -43,16 +43,16 @@
             this.txtProject.Size = new System.Drawing.Size(193, 21);
             this.txtProject.TabIndex = 1;
             // 
-            // label1
+            // ImageSavePath_Label
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 53);
-            this.label1.Name = "label1";
+            this.label1.Name = "ImageSavePath_Label";
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "全景图片路径";
             // 
-            // userButton1
+            // Activate_Button
             // 
             this.userButton1.BackColor = System.Drawing.Color.Transparent;
             this.userButton1.CustomerInformation = "";
@@ -60,13 +60,13 @@
             this.userButton1.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.userButton1.Location = new System.Drawing.Point(302, 46);
             this.userButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton1.Name = "userButton1";
+            this.userButton1.Name = "Activate_Button";
             this.userButton1.Size = new System.Drawing.Size(78, 25);
             this.userButton1.TabIndex = 6;
             this.userButton1.UIText = "选择..";
             this.userButton1.Click += new System.EventHandler(this.userButton1_Click);
             // 
-            // userButton2
+            // DownLoadImage_Button
             // 
             this.userButton2.BackColor = System.Drawing.Color.Transparent;
             this.userButton2.CustomerInformation = "";
@@ -74,7 +74,7 @@
             this.userButton2.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.userButton2.Location = new System.Drawing.Point(302, 107);
             this.userButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.userButton2.Name = "userButton2";
+            this.userButton2.Name = "DownLoadImage_Button";
             this.userButton2.Size = new System.Drawing.Size(78, 25);
             this.userButton2.TabIndex = 7;
             this.userButton2.UIText = "查看全景";
