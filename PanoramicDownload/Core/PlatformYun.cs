@@ -62,7 +62,7 @@ namespace PanoramicDownload.Core
         }
 
 
-        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile,int progindex)
+        public override void MatchingImage(string imagePath, string imageQuality, string tpye, int imageIndex, StreamWriter SWFile, int progindex)
         {
             try
             {
@@ -80,7 +80,8 @@ namespace PanoramicDownload.Core
                     {
                         if (x < 10)
                         {
-                            if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg") != null)
+                            image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                            if (image != null)
                             {
                                 image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
                             }
@@ -91,7 +92,9 @@ namespace PanoramicDownload.Core
                         }
                         else
                         {
-                            if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg") != null)
+                            image = null;
+                            image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                            if (image != null)
                             {
                                 image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
                             }
@@ -103,7 +106,9 @@ namespace PanoramicDownload.Core
                     }
                     else
                     {
-                        if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg") != null)
+                        image = null;
+                        image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                        if (image != null)
                         {
                             image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
                         }
@@ -128,12 +133,14 @@ namespace PanoramicDownload.Core
                     int width = 0;
                     for (int d = 1; d <= imageIndex; d++)
                     {
-          
+
                         if (urlKeysList[2].Length.Equals(2))
                         {
                             if (i < 10 && d < 10)
                             {
-                                if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg") != null)
+                                image1 = null;
+                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                                if (image1 != null)
                                 {
                                     image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
                                 }
@@ -144,7 +151,9 @@ namespace PanoramicDownload.Core
                             }
                             if (d >= 10 && i >= 10)
                             {
-                                if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
+                                image1 = null;
+                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                                if (image1 != null)
                                 {
                                     image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
                                 }
@@ -155,7 +164,9 @@ namespace PanoramicDownload.Core
                             }
                             if (d >= 10 && i < 10)
                             {
-                                if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg") != null)
+                                image1 = null;
+                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                                if (image1 != null)
                                 {
                                     image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg");
                                 }
@@ -166,7 +177,9 @@ namespace PanoramicDownload.Core
                             }
                             if (d < 10 && i >= 10)
                             {
-                                if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg") != null)
+                                image1 = null;
+                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                                if (image1 != null)
                                 {
                                     image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg");
                                 }
@@ -178,7 +191,9 @@ namespace PanoramicDownload.Core
                         }
                         else
                         {
-                            if (Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
+                            image1 = null;
+                            image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                            if (image1 != null)
                             {
                                 image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
                             }
@@ -224,7 +239,7 @@ namespace PanoramicDownload.Core
                     }
                     high += image2.Height;
                     image2.Dispose();
-
+             
                 }
                 image1.Dispose();
                 image2.Dispose();
@@ -234,11 +249,11 @@ namespace PanoramicDownload.Core
                 bmp.Dispose();
                 ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SoftBasic.ShowExceptionMessage(ex);
             }
-          
+
         }
     }
 }

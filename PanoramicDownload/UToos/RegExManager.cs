@@ -111,51 +111,36 @@ namespace PanoramicDownload.UToos
         /// <param name="str"></param>
         /// <returns></returns>
         public  string MatchKJL(string str)
-        {           
+        {
             string re1 = ".*?"; // Non-greedy match on filler
-            string re2 = "\\d"; // Uninteresting: d
-            string re3 = ".*?"; // Non-greedy match on filler
-            string re4 = "\\d"; // Uninteresting: d
-            string re5 = ".*?"; // Non-greedy match on filler
-            string re6 = "\\d"; // Uninteresting: d
-            string re7 = ".*?"; // Non-greedy match on filler
-            string re8 = "(\\d)";   // Any Single Digit 1
-            string re9 = "(\\d)";   // Any Single Digit 2
-            string re10 = "(\\d)";  // Any Single Digit 3
-            string re11 = "(\\d)";  // Any Single Digit 4
-            string re12 = "(x)";    // Any Single Word Character (Not Whitespace) 1
-            string re13 = "(\\d)";  // Any Single Digit 5
-            string re14 = "(\\d)";  // Any Single Digit 6
-            string re15 = "(\\d)";  // Any Single Digit 7
-            string re16 = "(\\d)";  // Any Single Digit 8
-            string re17 = "(\\.)";  // Any Single Character 1
-            string re18 = "(j)";    // Any Single Word Character (Not Whitespace) 2
-            string re19 = "(p)";    // Any Single Word Character (Not Whitespace) 3
-            string re20 = "(g)";    // Any Single Word Character (Not Whitespace) 4
-            string re21 = "(_)";    // Any Single Character 2
-            string re22 = "([a-z])";    // Any Single Word Character (Not Whitespace) 5
+            string re2 = "(\\.)";   // Any Single Character 1
+            string re3 = "(\\d+)";  // Integer Number 1
+            string re4 = "(_)"; // Any Single Character 2
+            string re5 = "(\\d+)";  // Integer Number 2
+            string re6 = "(.)"; // Any Single Character 3
+            string re7 = "(\\d+)";  // Integer Number 3
+            string re8 = "(\\.)";   // Any Single Character 4
+            string re9 = "((?:[a-z][a-z]+))";   // Word 1
+            string re10 = "(_)";    // Any Single Character 5
+            string re11 = "(.)";    // Any Single Character 6
+            string re12 = "(@)";    // Any Single Character 7
 
-            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12 + re13 + re14 + re15 + re16 + re17 + re18 + re19 + re20 + re21 + re22, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            Regex r = new Regex(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9 + re10 + re11 + re12, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             Match m = r.Match(str);
             if (m.Success)
             {
-                String d1 = m.Groups[1].ToString();
-                String d2 = m.Groups[2].ToString();
-                String d3 = m.Groups[3].ToString();
-                String d4 = m.Groups[4].ToString();
-                String w1 = m.Groups[5].ToString();
-                String d5 = m.Groups[6].ToString();
-                String d6 = m.Groups[7].ToString();
-                String d7 = m.Groups[8].ToString();
-                String d8 = m.Groups[9].ToString();
-                String c1 = m.Groups[10].ToString();
-                String w2 = m.Groups[11].ToString();
-                String w3 = m.Groups[12].ToString();
-                String w4 = m.Groups[13].ToString();
-                String c2 = m.Groups[14].ToString();
-                String w5 = m.Groups[15].ToString();
-              
-                return d1.ToString() + "" + "" + d2.ToString() + "" + "" + d3.ToString() + "" + "" + d4.ToString() + "" + "" + w1.ToString() + "" + "" + d5.ToString() + "" + "" + d6.ToString() + "" + "" + d7.ToString() + "" + "" + d8.ToString() + "" + "" + c1.ToString() + "" + "" + w2.ToString() + "" + "" + w3.ToString() + "" + "" + w4.ToString() + "" + "" + c2.ToString() + "" + "" + w5.ToString() + "" + "";
+                string c1 = m.Groups[1].ToString();
+                string int1 = m.Groups[2].ToString();
+                string c2 = m.Groups[3].ToString();
+                string int2 = m.Groups[4].ToString();
+                string c3 = m.Groups[5].ToString();
+                string int3 = m.Groups[6].ToString();
+                string c4 = m.Groups[7].ToString();
+                string word1 = m.Groups[8].ToString();
+                string c5 = m.Groups[9].ToString();
+                string c6 = m.Groups[10].ToString();
+                string c7 = m.Groups[11].ToString();
+                return c1.ToString() + int1.ToString() + c2.ToString() + int2.ToString() +  c3.ToString() + int3.ToString() +  c4.ToString() + word1.ToString() + c5.ToString() +c6.ToString() + c7.ToString();
             }
             return "";
         }

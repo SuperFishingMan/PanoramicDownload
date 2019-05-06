@@ -18,6 +18,7 @@ using System.Data;
 using System.Threading.Tasks;
 using SendMailHelp;
 
+
 namespace PanoramicDownload
 {
     public partial class Main : Form
@@ -119,9 +120,7 @@ namespace PanoramicDownload
 
             //设置状态
             UrlStateBox.Image = Properties.Resources.笑脸;
-
-            //InitMail init = new InitMail();         
-            //init.SendMail("ip登陆", init.ReplaceText("猪猪云", DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), appManager.soft.GetMachineCodeString(), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php"))));
+         
             //如果没有激活
             if (appManager.Check_RegCode())
             {
@@ -139,8 +138,8 @@ namespace PanoramicDownload
             }
             else
             {
-                //Activate_Button.Hide();
-                //Pay_Button.Hide();
+                Activate_Button.Hide();
+                Pay_Button.Hide();
             }
 
             regExManager = new RegExManager();
@@ -385,7 +384,7 @@ namespace PanoramicDownload
                     #endregion
                     if (newKeystrList[2].Length.Equals(2))
                     {
-                        for (int j = 1; j < 20; j++)
+                        for (int j = 1; j < 4; j++)
                         {
                             newkey1.Clear();
                             newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01."));
@@ -1515,12 +1514,16 @@ namespace PanoramicDownload
                 //this.TopMost = true;
                 return;
             }
+            if (ConstPath.saveFile.Contains(@"C:\"))
+            {
+                Mesbox("不要设置下载目录为C盘");
+                return;
+            }
             if (Directory.Exists(ConstPath.saveFile))
             {
                 Task task = new Task(() =>
                 {
                     FileManager.DelectDir(ConstPath.saveFile);
-
                 });
                 task.Start();
                 task.Wait();
@@ -1810,14 +1813,21 @@ namespace PanoramicDownload
                 return;
             }
             FolderBrowserDialog Savepath = new FolderBrowserDialog();
-            Savepath.ShowDialog();
-            if (string.IsNullOrEmpty(Savepath.SelectedPath))
+            Savepath.SelectedPath = ConstPath.saveFile;
+            //if (string.IsNullOrEmpty(Savepath.SelectedPath))
+            //{
+            //    ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
+            //    return;
+            //}
+            if (Savepath.ShowDialog() == DialogResult.OK)
             {
+                //记录选中的目录
+                ConstPath.saveFile = Savepath.SelectedPath + "\\";
                 ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
-                return;
+                MessageBox.Show("下载目录不要随意设置。每次下载会清空你设置的目录" + "\n\n" + " 确认设置下载路径为以下路径吗？" + "\n\n" + ConstPath.saveFile, "重要提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
-            ConstPath.saveFile = Savepath.SelectedPath + "\\";
-            ImageSavePath_Label.Text = "图片路径:" + ConstPath.saveFile;
+            Savepath.Dispose();
         }
 
         /// <summary>
@@ -1879,6 +1889,11 @@ namespace PanoramicDownload
                 e.Cancel = false;
             else
                 e.Cancel = true;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

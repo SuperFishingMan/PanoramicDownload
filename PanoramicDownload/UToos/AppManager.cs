@@ -11,6 +11,7 @@ using CsharpHttpHelper;
 using CsharpHttpHelper.Enum;
 using System.Threading;
 using System.Diagnostics;
+using SendMailHelp;
 
 namespace PanoramicDownload.UToos
 {
@@ -73,6 +74,9 @@ namespace PanoramicDownload.UToos
                 GetData = Encoding.UTF8.GetString(json_byte).Replace('?', ' ');
                 if (AuthorizeEncrypted(machinecode).Equals(GetData.Split('|')[0].ToString().Trim()))
                 {
+                    InitMail init = new InitMail();
+                    init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "已激活", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[1].ToString().Trim(),"付费用户", "猪猪全景"));
+
                     return false;//激活
                 }
                 else
@@ -107,23 +111,36 @@ namespace PanoramicDownload.UToos
             ////请求的返回值对象
             result = http.GetHtml(item);
             GetData = result.Html.Trim();
+            InitMail init = new InitMail();
             if (GetData.Split('|')[0].ToString().Trim().Equals(""))
             {
+                
+                init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "限时激活【免费】", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[0].ToString().Trim(), "免费用户", "猪猪全景"));
+
                 //Main.appisReg = true;
                 return false;
             }
             if (GetData.Split('|')[0].ToString().Trim().Equals("到期了"))//测试使用完毕
             {
+
+                init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "限时激活【免费】", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[0].ToString().Trim(), "免费用户", "猪猪全景"));
+
                 MessageBox.Show("         免费使用已到期！！！" + "\n\n    " + ADW_RegCode);
                 Main.appisReg = true;
                 return true;
             }
             if (GetData.Split('|')[2].ToString().Trim().Equals("测试"))//测试中 提示
             {
+
+                init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "限时激活【免费】", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[0].ToString().Trim(), "免费用户", "猪猪全景"));
+
                 MessageBox.Show("免费使用到期时间：" + GetData.Split('|')[0].ToString().Trim() + "\n\n" + ADW_RegCode);
                 Main.appisReg = false;
                 return true;
             }
+
+            init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "限时激活【免费】", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[0].ToString().Trim(), "免费用户", "猪猪全景"));
+
             MessageBox.Show("免费使用已到期：" + GetData.Split('|')[0].ToString().Trim() + "\n\n" + ADW_RegCode);
             Main.appisReg = true;
             return true;
@@ -146,6 +163,9 @@ namespace PanoramicDownload.UToos
             ////请求的返回值对象
             result = http.GetHtml(item);
             GetData = result.Html.Trim();
+            InitMail init = new InitMail();
+            init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "限时激活【免费】", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[0].ToString().Trim(), "免费用户", "猪猪全景"));
+
             MessageBox.Show("限时免费使用"+ "\n\n" + "到期时间 :" + GetData.Split('|')[0].ToString().Trim() + "\n\n" + ADW_RegCode);
         }
         /// <summary>
