@@ -49,6 +49,28 @@ namespace PanoramicDownload.Core
 
         }
 
-
+        public MemoryStream ByteToStream(byte[] mybyte)
+        {
+            MemoryStream mymemorystream = new MemoryStream(mybyte, 0, mybyte.Length);
+            return mymemorystream;
+        }
+        public byte[] SetImageToByteArray(string fileName)
+        {
+            byte[] image = null;
+            try
+            {
+                FileStream fs = new FileStream(fileName, FileMode.Open);
+                FileInfo fileInfo = new FileInfo(fileName);
+                int streamLength = (int)fs.Length;
+                image = new byte[streamLength];
+                fs.Read(image, 0, streamLength);
+                fs.Close();
+                return image;
+            }
+            catch
+            {
+                return image;
+            }
+        }
     }
 }

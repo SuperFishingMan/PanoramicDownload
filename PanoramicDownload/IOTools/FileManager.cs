@@ -36,8 +36,7 @@ namespace PanoramicDownload
                     }
                     else
                     {
-                        File.Delete(i.FullName);      //删除指定文件
-                        
+                        File.Delete(i.FullName);      //删除指定文件                 
                     }
                 }
             }

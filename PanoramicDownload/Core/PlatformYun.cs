@@ -73,17 +73,20 @@ namespace PanoramicDownload.Core
                 listview.Items.Add(lvi);
                 lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
                 int contwidth = 0;
+                Image image = null;
+    
                 for (int x = 1; x <= imageIndex; x++)
-                {
-                    Image image = null;
+                {               
                     if (urlKeysList[2].Length.Equals(2))
                     {
                         if (x < 10)
                         {
-                            image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                            image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg")));
+                            // image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
                             if (image != null)
                             {
-                                image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
+                                image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg")));
+                                //   image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
                             }
                             else
                             {
@@ -93,10 +96,12 @@ namespace PanoramicDownload.Core
                         else
                         {
                             image = null;
-                            image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                            image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg")));
+                            // image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
                             if (image != null)
                             {
-                                image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
+                                image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg")));
+                                //   image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
                             }
                             else
                             {
@@ -107,22 +112,22 @@ namespace PanoramicDownload.Core
                     else
                     {
                         image = null;
-                        image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                        image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg")));
+                       // image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
                         if (image != null)
                         {
-                            image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
+                            image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg")));
+                            //image = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
                         }
                         else
                         {
 
                         }
                     }
-
                     int i = image.Width;
                     contwidth += i;
                     image.Dispose();
                 }
-
                 Image bmp = new Bitmap(contwidth, contwidth, PixelFormat.Format24bppRgb);
                 Graphics g = Graphics.FromImage(bmp);
                 int high = 0;
@@ -133,16 +138,16 @@ namespace PanoramicDownload.Core
                     int width = 0;
                     for (int d = 1; d <= imageIndex; d++)
                     {
-
                         if (urlKeysList[2].Length.Equals(2))
                         {
                             if (i < 10 && d < 10)
                             {
                                 image1 = null;
-                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg")));
+                               // image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
                                 if (image1 != null)
                                 {
-                                    image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
+                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg")));
                                 }
                                 else
                                 {
@@ -152,10 +157,11 @@ namespace PanoramicDownload.Core
                             if (d >= 10 && i >= 10)
                             {
                                 image1 = null;
-                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                                // image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                                 if (image1 != null)
                                 {
-                                    image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                                 }
                                 else
                                 {
@@ -165,10 +171,11 @@ namespace PanoramicDownload.Core
                             if (d >= 10 && i < 10)
                             {
                                 image1 = null;
-                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                                // image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg")));
                                 if (image1 != null)
                                 {
-                                    image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg");
+                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg")));
                                 }
                                 else
                                 {
@@ -178,10 +185,11 @@ namespace PanoramicDownload.Core
                             if (d < 10 && i >= 10)
                             {
                                 image1 = null;
-                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                                // image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg")));
                                 if (image1 != null)
                                 {
-                                    image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg");
+                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + d + ".jpg")));
                                 }
                                 else
                                 {
@@ -192,10 +200,11 @@ namespace PanoramicDownload.Core
                         else
                         {
                             image1 = null;
-                            image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                            //image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                            image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                             if (image1 != null)
                             {
-                                image1 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg");
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                             }
                             else
                             {
@@ -211,49 +220,49 @@ namespace PanoramicDownload.Core
                         float flomax = max / 100;
                         var th = new Thread(delegate ()
                         {
-                            listview.SetProgress(progindex, (int)(idd / flomax));
+                            listview.SetProgress(progindex, Convert.ToInt32(idd / flomax));
                             Thread.Sleep(10);
                         });
                         th.IsBackground = true;
                         th.Start();
 
-                        Application.DoEvents();
-
-                        lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
+                        Application.DoEvents();                 
+                        lvi.SubItems[2].Text = Convert.ToInt32(idd / flomax) + "%";
                     }
-
                     if (urlKeysList[2].Length.Equals(2))
                     {
                         if (i < 10)
                         {
-                            image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg");
+                            image2 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg")));
+                           // image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg");
                         }
                         else
                         {
-                            image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + 1 + ".jpg");
+                            image2 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + 1 + ".jpg")));
+                           // image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_0" + 1 + ".jpg");
                         }
                     }
                     else
                     {
-                        image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + i + ".jpg");
+                        image2 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + i + ".jpg")));
+                        //image2 = Image.FromFile(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + i + ".jpg");
                     }
                     high += image2.Height;
-                    image2.Dispose();
-             
+                    image2.Dispose();                  
                 }
-                image1.Dispose();
-                image2.Dispose();
                 g.Flush();
                 g.Dispose();
                 bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
                 bmp.Dispose();
+                image.Dispose();
+                image1.Dispose();
+                image2.Dispose();
                 ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
             }
             catch (Exception ex)
             {
                 SoftBasic.ShowExceptionMessage(ex);
-            }
-
+            }           
         }
     }
 }

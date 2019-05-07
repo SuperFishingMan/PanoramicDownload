@@ -996,323 +996,6 @@ namespace PanoramicDownload
             // 执行结束后触发
         }
 
-
-        public void getimg(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
-        {
-            try
-            {
-                ListViewItem lvi = new ListViewItem();
-                listView1.ProgressColumnIndex = 1;
-
-                lvi.Text = tpye + ".jpg";
-                int idd = 0;
-                this.listView1.Items.Add(lvi);
-                lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
-
-                //dd.Maximum = 100;
-                int contwidth = 0;
-
-                for (int x = 1; x <= index; x++)
-                {
-                    Image image3 = null;
-                    if (newKeystrList[2].Length.Equals(2))
-                    {
-                        if (x < 10)
-                        {
-                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg") != null)
-                            {
-                                image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                        else
-                        {
-                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg") != null)
-                            {
-                                image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg") != null)
-                        {
-                            image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
-                        }
-                        else
-                        {
-
-                        }
-                    }
-
-                    int i = image3.Width;
-                    contwidth += i;
-                    image3.Dispose();
-
-                }
-
-                Image bmp = new Bitmap(contwidth, contwidth, PixelFormat.Format24bppRgb);
-                Graphics g = Graphics.FromImage(bmp);
-                int high = 0;
-
-                for (int i = 1; i <= index; i++)
-                {
-                    int width = 0;
-                    for (int d = 1; d <= index; d++)
-                    {
-                        Image image1 = null;
-                        if (newKeystrList[2].Length.Equals(2))
-                        {
-                            if (i < 10 && d < 10)
-                            {
-                                if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg") != null)
-                                {
-                                    image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                            if (d >= 10 && i >= 10)
-                            {
-                                if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
-                                {
-                                    image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                            if (d >= 10 && i < 10)
-                            {
-                                if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg") != null)
-                                {
-                                    image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg");
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                            if (d < 10 && i >= 10)
-                            {
-                                if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg") != null)
-                                {
-                                    image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg");
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg") != null)
-                            {
-                                image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                        g.DrawImage(image1, width, high, image1.Width, image1.Height);
-                        width += image1.Width;
-                        image1.Dispose();
-                        idd++;
-
-
-                        Thread.Sleep(5);
-                        float max = ImageRowCount * ImageRowCount;
-                        float flomax = max / 100;
-
-                        var th = new Thread(delegate ()
-                        {
-                            listView1.SetProgress(progindex, (int)(idd / flomax));
-                            Thread.Sleep(10);
-                        });
-                        th.IsBackground = true;
-                        th.Start();
-
-                        Application.DoEvents();
-
-                        lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
-                    }
-                    Image image2 = null;
-                    if (newKeystrList[2].Length.Equals(2))
-                    {
-                        if (i < 10)
-                        {
-                            image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg");
-                        }
-                        else
-                        {
-                            image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + 1 + ".jpg");
-                        }
-                    }
-                    else
-                    {
-                        image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + i + ".jpg");
-                    }
-                    high += image2.Height;
-                    image2.Dispose();
-
-                }
-
-                g.Flush();
-                g.Dispose();
-                bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
-                bmp.Dispose();
-                ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
-            }
-            catch (Exception ex)
-            {
-                SoftBasic.ShowExceptionMessage(ex);
-            }
-
-        }
-
-        public void GetimgYJ(string filepath, string imgName, string tpye, int index, StreamWriter sw5, int progindex)
-        {
-            ListViewItem lvi = new ListViewItem();
-            listView1.ProgressColumnIndex = 1;
-
-            lvi.Text = tpye + ".jpg";
-            int idd = 0;
-            this.listView1.Items.Add(lvi);
-            lvi.SubItems.AddRange(new string[] { "0", "0", "0" });
-            int contwidth = 0;
-
-            for (int x = 1; x <= index; x++)
-            {
-                Image image3 = null;
-                if (newKeystrList[2].Length.Equals(2))
-                {
-                    if (x < 10)
-                    {
-                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg");
-                    }
-                    else
-                    {
-                        image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + 1 + "_" + x + ".jpg");
-                    }
-
-                }
-                else
-                {
-                    image3 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + 1 + "_" + x + ".jpg");
-                }
-                int i = image3.Width;
-                contwidth += i;
-                image3.Dispose();
-            }
-            Image bmp = new Bitmap(contwidth, contwidth, PixelFormat.Format24bppRgb);
-            Graphics graphics = Graphics.FromImage(bmp);
-            int high = 0;
-
-            for (int i = 1; i <= index; i++)
-            {
-                int width = 0;
-                for (int d = 1; d <= index; d++)
-                {
-                    Application.DoEvents();
-                    Image image1 = null;
-                    if (newKeystrList[2].Length.Equals(2))
-                    {
-                        if (i < 10 && d < 10)
-                        {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + d + ".jpg");
-                        }
-                        if (d >= 10 && i >= 10)
-                        {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
-                        }
-                        if (d >= 10 && i < 10)
-                        {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_" + d + ".jpg");
-                        }
-                        if (d < 10 && i >= 10)
-                        {
-                            image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + d + ".jpg");
-                        }
-                    }
-                    else
-                    {
-                        image1 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + d + ".jpg");
-                    }
-
-                    graphics.DrawImage(image1, width, high, image1.Width, image1.Height);
-                    width += image1.Width;
-                    image1.Dispose();
-                    idd++;
-
-                    this.listView1.BeginUpdate();
-                    //lvi.SubItems[2].Text = idd.ToString();
-                    //dd.Parent = listView1;
-                    //dd.SetBounds(lvi.SubItems[1].Bounds.X, lvi.SubItems[1].Bounds.Y, lvi.SubItems[1].Bounds.Width, lvi.SubItems[1].Bounds.Height);
-
-
-                    Thread.Sleep(5);
-                    float max = ImageRowCount * ImageRowCount;
-                    float flomax = max / 100;
-                    //dd.Value = (int)(idd / flomax);
-                    var th = new Thread(delegate ()
-                    {
-                        listView1.SetProgress(progindex, (int)(idd / flomax));
-                        Thread.Sleep(100);
-                    });
-                    th.IsBackground = true;
-                    th.Start();
-                    // this.listView1.EndUpdate();  //结束数据处理，UI界面一次性绘制。
-                    Application.DoEvents();
-
-                    lvi.SubItems[2].Text = (int)(idd / flomax) + "%";
-                    // if (dd.Value == 99 || dd.Value == 100)
-                    // {
-                    //dd.Value = 100;
-                    // lvi.SubItems[2].Text = "完成😀";
-                    // }
-
-                }
-                Image image2 = null;
-                if (newKeystrList[2].Length.Equals(2))
-                {
-                    if (i < 10)
-                    {
-                        image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_0" + i + "_0" + 1 + ".jpg");
-                    }
-                    else
-                    {
-                        image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_0" + 1 + ".jpg");
-                    }
-                }
-                else
-                {
-                    image2 = Image.FromFile(filepath + "l" + imgName + "_" + tpye + "_" + i + "_" + i + ".jpg");
-                }
-                high += image2.Height;
-                image2.Dispose();
-            }
-
-            graphics.Flush();
-            graphics.Dispose();
-            bmp.Save(ConstPath.saveFile + tpye + ".JPG", ImageFormat.Jpeg);
-            bmp.Dispose();
-            ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
-        }
-
         delegate void d(string args);
         private delegate void UpdateInfo(string str);
         void Thread_proc(string args)
@@ -1595,7 +1278,7 @@ namespace PanoramicDownload
                                 listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
-                            lvi1.SubItems[2].Text = "完成😀";
+                            lvi1.SubItems[2].Text = "完成☺";
                             Thread.Sleep(500);
                             //this.listView1.EndUpdate();
                             p.Close();
@@ -1628,9 +1311,7 @@ namespace PanoramicDownload
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
-
                         }
-                        //Thread.Sleep(500);
                         var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
@@ -1646,7 +1327,7 @@ namespace PanoramicDownload
                                 listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
-                            lvi1.SubItems[2].Text = "完成😀";
+                            lvi1.SubItems[2].Text = "完成☺";
                             Thread.Sleep(500);
                             //this.listView1.EndUpdate();
                             p.Close();
@@ -1699,13 +1380,26 @@ namespace PanoramicDownload
                     string[] stringsYJ = File.ReadAllLines(ConstPath.exePath + "/config.txt");
                     string pathYJ = ConstPath.saveFile;
                     if (stringsYJ.Length != 0)
-                    {
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);//2304//4608//3072
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);//2304//4608//3072
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);//2304//4608//3072
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);//2304//4608//3072
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
-                        getimg(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
+                    { 
+                        PlatformJE platformJE = new PlatformJE();
+                        platformJE.listview = listView1;
+                        platformJE.ImageRowCount = ImageRowCount;
+                        platformJE.ImagePath = ImagePath;
+                        platformJE.urlKeysList = newKeystrList;
+
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
+                        platformJE.MatchingImage(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
+
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);//2304//4608//3072
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);//2304//4608//3072
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);//2304//4608//3072
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);//2304//4608//3072
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);//2304//4608//3072
+                        //getimg(pathYJ, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);//2304//4608//3072
                     }
                     var commandYJ = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                     using (var p = new Process())
@@ -1724,7 +1418,7 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandYJ, null);
                         //dd.Value = 100;
                         listView1.SetProgress(6, 100);
-                        lvi1.SubItems[2].Text = "完成😀";
+                        lvi1.SubItems[2].Text = "完成☺";
                         p.Close();
                     }
                     ImagePath.Clear();
@@ -1765,7 +1459,7 @@ namespace PanoramicDownload
                                 listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
                             }
                             listView1.SetProgress(6, 100);
-                            lvi1.SubItems[2].Text = "完成";
+                            lvi1.SubItems[2].Text = "完成☺";
                             Thread.Sleep(500);
                             //this.listView1.EndUpdate();
                             p.Close();
@@ -1861,7 +1555,7 @@ namespace PanoramicDownload
             //    }
             //}
             UseForm useForm = new UseForm();
-            useForm.ShowDialog();
+            useForm.ShowDialog(this);
         }
 
 
@@ -1875,7 +1569,7 @@ namespace PanoramicDownload
             MakePano makePano = new MakePano();
             //makePano.TopMost = true;
             makePano.StartPosition = FormStartPosition.CenterParent;
-            makePano.ShowDialog();
+            makePano.ShowDialog(this);
         }
 
         /// <summary>
