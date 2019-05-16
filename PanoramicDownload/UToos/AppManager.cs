@@ -74,9 +74,8 @@ namespace PanoramicDownload.UToos
                 GetData = Encoding.UTF8.GetString(json_byte).Replace('?', ' ');
                 if (AuthorizeEncrypted(machinecode).Equals(GetData.Split('|')[0].ToString().Trim()))
                 {
-                    InitMail init = new InitMail();
-                    init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "已激活", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[1].ToString().Trim(),"付费用户", "猪猪全景"));
-
+                    //InitMail init = new InitMail();
+                    //init.SendMail("ip登陆", init.ReplaceText("猪猪云全景", InitMail.HttpGET(@"http://47.98.156.83/sha1.php"), DateTime.Now.ToString("yyyy-MM-dd HH: mm:ss"), InitMail.HttpGET("http://whois.pconline.com.cn/ip.jsp?ip=" + InitMail.HttpGET(@"http://47.98.156.83/sha1.php")), "已激活", AuthorizeEncrypted(soft.GetMachineCodeString()), soft.GetMachineCodeString(), GetData.Split('|')[1].ToString().Trim(),"付费用户", "猪猪全景"));
                     return false;//激活
                 }
                 else

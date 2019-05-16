@@ -12,18 +12,19 @@ using System.Windows.Forms;
 
 namespace PanoramicDownload.Core
 {
-    public class PlatformJE : PlatformBase
+    public class PlatfommSW : PlatformBase
     {
         public ProgressListview listview;
         public int ImageRowCount;
         public Dictionary<string, string> ImagePath = new Dictionary<string, string>();
+
         public override void WriteDownLoad(DirectionType type = DirectionType.b, int maxIndex = 1, StringBuilder newUrl = null, int maxQuality = 1, StreamWriter SWFile = null)
         {
             for (int i = 1; i <= maxIndex; i++)
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    StringBuilder url = new StringBuilder(newUrl + "/" + type + "/" + "l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
+                    StringBuilder url = new StringBuilder(newUrl + "l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
                     SWFile.WriteLine(url);
                 }
             }
@@ -35,7 +36,6 @@ namespace PanoramicDownload.Core
             {
                 ListViewItem lvi = new ListViewItem();
                 listview.ProgressColumnIndex = 1;
-
                 lvi.Text = tpye + ".jpg";
                 int idd = 0;
                 this.listview.Items.Add(lvi);
@@ -47,7 +47,7 @@ namespace PanoramicDownload.Core
                 for (int x = 1; x <= imageIndex; x++)
                 {
                     Image image3 = null;
-                    if (urlKeysList[2].Length.Equals(2))
+                    if (urlKeysList[2].Length.Equals(3))
                     {
                         if (x < 10)
                         {
@@ -104,7 +104,7 @@ namespace PanoramicDownload.Core
                     for (int d = 1; d <= imageIndex; d++)
                     {
                         Image image1 = null;
-                        if (urlKeysList[2].Length.Equals(2))
+                        if (urlKeysList[2].Length.Equals(3))
                         {
                             if (i < 10 && d < 10)
                             {
@@ -132,10 +132,10 @@ namespace PanoramicDownload.Core
                             }
                             if (d >= 10 && i < 10)
                             {
-                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg")));
+                                image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                                 if (image1 != null)
                                 {
-                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_" + d + ".jpg")));
+                                    image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
                                 }
                                 else
                                 {
@@ -191,7 +191,7 @@ namespace PanoramicDownload.Core
                         lvi.SubItems[2].Text = Convert.ToInt32(idd / flomax) + "%";
                     }
                     Image image2 = null;
-                    if (urlKeysList[2].Length.Equals(2))
+                    if (urlKeysList[2].Length.Equals(3))
                     {
                         if (i < 10)
                         {

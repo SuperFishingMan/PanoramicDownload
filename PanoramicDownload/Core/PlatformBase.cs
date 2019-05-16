@@ -19,10 +19,6 @@ namespace PanoramicDownload.Core
         public List<string> urlTailLis = new List<string>();
         public List<string> urlKeysList = new List<string>();
 
-
-
-
-
         /// <summary>
         /// 写入下载数据的抽象方法
         /// </summary>

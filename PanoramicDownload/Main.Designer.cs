@@ -474,7 +474,6 @@
             this.label1.Size = new System.Drawing.Size(343, 14);
             this.label1.TabIndex = 24;
             this.label1.Text = "下载目录不要随意设置。每次下载会清空你设置的目录";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Main
             // 
