@@ -63,9 +63,18 @@ namespace PanoramicDownload
         /// </summary>
         private string InputUrlQJK = "";
         /// <summary>
+        /// 全景客_01
+        /// </summary>
+        private string InputUrlQJK_01 = "";
+        /// <summary>
         /// 视维
         /// </summary>
         private string InputUrlSW = "";
+        /// <summary>
+        /// 六面图
+        /// </summary>
+        private string InputUrlLMT = "";
+
         /// <summary>
         /// 键入的链接
         /// </summary>
@@ -192,40 +201,64 @@ namespace PanoramicDownload
             //判断url是否为可访问 
             if (string.IsNullOrEmpty(InputUrl_TextBox.Text.Trim()) || !isPing(InputUrl, "https://720yun.com/"))
             {
-                //Mesbox(GetWebStatusCode(InputUrl, 10000), "错误提示");
-                //this.Activate();  //
                 UrlStateBox.Image = Properties.Resources.失败_表情;
                 return;
             }
             //获得url中的关键字符     b/l1/01/l1_b_01_01.jpg
-            InputUrlKJZ = regExManager.MatchKJL(InputUrl);
-
+            if (InputUrl.Contains("kujiale.com"))
+            {
+                InputUrlKJZ = regExManager.MatchKJL(InputUrl);
+            }
             if (InputUrlKJZ.Equals(""))
             {
                 InputUrlYun = regExManager.MatchYun(InputUrl); //后几位
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals(""))
             {
-                InputUrlYJ = regExManager.MatchYJ(InputUrl);
+                if (InputUrl.Contains("justeasy.cn"))
+                {
+                    InputUrlYJ = regExManager.MatchYJ(InputUrl);
+                }
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlYJ.Equals(""))
             {
-                InputUrlWZ = regExManager.MatchWZ(InputUrl);
+                if (InputUrl.Contains("expoon.com"))
+                {
+                    InputUrlWZ = regExManager.MatchWZ(InputUrl);
+                }
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals(""))
             {
-                InputUrlYMW = regExManager.MatchYMW(InputUrl);
+                if (InputUrl.Contains("yumowang.com"))
+                {
+                    InputUrlYMW = regExManager.MatchYMW(InputUrl);
+                }
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals(""))
             {
-                InputUrlSW = regExManager.MatchSW(InputUrl);
+                if (InputUrl.Contains("svrvr.com"))
+                {
+                    InputUrlSW = regExManager.MatchSW(InputUrl);
+                }
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals("") && InputUrlSW.Equals(""))
             {
-                InputUrlQJK = regExManager.MatchQJK(InputUrl);
+                if (InputUrl.Contains("quanjingke.com"))
+                {
+                    InputUrlQJK = regExManager.MatchQJK(InputUrl);
+                }
+                if (InputUrl.Contains("quanjingke.com") && InputUrlQJK.Equals(""))
+                {
+                    InputUrlQJK_01 = regExManager.MatchQJK_1(InputUrl);
+                }
             }
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals("") && InputUrlSW.Equals("") && InputUrlQJK.Equals("") && InputUrlQJK_01.Equals(""))
+            {
+                InputUrlLMT = regExManager.MatchLMT(InputUrl);
+            }
+
             //判断url是否为可下载的全景图片
-            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals("") && InputUrlQJK.Equals("") && InputUrlSW.Equals(""))
+            if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals("") && InputUrlQJK.Equals("") && InputUrlSW.Equals("") && InputUrlLMT.Equals("") && InputUrlQJK_01.Equals(""))
             {
                 Mesbox("请输入支持的全景图下载地址");
                 downLoadType = DownLoadType.empty;
@@ -271,6 +304,18 @@ namespace PanoramicDownload
             if (!InputUrlQJK.Equals(""))
             {
                 downLoadType = DownLoadType.lx_x_0x_0x;
+                UrlStateBox.Image = Properties.Resources.yes;
+                return;
+            }
+            if (!InputUrlLMT.Equals(""))
+            {
+                downLoadType = DownLoadType.lxxx_x_xxx;
+                UrlStateBox.Image = Properties.Resources.yes;
+                return;
+            }
+            if (!InputUrlQJK_01.Equals(""))
+            {
+                downLoadType = DownLoadType.lx_x_0x0x;
                 UrlStateBox.Image = Properties.Resources.yes;
                 return;
             }
@@ -590,7 +635,7 @@ namespace PanoramicDownload
                         RedirectExcuteProcess(p, ConstPath.exePath + "//aria2c.exe", command2, (s, e) => ShowInfo("", e.Data));
                         p.Close();
                     }
-                    Thread.Sleep(8000);
+                    Thread.Sleep(7000);
                     string[] sDirectories = Directory.GetFiles(ConstPath.saveFile);
 
                     for (int i = 0; i < sDirectories.Length; i++)
@@ -942,6 +987,100 @@ namespace PanoramicDownload
                     }
 
                     ImageRowCount = maxindex_SW;
+                    return;
+                #endregion
+                #region 六面图
+                case DownLoadType.lxxx_x_xxx:
+                    PlatformLMT platformLMT = new PlatformLMT();
+                    Thread trLMT = new Thread(() =>
+                    {
+                        //int index = InputUrl.IndexOf(InputUrlLMT, 1, InputUrl.Length - 1);
+                        StringBuilder newstr = new StringBuilder(InputUrl.Replace(InputUrlLMT.Substring(InputUrlLMT.Length - 5), ""));
+
+                        platformLMT.WriteDownLoad(DirectionType.l, 0, newstr, 0, sw5);
+                        platformLMT.WriteDownLoad(DirectionType.f, 0, newstr, 0, sw5);
+                        platformLMT.WriteDownLoad(DirectionType.r, 0, newstr, 0, sw5);
+                        platformLMT.WriteDownLoad(DirectionType.b, 0, newstr, 0, sw5);
+                        platformLMT.WriteDownLoad(DirectionType.u, 0, newstr, 0, sw5);
+                        platformLMT.WriteDownLoad(DirectionType.d, 0, newstr, 0, sw5);
+                        sw5.Close();
+                        sw5.Dispose();
+                    });
+                    trLMT.Start();
+                    trLMT.Join();
+                    if (CheckLineCount(1))
+                    {
+                        Mesbox("请重新点击下载按钮");
+                        return;
+                    }
+                    var commandLMT = "-s 1 -x 1 -j 50  -i " + ConstPath.exePath + "//config.txt  --check-certificate=false --save-session=" + ConstPath.exePath + "//out.txt" + " -d" + ConstPath.saveFile;
+                    using (var p = new Process())
+                    {
+                        RedirectExcuteProcess(p, ConstPath.exePath + "//aria2c.exe", commandLMT, (s, e) => ShowInfo("", e.Data));
+                        p.Close();
+                    }
+
+                    return;
+                #endregion
+                #region 全景客01
+                case DownLoadType.lx_x_0x0x:
+                    PlatformQJK platfromQJK01 = new PlatformQJK();
+                    StringBuilder tempstr_QJK01 = new StringBuilder(200);
+                    int index_QJK01 = InputUrl.IndexOf(InputUrlQJK_01, 1, InputUrl.Length - 1);
+                    StringBuilder UrlHeadQJK01 = new StringBuilder(InputUrl.Remove(index_QJK01, InputUrlQJK_01.Length));
+                    int maxindex_QJK01 = 0;
+                    int maxtype_QJK01 = 0;
+                    newKeystrList.Clear();
+                    newKeystrList = regExManager.GetRegexQJL_1(InputUrlQJK_01);
+                    for (int j = 1; j < 15; j++)
+                    {
+                        tempstr_QJK01.Clear();
+                        tempstr_QJK01.Append(InputUrlQJK_01.Replace(newKeystrList[0], "l" + j).Replace(newKeystrList[1], "_01").Replace(newKeystrList[2], "01."));
+                        if (isPing(UrlHeadQJK01 + "" + tempstr_QJK01, ""))
+                        {
+                            maxtype_QJK01 = j;
+
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    ImageQualityIndex = maxtype_QJK01;
+                    for (int j = 1; j < 15; j++)
+                    {
+                        tempstr_QJK01.Clear();
+                        tempstr_QJK01.Append(InputUrlQJK_01.Replace(newKeystrList[0], "l" + maxtype_QJK01).Replace(newKeystrList[1], "_0" + j).Replace(newKeystrList[2] , "01."));
+                        if (isPing(UrlHeadQJK01 + "" + tempstr_QJK01, ""))
+                        {
+                            maxindex_QJK01 = j;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    Mesbox((maxindex_QJK01 * maxindex_QJK01 * 6).ToString());
+                    Thread threadQJK_01 = new Thread(() =>
+                    {
+
+                        platfromQJK01.WriteDownLoad01(DirectionType.l, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        platfromQJK01.WriteDownLoad01(DirectionType.f, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        platfromQJK01.WriteDownLoad01(DirectionType.r, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        platfromQJK01.WriteDownLoad01(DirectionType.b, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        platfromQJK01.WriteDownLoad01(DirectionType.u, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        platfromQJK01.WriteDownLoad01(DirectionType.d, maxindex_QJK01, UrlHeadQJK01, maxtype_QJK01, sw5);
+                        sw5.Close();
+                        sw5.Dispose();
+                    });
+                    threadQJK_01.Start();
+                    var commandQJK_01 = "-s 1 -x 1 -j 20  -i " + ConstPath.exePath + "/config.txt   --save-session=" + ConstPath.exePath + "/out.txt" + " -d" + ConstPath.saveFile;
+                    using (var p = new Process())
+                    {
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", commandQJK_01, (s, e) => ShowInfo("", e.Data));
+                        p.Close();
+                    }
+                    ImageRowCount = maxindex_QJK01;
                     return;
                 #endregion
                 default:
@@ -1519,12 +1658,11 @@ namespace PanoramicDownload
                     ImagePath.Clear();
                     return;
                 #endregion
-                #region 全景客
+                #region  全景客
                 case DownLoadType.lx_x_0x_0x:
                     try
                     {
                         string[] strings = File.ReadAllLines(ConstPath.exePath + "/config.txt");
-
                         string path = ConstPath.saveFile;
                         if (strings.Length != 0)
                         {
@@ -1567,6 +1705,7 @@ namespace PanoramicDownload
                     }
                     break;
                 #endregion
+                #region 视维
                 case DownLoadType.lx_x_x_x:
                     string[] stringsSW = File.ReadAllLines(ConstPath.exePath + "/config.txt");
                     string pathSW = ConstPath.saveFile;
@@ -1605,6 +1744,65 @@ namespace PanoramicDownload
                     }
                     ImagePath.Clear();
                     return;
+                #endregion
+                #region 六面图
+                case DownLoadType.lxxx_x_xxx:
+                    strMatc.Clear();
+                    string[] sDirectories = Directory.GetFiles(ConstPath.saveFile);
+                    for (int i = 0; i < sDirectories.Length; i++)
+                    {
+                        string sDirectoryName = Path.GetFileName(sDirectories[i]);
+                        strMatc.Add(ConstPath.saveFile +"\\"+ sDirectoryName);
+                    }
+                    var commandLMT = "-b=" + strMatc[0] + " -d=" + strMatc[1] + " -f=" + strMatc[2] + " -l=" + strMatc[3] + " -r=" + strMatc[4] + " -u=" + strMatc[5] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
+                    using (var p = new Process())
+                    {
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandLMT, null);
+                        p.Close();
+                    }
+                    strMatc.Clear();
+                    return;
+                #endregion
+                #region 全景客01
+                case DownLoadType.lx_x_0x0x:
+                    string[] stringsKJQ01 = File.ReadAllLines(ConstPath.exePath + "/config.txt");
+                    string path_QJK01 = ConstPath.saveFile;
+                    if (stringsKJQ01.Length != 0)
+                    {
+                        PlatformQJK platformQJK01 = new PlatformQJK();
+                        platformQJK01.listview = listView1;
+                        platformQJK01.ImageRowCount = ImageRowCount;
+                        platformQJK01.ImagePath = ImagePath;
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
+                        platformQJK01.MatchingImage01(path_QJK01, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
+                    }
+                    
+                    var commandQJK01 = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
+                    using (var p = new Process())
+                    {
+                        ListViewItem lvi1 = new ListViewItem();
+                        listView1.Items.Add(lvi1);
+                        lvi1.SubItems.AddRange(new string[] { "0", "0", "0" });
+                        lvi1.Text = "全景大图.jpeg";
+                        RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", commandQJK01, null);
+                        Thread.Sleep(500);
+                        if (Log_texBox.Text.Equals("%"))
+                        {
+                            listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
+                        }
+                        listView1.SetProgress(6, 100);
+                        lvi1.SubItems[2].Text = "完成☺";
+                        Thread.Sleep(500);
+                        //this.listView1.EndUpdate();
+                        p.Close();
+                    }
+                    ImagePath.Clear();
+                    return;
+                #endregion
                 default:
                     Mesbox("请下载图片后在合成");
                     this.Activate();

@@ -71,7 +71,14 @@ namespace PanoramicDownload
         /// 全景客
         /// </summary>
         lx_x_0x_0x,
-
+        /// <summary>
+        /// 全景客_01
+        /// </summary>
+        lx_x_0x0x,
+        /// <summary>
+        /// pano_l.jpg
+        /// </summary>
+        lxxx_x_xxx,
     }
 
     public  static class ConstPath

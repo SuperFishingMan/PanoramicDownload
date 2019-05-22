@@ -211,7 +211,6 @@ namespace PanoramicDownload.Core
                     }
                     high += image2.Height;
                     image2.Dispose();
-
                 }
 
                 g.Flush();
