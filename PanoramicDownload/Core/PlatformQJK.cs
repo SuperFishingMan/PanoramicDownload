@@ -22,7 +22,7 @@ namespace PanoramicDownload.Core
             {
                 for (int x = 1; x <= maxIndex; x++)
                 {
-                    StringBuilder url = new StringBuilder(newUrl + "/l" + maxQuality + "_" + type + "_" + i + "_" + x + ".jpg");
+                    StringBuilder url = new StringBuilder(newUrl + "/l" + maxQuality + "_" + type + "_0" + i + "_0" + x + ".jpg");
                     SWFile.WriteLine(url);
                 }
             }
@@ -42,10 +42,10 @@ namespace PanoramicDownload.Core
                 for (int x = 1; x <= imageIndex; x++)
                 {
 
-                    image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg")));
+                    image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg")));
                     if (image != null)
                     {
-                        image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + 1 + "_" + x + ".jpg")));
+                        image = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + 1 + "_0" + x + ".jpg")));
                     }
                     int i = image.Width;
                     contwidth += i;
@@ -62,10 +62,10 @@ namespace PanoramicDownload.Core
                     int width = 0;
                     for (int d = 1; d <= imageIndex; d++)
                     {
-                        image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
+                        image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg")));
                         if (image1 != null)
                         {
-                            image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_" + i + "_" + d + ".jpg")));
+                            image1 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + d + ".jpg")));
                         }
                         g.DrawImage(image1, width, high, image1.Width, image1.Height);
                         width += image1.Width;
@@ -85,6 +85,11 @@ namespace PanoramicDownload.Core
                         Application.DoEvents();
 
                         lvi.SubItems[2].Text = Convert.ToInt32(idd / flomax) + "%";
+                    }
+                    image2 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + i + ".jpg")));
+                    if (image1 != null)
+                    {
+                        image2 = Image.FromStream(ByteToStream(SetImageToByteArray(imagePath + "l" + imageQuality + "_" + tpye + "_0" + i + "_0" + i + ".jpg")));
                     }
                     high += image2.Height;
                     image2.Dispose();

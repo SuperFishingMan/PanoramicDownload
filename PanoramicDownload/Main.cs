@@ -247,9 +247,12 @@ namespace PanoramicDownload
                 {
                     InputUrlQJK = regExManager.MatchQJK(InputUrl);
                 }
-                if (InputUrl.Contains("quanjingke.com") && InputUrlQJK.Equals(""))
+                if(InputUrlQJK.Equals(""))
                 {
-                    InputUrlQJK_01 = regExManager.MatchQJK_1(InputUrl);
+                    if (InputUrl.Contains("quanjingke.com") || InputUrl.Contains("720a.com"))
+                    {
+                        InputUrlQJK_01 = regExManager.MatchQJK_1(InputUrl);
+                    }
                 }
             }
             if (InputUrlYun.Equals("") && InputUrlKJZ.Equals("") && InputUrlWZ.Equals("") && InputUrlYJ.Equals("") && InputUrlYMW.Equals("") && InputUrlSW.Equals("") && InputUrlQJK.Equals("") && InputUrlQJK_01.Equals(""))
@@ -334,6 +337,11 @@ namespace PanoramicDownload
                 case DownLoadType.lx_x_xx_xx:
                     PlatformYun platfromYun = new PlatformYun();
                     StringBuilder newUrl = new StringBuilder(200);
+                    string referer = "https://720yun.com/";
+                    if (InputUrl.Contains("autoimg.cn"))
+                    {
+                        InputUrl= InputUrl.Remove(InputUrl.Length-15, 15);
+                    }
                     newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList.Clear();
                     newKeystrList = regExManager.GetRegex(InputUrlYun);
@@ -514,8 +522,19 @@ namespace PanoramicDownload
                         //{
                         //    Directory.CreateDirectory(ConstPath.saveFile + "720yun" + DownloadCount);
                         //}
-
-                        var command = "-s 1 --referer=https://720yun.com -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
+                        if (InputUrl.Contains("autoimg.cn"))
+                        {
+                            referer = "https://vr4s.autohome.com.cn";
+                        }
+                        else if (InputUrl.Contains("720static"))
+                        {
+                            referer = "https://720yun.com/";
+                        }
+                        else
+                        {
+                            referer = "";
+                        }
+                        var command = "-s 1 --referer="+ referer + " -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
 
 
                         Thread dd = new Thread(() =>
@@ -582,8 +601,11 @@ namespace PanoramicDownload
                         Mesbox("请重新点击下载按钮");
                         return;
                     }
-                    string referer = "https://720yun.com/";
-                    if (InputUrl.Contains("720static"))
+                    if (InputUrl.Contains("autoimg.cn"))
+                    {
+                        referer = "https://vr4s.autohome.com.cn";
+                    }
+                    else if(InputUrl.Contains("720static"))
                     {
                         referer = "https://720yun.com/";
                     }
@@ -877,7 +899,7 @@ namespace PanoramicDownload
                     for (int j = 1; j < 15; j++)
                     {
                         tempstr.Clear();
-                        tempstr.Append(InputUrlQJK.Replace(newKeystrList[0], "" + j).Replace("_" + newKeystrList[1] + "_", "_1_").Replace("_" + newKeystrList[2] + ".", "_1."));
+                        tempstr.Append(InputUrlQJK.Replace(newKeystrList[0], "" + j).Replace("_" + newKeystrList[1] + "_", "_01_").Replace("_" + newKeystrList[2] + ".", "_01."));
 
                         if (isPing(UrlHeadQJK + "" + tempstr, ""))
                         {
@@ -889,10 +911,11 @@ namespace PanoramicDownload
                             break;
                         }
                     }
+                    ImageQualityIndex = maxtype_QJK;
                     for (int j = 1; j < 15; j++)
                     {
                         tempstr.Clear();
-                        tempstr.Append(InputUrlQJK.Replace(newKeystrList[0], "" + maxtype_QJK).Replace("_" + newKeystrList[1] + "_", "_" + j + "_").Replace("_" + newKeystrList[2] + ".", "_1."));
+                        tempstr.Append(InputUrlQJK.Replace(newKeystrList[0], "" + maxtype_QJK).Replace("_" + newKeystrList[1] + "_", "_0" + j + "_").Replace("_" + newKeystrList[2] + ".", "_01."));
 
                         if (isPing(UrlHeadQJK + "" + tempstr, ""))
                         {
@@ -904,10 +927,10 @@ namespace PanoramicDownload
                             break;
                         }
                     }
+                    ImageRowCount = maxindex_QJK;
                     Mesbox((maxindex_QJK * maxindex_QJK * 6).ToString());
                     Thread threadQJK = new Thread(() =>
                      {
-
                          platfromQJK.WriteDownLoad(DirectionType.l, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
                          platfromQJK.WriteDownLoad(DirectionType.f, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
                          platfromQJK.WriteDownLoad(DirectionType.r, maxindex_QJK, UrlHeadQJK, maxtype_QJK, sw5);
@@ -1670,12 +1693,12 @@ namespace PanoramicDownload
                             platformQJK.listview = listView1;
                             platformQJK.ImageRowCount = ImageRowCount;
                             platformQJK.ImagePath = ImagePath;
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "d", ImageRowCount, null, 0);
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "f", ImageRowCount, null, 1);
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "b", ImageRowCount, null, 2);
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "u", ImageRowCount, null, 3);
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "l", ImageRowCount, null, 4);
-                            platformQJK.MatchingImage(path, ImageRowCount.ToString(), "r", ImageRowCount, null, 5);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "d", ImageRowCount, null, 0);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "f", ImageRowCount, null, 1);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "b", ImageRowCount, null, 2);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "u", ImageRowCount, null, 3);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
+                            platformQJK.MatchingImage(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
                         }
                         var commandQJK = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
