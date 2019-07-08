@@ -257,7 +257,15 @@ namespace PanoramicDownload.Core
                 image.Dispose();
                 image1.Dispose();
                 image2.Dispose();
-                ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
+                if (ImagePath.ContainsKey(tpye))
+                {
+                    ImagePath.Remove(tpye);
+                    ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
+                }
+                else
+                {
+                    ImagePath.Add(tpye, ConstPath.saveFile + tpye + ".JPG");
+                }
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using HslCommunication;
 using HslCommunication.BasicFramework;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,11 +33,13 @@ namespace PanoramicDownload
                     {
                         DirectoryInfo subdir = new DirectoryInfo(i.FullName);
                         subdir.Delete(true);          //删除子目录和文件
-                        
+                                                      //FileSystem.DeleteDirectory(i.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+
                     }
                     else
                     {
-                        File.Delete(i.FullName);      //删除指定文件                 
+                        File.Delete(i.FullName);      //删除指定文件         
+                        //FileSystem.DeleteFile(i.FullName, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                     }
                 }
             }

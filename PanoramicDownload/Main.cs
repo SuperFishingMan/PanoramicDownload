@@ -130,25 +130,27 @@ namespace PanoramicDownload
             UrlStateBox.Image = Properties.Resources.笑脸;
 
             //如果没有激活
-            if (appManager.Check_RegCode())
-            {
-                //第一次使用测试用户
-                if (!appManager.IstempApp())
-                {
-                    appManager.insertSqlTempUser();
-                }
-                else
-                {
-                    //appisReg = true;
-                }
-                Pay_Button.Show();
-                Activate_Button.Show();
-            }
-            else
-            {
-                Activate_Button.Hide();
-                Pay_Button.Hide();
-            }
+            //if (appManager.Check_RegCode())
+            //{
+            //    //第一次使用测试用户
+            //    if (!appManager.IstempApp())
+            //    {
+            //        appManager.insertSqlTempUser();
+            //    }
+            //    else
+            //    {
+            //        //appisReg = true;
+            //    }
+            //    Pay_Button.Show();
+            //    Activate_Button.Show();
+            //    Text = Text + "【免费版】";
+            //}
+            //else
+            //{
+            //    Text = Text + "【付费版】";
+            //    Activate_Button.Hide();
+            //    Pay_Button.Hide();
+            //}
 
             regExManager = new RegExManager();
             //添加链接检测事件
@@ -161,8 +163,8 @@ namespace PanoramicDownload
             else
             {
                 ADW_label.Hide();
-                Mail_Link.Hide();
-                QQ_Link.Hide();
+                //Mail_Link.Hide();
+                //QQ_Link.Hide();
             }
 
             ReadStdOutput += new DelReadStdOutput(ReadStdOutputAction);
@@ -178,11 +180,11 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            ADW_label.Left += 1;
-            if (ADW_label.Left == this.Width)
-            {
-                ADW_label.Left = -ADW_label.Width;
-            }
+            //ADW_label.Left += 1;
+            //if (ADW_label.Left == this.Width)
+            //{
+            //    ADW_label.Left = -ADW_label.Width;
+            //}
         }
 
         /// <summary>
@@ -338,14 +340,33 @@ namespace PanoramicDownload
                     PlatformYun platfromYun = new PlatformYun();
                     StringBuilder newUrl = new StringBuilder(200);
                     string referer = "https://720yun.com/";
-                    if (InputUrl.Contains("autoimg.cn"))
+                    if (InputUrl.Contains("720static"))
                     {
-                        InputUrl= InputUrl.Remove(InputUrl.Length-15, 15);
+                        int ind = InputUrl.IndexOf(".jpg");
+                        InputUrl = InputUrl.Remove(ind+4, InputUrl.Length- ind-4);
                     }
                     newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
                     newKeystrList.Clear();
                     newKeystrList = regExManager.GetRegex(InputUrlYun);
                     StringBuilder newkey1 = new StringBuilder(200);
+                    if (InputUrl.Contains("autoimg.cn"))
+                    {
+                        referer = "https://vr4s.autohome.com.cn";
+                        newUrl.Clear();
+                        newUrl.Append(InputUrl.Substring(0, InputUrl.Length - InputUrlYun.Length + 1));
+                    }
+                    else if (InputUrl.Contains("720static"))
+                    {
+                        referer = "https://720yun.com/";
+                    }
+                    else if (InputUrl.Contains("ivrpano.com"))
+                    {
+                        referer = "https://www.ivrpano.com";
+                    }
+                    else
+                    {
+                        referer = "";
+                    }
                     int maxtpye = 0;
                     int maxIndex = 0;
                     List<string> newKeystr1 = new List<string>();
@@ -448,7 +469,7 @@ namespace PanoramicDownload
                         {
                             newkey1.Clear();
                             newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/01").Replace("_" + newKeystrList[2] + "_", "_01_").Replace("_" + newKeystrList[3] + ".", "_01."));
-                            if (isPing(newUrl + "" + newkey1, ""))
+                            if (isPing(newUrl + "" + newkey1, referer))
                             {
                                 maxtpye = j;
                             }
@@ -468,7 +489,7 @@ namespace PanoramicDownload
                             if (i >= 10)
                             {
                                 value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
-                                if (isPing(newUrl + value1, "https://720yun.com/"))
+                                if (isPing(newUrl + value1, referer))
                                 {
                                     maxIndex = i;
                                 }
@@ -480,7 +501,7 @@ namespace PanoramicDownload
                             else
                             {
                                 value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/0" + i + "/").Replace("_" + newKeystr1[2] + "_", "_0" + i + "_");
-                                if (isPing(newUrl + value1, "https://720yun.com/"))
+                                if (isPing(newUrl + value1, referer))
                                 {
                                     maxIndex = i;
                                 }
@@ -522,19 +543,8 @@ namespace PanoramicDownload
                         //{
                         //    Directory.CreateDirectory(ConstPath.saveFile + "720yun" + DownloadCount);
                         //}
-                        if (InputUrl.Contains("autoimg.cn"))
-                        {
-                            referer = "https://vr4s.autohome.com.cn";
-                        }
-                        else if (InputUrl.Contains("720static"))
-                        {
-                            referer = "https://720yun.com/";
-                        }
-                        else
-                        {
-                            referer = "";
-                        }
-                        var command = "-s 1 --referer="+ referer + " -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
+
+                        var command = "--header=\"User-Agent:Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.1124)\" -s 1 --referer=" + referer + " -x 1 -j 50  -i " + ConstPath.exePath + "/config.txt  -d" + ConstPath.saveFile;
 
 
                         Thread dd = new Thread(() =>
@@ -553,7 +563,7 @@ namespace PanoramicDownload
                     {
                         newkey1.Clear();
                         newkey1.Append(InputUrlYun.Replace(newKeystrList[0], "l" + j).Replace("/" + newKeystrList[1], "/1").Replace("_" + newKeystrList[2] + "_", "_1_").Replace("_" + newKeystrList[3] + ".", "_1."));
-                        if (isPing(newUrl + "" + newkey1, "https://720yun.com/"))
+                        if (isPing(newUrl + "" + newkey1, referer))
                         {
                             maxtpye = j;
                         }
@@ -571,7 +581,7 @@ namespace PanoramicDownload
                     for (int i = 1; i < 180; i++)
                     {
                         string value1 = newkey1.ToString().Replace("/" + newKeystr1[1] + "/", "/" + i + "/").Replace("_" + newKeystr1[2] + "_", "_" + i + "_");
-                        if (isPing(newUrl + "" + value1, "https://720yun.com/"))
+                        if (isPing(newUrl + "" + value1, referer))
                         {
                             maxIndex = i;
                         }
@@ -609,11 +619,16 @@ namespace PanoramicDownload
                     {
                         referer = "https://720yun.com/";
                     }
+                    else if (InputUrl.Contains("ivrpano.com"))
+                    {
+                        referer = "https://www.ivrpano.com";
+                    }
                     else
                     {
                         referer = "";
                     }
-                    var command1 = " -i " + ConstPath.exePath + "\\config.txt  --referer=" + referer + "  --save-session=" + ConstPath.exePath + "\\out.txt" + " -d" + ConstPath.saveFile;
+                    //string command1 = string.Format("--header=\"{0}\"",);
+                    var command1 = "--header=\"User-Agent:Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.1124)\" -i  " + ConstPath.exePath + "\\config.txt  --referer=" + referer + "  --save-session=" + ConstPath.exePath + "\\out.txt" + " -d" + ConstPath.saveFile;
                     using (var p = new Process())
                     {
                         RedirectExcuteProcess(p, ConstPath.exePath + "/aria2c.exe", command1, (s, e) => ShowInfo("", e.Data));
@@ -1332,14 +1347,14 @@ namespace PanoramicDownload
         /// <param name="e"></param>
         private void IconInteraction_OnCilck(object sender, EventArgs e)
         {
-            if (toolTip1.GetToolTip(pictureBox1).Equals("你瞅啥？？"))
-            {
-                this.toolTip1.SetToolTip(pictureBox1, "瞅你咋的！！");
-            }
-            else
-            {
-                this.toolTip1.SetToolTip(pictureBox1, "你瞅啥？？");
-            }
+            //if (toolTip1.GetToolTip(pictureBox1).Equals("你瞅啥？？"))
+            //{
+            //    this.toolTip1.SetToolTip(pictureBox1, "瞅你咋的！！");
+            //}
+            //else
+            //{
+            //    this.toolTip1.SetToolTip(pictureBox1, "你瞅啥？？");
+            //}
         }
         #endregion
 
@@ -1386,9 +1401,17 @@ namespace PanoramicDownload
                 {
                     referer = "https://720yun.com";
                 }
+                else if (url.Contains("autoimg.cn"))
+                {
+                    referer = "https://vr4s.autohome.com.cn";
+                }
+                else if (url.Contains("ivrpano.com"))
+                {
+                    referer = "https://www.ivrpano.com";
+                }
                 else
                 {
-                    referer = ""; //"https://720yun.com"
+                    referer = ""; 
                 }
                 http = new HttpHelper();
                 //创建Httphelper参数对象
@@ -1448,7 +1471,7 @@ namespace PanoramicDownload
                 //this.TopMost = true;
                 return;
             }
-            if (ConstPath.saveFile.Contains(@"C:\"))
+            if (ConstPath.saveFile.Contains(@"C:\") || ConstPath.saveFile.Contains(@"c:\"))
             {
                 Mesbox("不要设置下载目录为C盘");
                 return;
@@ -1570,6 +1593,7 @@ namespace PanoramicDownload
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "l", ImageRowCount, null, 4);
                             platformYun.MatchingImage(path, ImageQualityIndex.ToString(), "r", ImageRowCount, null, 5);
                         }
+
                         var command = "-l=" + ImagePath["l"] + " -f=" + ImagePath["f"] + " -r=" + ImagePath["r"] + " -b=" + ImagePath["b"] + " -u=" + ImagePath["u"] + " -d=" + ImagePath["d"] + " -o=" + ConstPath.saveFile + "sphere.jpeg";
                         using (var p = new Process())
                         {
@@ -1578,7 +1602,6 @@ namespace PanoramicDownload
                             lvi1.SubItems.AddRange(new string[] { "0", "0", "0" });
                             lvi1.Text = "全景大图.jpeg";
                             RedirectExcuteProcess(p, ConstPath.exePath + "/kcube2sphere.exe", command, (s, d) => ShowInfo("", d.Data));
-                            Thread.Sleep(500);
                             if (Log_texBox.Text.Equals("%"))
                             {
                                 listView1.SetProgress(6, int.Parse(Log_texBox.Text.Replace("%", "")));
@@ -1937,6 +1960,16 @@ namespace PanoramicDownload
                 e.Cancel = false;
             else
                 e.Cancel = true;
+        }
+
+        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ImageSavePath_Label_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
