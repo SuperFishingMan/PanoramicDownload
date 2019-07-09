@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using SendMailHelp;
 using CsharpHttpHelper;
 using CsharpHttpHelper.Enum;
+using System.Linq;
 
 namespace PanoramicDownload
 {
@@ -130,28 +131,28 @@ namespace PanoramicDownload
             UrlStateBox.Image = Properties.Resources.笑脸;
 
             //如果没有激活
-            //if (appManager.Check_RegCode())
-            //{
-            //    //第一次使用测试用户
-            //    if (!appManager.IstempApp())
-            //    {
-            //        appManager.insertSqlTempUser();
-            //    }
-            //    else
-            //    {
-            //        //appisReg = true;
-            //    }
-            //    Pay_Button.Show();
-            //    Activate_Button.Show();
-            //    Text = Text + "【免费版】";
-            //}
-            //else
-            //{
-            //    Text = Text + "【付费版】";
-            //    Activate_Button.Hide();
-            //    Pay_Button.Hide();
-            //}
-
+            if (appManager.Check_RegCode())
+            {
+                //第一次使用测试用户
+                if (!appManager.IstempApp())
+                {
+                    appManager.insertSqlTempUser();
+                }
+                else
+                {
+                    //appisReg = true;
+                }
+                Pay_Button.Show();
+                Activate_Button.Show();
+                Text = Text + "【免费版】";
+            }
+            else
+            {
+                Text = Text + "【付费版】";
+                Activate_Button.Hide();
+                Pay_Button.Hide();
+            }
+            
             regExManager = new RegExManager();
             //添加链接检测事件
             InputUrl_TextBox.TextChanged += InputUrl_TextBox_TextChanged;
@@ -1371,6 +1372,7 @@ namespace PanoramicDownload
             ////处理HttpWebRequest访问https有安全证书的问题（ 请求被中止: 未能创建 SSL/TLS 安全通道。）
             //ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             HttpHelper http;
             HttpItem item;
             HttpResult result;
@@ -1424,9 +1426,14 @@ namespace PanoramicDownload
                 ////请求的返回值对象
                 result = http.GetHtml(item);
                 GetData = result.Html.Trim();
-                if (result.Header["Content-Type"].Equals("image/jpeg") || result.Header["Content-Type"].Equals("application/octet-stream") && result.StatusCode.Equals("200"))
+                string Content_Type = result.Header["Content-Type"];
+                string StatusCode = result.StatusCode.ToString();
+                if (Content_Type.Equals("image/jpeg") || Content_Type.Equals("application/octet-stream") || Content_Type.Equals("image/jpeg;charset=UTF-8"))
                 {
-                    return Convert.ToInt32(result.StatusCode).ToString();
+                    if(StatusCode.Equals("200") || StatusCode.Equals("OK"))
+                    {
+                        return "200";
+                    }
                 }
                 return "0";
             }
